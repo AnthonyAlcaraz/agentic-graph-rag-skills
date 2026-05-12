@@ -1,0 +1,249 @@
+{
+  "_meta": {
+    "description": "30 real AWS service tools with boto3-derived metadata. Each tool follows the Toolshed enhanced-representation pattern from Ch5/Ch6 of Agentic Graph RAG: name, description, boto3_method, parameters, synthetic_queries (LLM-generated example user intents), key_topics.",
+    "source": "Agentic Graph RAG Ch5/Ch6 — Toolshed five-component representation (Zhu et al. via Anthropic agent-skills + Microsoft Core AI Platform research)",
+    "fictional_aws_account_id": "123456789012"
+  },
+  "tools": [
+    {
+      "name": "cloudwatch_logs_insights_query",
+      "description": "Run a CloudWatch Logs Insights query across one or more log groups to find errors, latency spikes, or specific patterns in service logs.",
+      "boto3_method": "logs.start_query",
+      "parameters": {"logGroupNames": "list[str]", "queryString": "str (CloudWatch Logs Insights query language)", "startTime": "int (epoch seconds)", "endTime": "int (epoch seconds)"},
+      "synthetic_queries": ["why is my service slow", "show me 5xx errors in the last hour", "find slow database queries", "investigate latency in the checkout API", "what errors happened during the spike at 3pm"],
+      "key_topics": ["logs", "latency", "errors", "investigation", "observability"]
+    },
+    {
+      "name": "cloudwatch_get_metric_data",
+      "description": "Retrieve time-series metric data from CloudWatch (CPU, memory, latency, throughput, request counts) for ECS tasks, Lambda functions, RDS instances, or any AWS-emitted metric.",
+      "boto3_method": "cloudwatch.get_metric_data",
+      "parameters": {"MetricDataQueries": "list[dict]", "StartTime": "datetime", "EndTime": "datetime"},
+      "synthetic_queries": ["what does the latency trend look like", "how high did CPU spike", "show me request count over the last 6 hours", "compare current load to last week", "did memory pressure cause the slowdown"],
+      "key_topics": ["metrics", "monitoring", "trends", "cpu", "memory", "latency", "throughput"]
+    },
+    {
+      "name": "xray_get_trace_summaries",
+      "description": "Retrieve X-Ray distributed trace summaries to identify slow segments, error propagation paths, and service-to-service latency in a microservices architecture.",
+      "boto3_method": "xray.get_trace_summaries",
+      "parameters": {"StartTime": "datetime", "EndTime": "datetime", "FilterExpression": "str (X-Ray query)"},
+      "synthetic_queries": ["which downstream service is slow", "trace the request that timed out", "show me the slowest spans", "where in the call chain did the error happen", "find traces with error annotation"],
+      "key_topics": ["tracing", "distributed-tracing", "latency", "microservices", "spans", "investigation"]
+    },
+    {
+      "name": "lambda_get_function",
+      "description": "Retrieve Lambda function configuration including last-modified time, code size, memory, timeout, and environment variables. Useful for correlating deployment events with incident timelines.",
+      "boto3_method": "lambda.get_function",
+      "parameters": {"FunctionName": "str", "Qualifier": "str (optional version or alias)"},
+      "synthetic_queries": ["when was this function last deployed", "what version is running", "check the lambda configuration", "did a deploy correlate with the spike", "show me memory settings"],
+      "key_topics": ["lambda", "deployment", "configuration", "version", "timeline"]
+    },
+    {
+      "name": "lambda_invoke",
+      "description": "Synchronously or asynchronously invoke a Lambda function with a payload. Used to trigger remediation logic, run health checks, or execute on-demand operations.",
+      "boto3_method": "lambda.invoke",
+      "parameters": {"FunctionName": "str", "InvocationType": "RequestResponse|Event|DryRun", "Payload": "bytes"},
+      "synthetic_queries": ["run the health check", "trigger the remediation workflow", "invoke the cleanup function", "execute the rollback lambda"],
+      "key_topics": ["lambda", "execute", "trigger", "invoke", "remediation"]
+    },
+    {
+      "name": "s3_list_objects_v2",
+      "description": "List objects in an S3 bucket, optionally filtered by prefix. Used to inspect log archives, build artifact storage, or data-lake contents.",
+      "boto3_method": "s3.list_objects_v2",
+      "parameters": {"Bucket": "str", "Prefix": "str (optional)", "MaxKeys": "int (optional)"},
+      "synthetic_queries": ["what files are in this bucket", "list the recent log archives", "show me build artifacts from today", "find the latest backup"],
+      "key_topics": ["s3", "storage", "files", "objects", "archives"]
+    },
+    {
+      "name": "s3_get_object",
+      "description": "Download a single object from S3. Used to retrieve specific log files, build artifacts, or configuration data.",
+      "boto3_method": "s3.get_object",
+      "parameters": {"Bucket": "str", "Key": "str"},
+      "synthetic_queries": ["download this log file", "fetch the artifact", "get the configuration object"],
+      "key_topics": ["s3", "download", "retrieve", "file"]
+    },
+    {
+      "name": "dynamodb_query",
+      "description": "Query a DynamoDB table by partition key (and optional sort-key condition). Used to look up specific items by indexed attributes — orders, sessions, audit records.",
+      "boto3_method": "dynamodb.query",
+      "parameters": {"TableName": "str", "KeyConditionExpression": "str", "ExpressionAttributeValues": "dict"},
+      "synthetic_queries": ["look up this customer's recent orders", "find session records for the user", "query the audit table"],
+      "key_topics": ["dynamodb", "database", "query", "lookup"]
+    },
+    {
+      "name": "dynamodb_scan",
+      "description": "Scan a DynamoDB table reading every item (or filtered subset). Expensive on large tables — use Query when possible.",
+      "boto3_method": "dynamodb.scan",
+      "parameters": {"TableName": "str", "FilterExpression": "str (optional)"},
+      "synthetic_queries": ["count all items in the table", "find all records matching a condition", "audit the entire table"],
+      "key_topics": ["dynamodb", "database", "scan", "full-table"]
+    },
+    {
+      "name": "ecs_describe_tasks",
+      "description": "Get detailed status of running ECS tasks: which container instance, last status transition, exit codes, stop reason. Critical for diagnosing why a service is unhealthy.",
+      "boto3_method": "ecs.describe_tasks",
+      "parameters": {"cluster": "str", "tasks": "list[str]"},
+      "synthetic_queries": ["which tasks are running", "why did this task die", "show me task exit codes", "what is the status of the deployment"],
+      "key_topics": ["ecs", "containers", "tasks", "deployment", "investigation"]
+    },
+    {
+      "name": "ecs_list_services",
+      "description": "List ECS services in a cluster. Used to enumerate which workloads are deployed, find a service by name pattern, or check desired-vs-running counts.",
+      "boto3_method": "ecs.list_services",
+      "parameters": {"cluster": "str", "maxResults": "int (optional)"},
+      "synthetic_queries": ["what services are running", "show me everything in the cluster", "find services matching this pattern"],
+      "key_topics": ["ecs", "containers", "services", "cluster", "inventory"]
+    },
+    {
+      "name": "ecs_update_service",
+      "description": "Update an ECS service — change task count, force a new deployment, or roll back to a previous task definition.",
+      "boto3_method": "ecs.update_service",
+      "parameters": {"cluster": "str", "service": "str", "desiredCount": "int (optional)", "taskDefinition": "str (optional)", "forceNewDeployment": "bool (optional)"},
+      "synthetic_queries": ["roll back the deployment", "scale up the service", "force a redeploy", "change task count"],
+      "key_topics": ["ecs", "containers", "deployment", "rollback", "scale", "remediation"]
+    },
+    {
+      "name": "apigw_get_stages",
+      "description": "Retrieve API Gateway stage configurations including throttling settings, caching, logging level, and stage variables. Useful for correlating config changes with traffic anomalies.",
+      "boto3_method": "apigateway.get_stages",
+      "parameters": {"restApiId": "str"},
+      "synthetic_queries": ["what are the API Gateway throttling limits", "is caching enabled on production", "show me stage variables"],
+      "key_topics": ["api-gateway", "throttling", "stages", "configuration"]
+    },
+    {
+      "name": "rds_describe_db_instances",
+      "description": "Describe RDS database instances: engine version, instance class, storage, status, endpoint. Used to verify database state during incidents and check for maintenance events.",
+      "boto3_method": "rds.describe_db_instances",
+      "parameters": {"DBInstanceIdentifier": "str (optional)", "Filters": "list (optional)"},
+      "synthetic_queries": ["what databases do we have", "is the production database healthy", "check the rds endpoint", "what version is the database running"],
+      "key_topics": ["rds", "database", "instances", "configuration"]
+    },
+    {
+      "name": "rds_describe_db_log_files",
+      "description": "List RDS database log files available for download. Useful for inspecting slow-query logs, error logs, and general logs during database performance investigations.",
+      "boto3_method": "rds.describe_db_log_files",
+      "parameters": {"DBInstanceIdentifier": "str", "FilenameContains": "str (optional)"},
+      "synthetic_queries": ["show me the slow query log", "find database error logs", "list rds logs from today"],
+      "key_topics": ["rds", "database", "logs", "slow-queries", "investigation"]
+    },
+    {
+      "name": "sqs_get_queue_attributes",
+      "description": "Retrieve SQS queue metadata: message count, in-flight count, age of oldest message, visibility timeout. Used to detect queue backlogs and consumer-lag incidents.",
+      "boto3_method": "sqs.get_queue_attributes",
+      "parameters": {"QueueUrl": "str", "AttributeNames": "list[str]"},
+      "synthetic_queries": ["how many messages are queued", "is the queue backed up", "what is the consumer lag", "show queue depth"],
+      "key_topics": ["sqs", "queues", "messaging", "backlog", "consumer-lag", "investigation"]
+    },
+    {
+      "name": "sns_publish",
+      "description": "Publish a message to an SNS topic. Used to fan out notifications, alert on-call engineers, or trigger downstream Lambda subscribers.",
+      "boto3_method": "sns.publish",
+      "parameters": {"TopicArn": "str", "Message": "str", "Subject": "str (optional)"},
+      "synthetic_queries": ["page the on-call engineer", "send an alert to the team", "notify subscribers"],
+      "key_topics": ["sns", "notifications", "alerts", "messaging"]
+    },
+    {
+      "name": "eventbridge_list_rules",
+      "description": "List EventBridge rules in an event bus. Used to audit scheduled tasks, find rules that fire on specific events, or check rule state (enabled/disabled).",
+      "boto3_method": "events.list_rules",
+      "parameters": {"EventBusName": "str (optional)", "NamePrefix": "str (optional)"},
+      "synthetic_queries": ["what scheduled jobs are running", "find eventbridge rules for our service", "is this rule enabled"],
+      "key_topics": ["eventbridge", "events", "scheduling", "rules", "automation"]
+    },
+    {
+      "name": "step_functions_describe_execution",
+      "description": "Describe a Step Functions state machine execution — current state, input/output, error if any. Used to debug failed workflows and trace orchestration paths.",
+      "boto3_method": "stepfunctions.describe_execution",
+      "parameters": {"executionArn": "str"},
+      "synthetic_queries": ["why did this workflow fail", "show me the state machine input", "trace the orchestration path"],
+      "key_topics": ["step-functions", "workflows", "orchestration", "debugging"]
+    },
+    {
+      "name": "iam_get_role",
+      "description": "Retrieve IAM role details including trust policy and attached managed policies. Used during permission-related incidents to verify the role identity an agent or service is acting under.",
+      "boto3_method": "iam.get_role",
+      "parameters": {"RoleName": "str"},
+      "synthetic_queries": ["what permissions does this role have", "verify the iam role", "check the trust policy"],
+      "key_topics": ["iam", "permissions", "security", "roles"]
+    },
+    {
+      "name": "iam_simulate_principal_policy",
+      "description": "Simulate IAM policy evaluation against a specific action to determine whether a principal would be allowed or denied. Critical for diagnosing AccessDenied errors during incidents.",
+      "boto3_method": "iam.simulate_principal_policy",
+      "parameters": {"PolicySourceArn": "str", "ActionNames": "list[str]"},
+      "synthetic_queries": ["why is this getting access denied", "can this role perform that action", "simulate the iam check"],
+      "key_topics": ["iam", "permissions", "access-denied", "debugging", "security"]
+    },
+    {
+      "name": "secrets_manager_get_secret_value",
+      "description": "Retrieve a secret value from AWS Secrets Manager. Used by applications to fetch database passwords, API keys, third-party credentials at runtime.",
+      "boto3_method": "secretsmanager.get_secret_value",
+      "parameters": {"SecretId": "str", "VersionStage": "str (optional)"},
+      "synthetic_queries": ["fetch the database password", "get the api credentials", "retrieve the secret"],
+      "key_topics": ["secrets-manager", "credentials", "security", "secrets"]
+    },
+    {
+      "name": "ssm_get_parameter",
+      "description": "Retrieve a single parameter from SSM Parameter Store. Used for configuration values, feature flags, environment-specific settings.",
+      "boto3_method": "ssm.get_parameter",
+      "parameters": {"Name": "str", "WithDecryption": "bool (optional)"},
+      "synthetic_queries": ["get the config value", "fetch the feature flag", "read this parameter"],
+      "key_topics": ["ssm", "parameter-store", "configuration", "feature-flags"]
+    },
+    {
+      "name": "ssm_start_session",
+      "description": "Start an SSM Session Manager session to a specific EC2 instance without SSH. Used for incident response and on-instance diagnostics without inbound network exposure.",
+      "boto3_method": "ssm.start_session",
+      "parameters": {"Target": "str (instance id)", "DocumentName": "str (optional)"},
+      "synthetic_queries": ["ssh into the instance without ssh", "open a shell on the box", "debug on the host"],
+      "key_topics": ["ssm", "session-manager", "ec2", "debugging", "incident-response"]
+    },
+    {
+      "name": "ec2_describe_instances",
+      "description": "Describe EC2 instances, optionally filtered by tag or state. Used to enumerate running hosts and check instance health.",
+      "boto3_method": "ec2.describe_instances",
+      "parameters": {"InstanceIds": "list[str] (optional)", "Filters": "list (optional)"},
+      "synthetic_queries": ["list running instances", "find ec2 instances by tag", "is the host up"],
+      "key_topics": ["ec2", "instances", "hosts", "inventory"]
+    },
+    {
+      "name": "ec2_describe_volumes",
+      "description": "Describe EBS volumes including attachment state and IOPS configuration. Used during storage-related performance incidents.",
+      "boto3_method": "ec2.describe_volumes",
+      "parameters": {"VolumeIds": "list[str] (optional)", "Filters": "list (optional)"},
+      "synthetic_queries": ["check the ebs volumes", "look at storage iops", "find unattached volumes"],
+      "key_topics": ["ec2", "ebs", "storage", "volumes"]
+    },
+    {
+      "name": "elbv2_describe_target_health",
+      "description": "Get target health status for an ALB or NLB target group — which targets are healthy, unhealthy, or draining. Critical for diagnosing intermittent 5xx errors.",
+      "boto3_method": "elbv2.describe_target_health",
+      "parameters": {"TargetGroupArn": "str"},
+      "synthetic_queries": ["which targets are failing health checks", "is the load balancer healthy", "show me unhealthy hosts"],
+      "key_topics": ["alb", "elb", "load-balancer", "health-checks", "investigation"]
+    },
+    {
+      "name": "kinesis_get_records",
+      "description": "Read records from a Kinesis data stream shard iterator. Used to inspect real-time event data and diagnose stream-consumer lag.",
+      "boto3_method": "kinesis.get_records",
+      "parameters": {"ShardIterator": "str", "Limit": "int (optional)"},
+      "synthetic_queries": ["inspect the stream", "what events are flowing through", "debug the consumer lag"],
+      "key_topics": ["kinesis", "streams", "events", "consumer-lag"]
+    },
+    {
+      "name": "cloudtrail_lookup_events",
+      "description": "Look up CloudTrail events by attribute (event name, user, resource ID). Used to audit configuration changes and trace who-did-what-when during incidents.",
+      "boto3_method": "cloudtrail.lookup_events",
+      "parameters": {"LookupAttributes": "list[dict]", "StartTime": "datetime (optional)", "EndTime": "datetime (optional)"},
+      "synthetic_queries": ["who changed this resource", "audit the configuration changes", "find who deleted the bucket", "trace recent api calls"],
+      "key_topics": ["cloudtrail", "audit", "security", "investigation", "history"]
+    },
+    {
+      "name": "ses_send_email",
+      "description": "Send an email through SES with a specified template or raw body. Used for transactional emails, incident reports, and customer notifications.",
+      "boto3_method": "ses.send_email",
+      "parameters": {"Source": "str", "Destination": "dict", "Message": "dict"},
+      "synthetic_queries": ["send an incident report", "email the customer", "notify by email"],
+      "key_topics": ["ses", "email", "notifications"]
+    }
+  ]
+}
