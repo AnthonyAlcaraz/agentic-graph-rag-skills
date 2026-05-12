@@ -1,0 +1,16 @@
+node_modules/
+.env
+*.log
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+chapter-content/
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.DS_Store
+Thumbs.db

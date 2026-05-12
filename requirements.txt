@@ -1,0 +1,10 @@
+# Core runtime — every skill depends on these
+anthropic>=0.42.0
+boto3>=1.40.0
+
+# AWS service mocks for the notebooks — fictional account, real boto3 shapes
+moto[cloudwatch,logs,s3,lambda,dynamodb,xray,ecs,iam,sns,sqs]>=5.0.0
+
+# Notebook execution
+jupyter>=1.1.0
+ipykernel>=6.29.0
