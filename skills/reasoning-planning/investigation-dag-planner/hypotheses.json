@@ -1,0 +1,33 @@
+{
+  "_comment": "DevOps latency investigation, fictional AWS account 123456789012. Checkout latency spiked 200ms -> 2.5s. Hypotheses ranked by structural plausibility + historical frequency, organized for parallel testing per Ch5 'Constructing the Investigation DAG'.",
+  "tasks": [
+    {
+      "id": "h1_db_pool_exhaustion",
+      "description": "Database connection pool exhaustion (caused similar symptoms 3x in 6 months)",
+      "depends_on": [],
+      "duration_s": 8.0,
+      "priority": 0.9
+    },
+    {
+      "id": "h2_payment_memory_pressure",
+      "description": "Payment service memory pressure",
+      "depends_on": [],
+      "duration_s": 6.0,
+      "priority": 0.5
+    },
+    {
+      "id": "h3_network_partition",
+      "description": "Network partition between payment and database; only test after ruling out h1",
+      "depends_on": ["h1_db_pool_exhaustion"],
+      "duration_s": 12.0,
+      "priority": 0.2
+    },
+    {
+      "id": "confirm_root_cause",
+      "description": "Gather corroborating evidence for the confirmed hypothesis",
+      "depends_on": ["h1_db_pool_exhaustion", "h2_payment_memory_pressure"],
+      "duration_s": 4.0,
+      "priority": 0.0
+    }
+  ]
+}
