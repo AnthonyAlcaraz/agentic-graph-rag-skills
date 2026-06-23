@@ -40,9 +40,9 @@ To run any notebook against your own AWS account: remove the `@mock_aws` decorat
 
 | Chapter | Skills folder | Status |
 |---------|---------------|--------|
-| Ch3 — Knowledge Representation | `skills/knowledge-representation/` | pending Phase 1 |
+| **Ch3 — Knowledge Representation** | **`skills/knowledge-representation/`** | **shipped — 6 skills** (`graph-model-selector`, `three-graph-router`, `schema-pattern-selector`, `homoiconic-meta-schema`, `knowledge-organization-classifier`, `capability-authorization-gate`) |
 | **Ch4 — Memory** | **`skills/memory/`** | **shipped — 6 skills** (`bi-temporal-edge`, `graphiti-incremental-update`, `hierarchical-memory`, `hindsight-epistemic-classifier`, `letta-failure-modes`, `rrf-hybrid-retrieval`) |
-| Ch5 — Reasoning & Planning | `skills/reasoning-planning/` | pending Phase 1 |
+| **Ch5 — Reasoning & Planning** | **`skills/reasoning-planning/`** | **shipped — 5 skills** (`pipeline-architecture-selector`, `investigation-dag-planner`, `loop-pipeline-router`, `constraint-guided-plan-validator`, `parallel-reconcile-merge`) |
 | **Ch6 — Tool Orchestration** | **`skills/tool-orchestration/`** | **shipped — 2 skills** (`rag-mcp-tool-selection`, `mcp-gateway-two-meta-tools`) |
 | **Ch7 — Self-Evolution & Evaluation** | **`skills/self-evolution/`** | **shipped — 1 skill** (`execution-graph`) |
 

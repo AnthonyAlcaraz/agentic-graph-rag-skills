@@ -1,0 +1,35 @@
+{
+  "id": "devops-latency-investigator",
+  "_scenario": "Latency investigation in fictional AWS account 123456789012",
+  "granted_level": "User",
+  "granted_resources": ["cloudwatch:read", "logs:read", "ec2:describe"],
+  "capabilities": [
+    {
+      "type": "read_metrics",
+      "authorization_level": "Public",
+      "requires": ["cloudwatch:read"]
+    },
+    {
+      "type": "query_logs",
+      "authorization_level": "User",
+      "requires": ["logs:read"]
+    },
+    {
+      "type": "describe_infrastructure",
+      "authorization_level": "User",
+      "requires": ["ec2:describe"]
+    },
+    {
+      "type": "restart_instance",
+      "authorization_level": "Supervisor",
+      "requires": ["ec2:write"]
+    },
+    {
+      "type": "scale_autoscaling_group",
+      "authorization_level": "Supervisor",
+      "requires": ["autoscaling:write"],
+      "limit": 10,
+      "limit_unit": "instances"
+    }
+  ]
+}
