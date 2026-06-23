@@ -41,10 +41,10 @@ To run any notebook against your own AWS account: remove the `@mock_aws` decorat
 | Chapter | Skills folder | Status |
 |---------|---------------|--------|
 | Ch3 — Knowledge Representation | `skills/knowledge-representation/` | pending Phase 1 |
-| Ch4 — Memory | `skills/memory/` | pending Phase 1 |
+| **Ch4 — Memory** | **`skills/memory/`** | **shipped — 6 skills** (`bi-temporal-edge`, `graphiti-incremental-update`, `hierarchical-memory`, `hindsight-epistemic-classifier`, `letta-failure-modes`, `rrf-hybrid-retrieval`) |
 | Ch5 — Reasoning & Planning | `skills/reasoning-planning/` | pending Phase 1 |
-| **Ch6 — Tool Orchestration** | **`skills/tool-orchestration/`** | **Spike A shipped (`rag-mcp-tool-selection`)** |
-| Ch7 — Self-Evolution & Evaluation | `skills/self-evolution/` | pending Phase 1 |
+| **Ch6 — Tool Orchestration** | **`skills/tool-orchestration/`** | **shipped — 2 skills** (`rag-mcp-tool-selection`, `mcp-gateway-two-meta-tools`) |
+| **Ch7 — Self-Evolution & Evaluation** | **`skills/self-evolution/`** | **shipped — 1 skill** (`execution-graph`) |
 
 Ch1 (Crisis) and Ch2 (Architecture) are book-only narrative chapters — no skills extracted.
 

@@ -1,0 +1,175 @@
+[
+  {
+    "id": "edge-001-instance-type-t3medium",
+    "source": "service-checkout-api",
+    "target": "aws-ec2",
+    "relationship": "instance_type",
+    "value": "t3.medium",
+    "valid_from": "2026-01-01T00:00:00+00:00",
+    "valid_until": "2026-02-15T14:23:00+00:00",
+    "ingested_at": "2026-01-01T00:05:00+00:00",
+    "invalidation_reason": "scaling up — peak Black Friday traffic projections",
+    "link_type": "entity",
+    "weight": 1.0,
+    "metadata": {
+      "aws_account": "123456789012",
+      "region": "us-east-1",
+      "deployment_pipeline": "checkout-prod"
+    }
+  },
+  {
+    "id": "edge-002-instance-type-t3large",
+    "source": "service-checkout-api",
+    "target": "aws-ec2",
+    "relationship": "instance_type",
+    "value": "t3.large",
+    "valid_from": "2026-02-15T14:23:00+00:00",
+    "valid_until": "2026-03-10T17:45:00+00:00",
+    "ingested_at": "2026-02-15T14:25:00+00:00",
+    "invalidation_reason": "next-gen migration — switch to m5 family for steady-state throughput",
+    "link_type": "entity",
+    "weight": 1.0,
+    "metadata": {
+      "aws_account": "123456789012",
+      "region": "us-east-1",
+      "supersedes": "edge-001-instance-type-t3medium"
+    }
+  },
+  {
+    "id": "edge-003-instance-type-m5xlarge",
+    "source": "service-checkout-api",
+    "target": "aws-ec2",
+    "relationship": "instance_type",
+    "value": "m5.xlarge",
+    "valid_from": "2026-03-10T17:45:00+00:00",
+    "valid_until": null,
+    "ingested_at": "2026-03-10T17:46:00+00:00",
+    "invalidation_reason": null,
+    "link_type": "entity",
+    "weight": 1.0,
+    "metadata": {
+      "aws_account": "123456789012",
+      "region": "us-east-1",
+      "supersedes": "edge-002-instance-type-t3large",
+      "rollout_strategy": "blue-green",
+      "rollout_completed_at": "2026-03-10T18:30:00+00:00"
+    }
+  },
+  {
+    "id": "edge-004-deployment-version-v3.4.1",
+    "source": "service-checkout-api",
+    "target": "github-release",
+    "relationship": "deployment_version",
+    "value": "v3.4.1",
+    "valid_from": "2026-02-28T09:00:00+00:00",
+    "valid_until": "2026-03-14T22:30:00+00:00",
+    "ingested_at": "2026-02-28T09:01:00+00:00",
+    "invalidation_reason": "deployed v3.5.0 with new order-validation logic",
+    "link_type": "entity",
+    "weight": 1.0,
+    "metadata": {
+      "git_sha": "a1b2c3d4",
+      "release_notes": "https://github.com/example/checkout-api/releases/v3.4.1"
+    }
+  },
+  {
+    "id": "edge-005-deployment-version-v3.5.0",
+    "source": "service-checkout-api",
+    "target": "github-release",
+    "relationship": "deployment_version",
+    "value": "v3.5.0",
+    "valid_from": "2026-03-14T22:30:00+00:00",
+    "valid_until": null,
+    "ingested_at": "2026-03-14T22:31:00+00:00",
+    "invalidation_reason": null,
+    "link_type": "causal",
+    "weight": 1.2,
+    "metadata": {
+      "git_sha": "e5f6g7h8",
+      "release_notes": "https://github.com/example/checkout-api/releases/v3.5.0",
+      "supersedes": "edge-004-deployment-version-v3.4.1",
+      "note": "Deployed 9.5 hours before the 2026-03-15T08:00Z outage — primary suspect in post-mortem"
+    }
+  },
+  {
+    "id": "edge-006-region-us-east-1",
+    "source": "service-checkout-api",
+    "target": "aws-region",
+    "relationship": "region",
+    "value": "us-east-1",
+    "valid_from": "2026-01-01T00:00:00+00:00",
+    "valid_until": null,
+    "ingested_at": "2026-01-01T00:05:00+00:00",
+    "invalidation_reason": null,
+    "link_type": "entity",
+    "weight": 1.0,
+    "metadata": {
+      "aws_account": "123456789012"
+    }
+  },
+  {
+    "id": "edge-007-dependency-payments",
+    "source": "service-checkout-api",
+    "target": "service-payments",
+    "relationship": "depends_on",
+    "value": "synchronous-http",
+    "valid_from": "2026-01-01T00:00:00+00:00",
+    "valid_until": null,
+    "ingested_at": "2026-01-01T00:05:00+00:00",
+    "invalidation_reason": null,
+    "link_type": "causal",
+    "weight": 1.5,
+    "metadata": {
+      "timeout_ms": 5000,
+      "circuit_breaker": "enabled"
+    }
+  },
+  {
+    "id": "edge-008-dependency-inventory",
+    "source": "service-checkout-api",
+    "target": "service-inventory",
+    "relationship": "depends_on",
+    "value": "synchronous-http",
+    "valid_from": "2026-01-01T00:00:00+00:00",
+    "valid_until": null,
+    "ingested_at": "2026-01-01T00:05:00+00:00",
+    "invalidation_reason": null,
+    "link_type": "causal",
+    "weight": 1.5,
+    "metadata": {
+      "timeout_ms": 3000
+    }
+  },
+  {
+    "id": "edge-009-similar-to-incident-2025-11",
+    "source": "service-checkout-api",
+    "target": "incident-2025-11-23-checkout-latency",
+    "relationship": "similar_incident",
+    "value": null,
+    "valid_from": "2026-03-15T08:30:00+00:00",
+    "valid_until": null,
+    "ingested_at": "2026-03-15T08:32:00+00:00",
+    "invalidation_reason": null,
+    "link_type": "semantic",
+    "weight": 0.9,
+    "metadata": {
+      "note": "Surfaced by post-mortem agent; same service, similar symptom signature"
+    }
+  },
+  {
+    "id": "edge-010-backfilled-config-history",
+    "source": "service-checkout-api",
+    "target": "aws-ec2",
+    "relationship": "ebs_volume_size_gb",
+    "value": 100,
+    "valid_from": "2026-01-15T00:00:00+00:00",
+    "valid_until": null,
+    "ingested_at": "2026-03-12T11:00:00+00:00",
+    "invalidation_reason": null,
+    "link_type": "entity",
+    "weight": 1.0,
+    "metadata": {
+      "note": "Backfilled from CloudFormation snapshot — 56 days ingestion lag"
+    }
+  }
+]
