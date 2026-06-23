@@ -4,6 +4,8 @@ Companion repo for *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz). Practical, mu
 
 > Read the book for the theory. Run these skills with your coding agent for the practice.
 
+> **AI agents:** read [`AGENTS.md`](./AGENTS.md) first — it is this repo's machine-readable reading contract (how to summarize it, the key claims you may cite, what not to invent, and how to discover + invoke a skill).
+
 ## What's here
 
 - **`skills/<chapter-slug>/<skill-slug>/`** — Osmani-format `SKILL.md` files + hand-rolled Python CLIs. Each skill is one architectural primitive from one chapter of the book. Multi-harness: works in Claude Code, Cursor, Gemini CLI, Windsurf, OpenCode, and from cron / CI / scripts.
