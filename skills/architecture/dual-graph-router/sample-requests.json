@@ -1,0 +1,49 @@
+{
+  "_meta": {
+    "description": "DevOps on-call requests against fictional AWS account 123456789012, each labeled with its expected dual-graph route. Grounds the benchmark battery. Sources: Ch2 'The Dual-Graph Architecture', 'The Vertical Knowledge Graph', 'The Horizontal Workflow Graph', 'Where the Two Graphs Meet', and the latency-investigation running example (Example 2-3).",
+    "source": "Agentic Graph RAG (O'Reilly) Ch2 — Architecture Foundations",
+    "fictional_aws_account_id": "123456789012"
+  },
+  "requests": [
+    {
+      "request": "Which services depend on the payments-db and were deployed in the last 24 hours?",
+      "expected": "vertical",
+      "note": "Single traversal over DEPENDS_ON edges with a temporal filter (Example 2-1 graph query). No workflow."
+    },
+    {
+      "request": "List every service that uses the stripe-python library.",
+      "expected": "vertical",
+      "note": "USES_LIBRARY edge traversal from the checkout-service fragment (Example 2-2)."
+    },
+    {
+      "request": "What did the infrastructure look like right before the outage last Tuesday?",
+      "expected": "vertical",
+      "note": "Point-in-time query answerable from temporal `since` metadata on nodes and edges."
+    },
+    {
+      "request": "Diagnose why the checkout API is slow: which services does it depend on and what deployments changed recently?",
+      "expected": "both",
+      "note": "Horizontal investigation (diagnose/why) whose retrieval node traverses the vertical graph for the dependency chain (depend/which) and recent-change history (what/deployments) — Where the Two Graphs Meet."
+    },
+    {
+      "request": "Investigate the connection-pool saturation: what deployments occurred before the spike and which services share the pool?",
+      "expected": "both",
+      "note": "Workflow that decomposes into temporal + dependency traversals of the vertical graph."
+    },
+    {
+      "request": "Classify this alert's severity, plan the remediation steps, and decide whether to roll back.",
+      "expected": "horizontal",
+      "note": "Pure process: classify (reasoning) -> plan -> decide. No knowledge lookup named in the wording."
+    },
+    {
+      "request": "Triage the incident and figure out how to mitigate it before users are affected.",
+      "expected": "horizontal",
+      "note": "Multi-step action with decision nodes; nodes may query the KG at run time but the request itself is process-shaped."
+    },
+    {
+      "request": "Say hello.",
+      "expected": "unroutable",
+      "note": "No vertical or horizontal signal; neither graph fits. Ask for clarification."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "_meta": {
+    "description": "Declared pillar capabilities for three system states of the DevOps agent (fictional AWS account 123456789012), used by the benchmark battery. `initial` = Chapter-2 starting point (fragmented tools, no graph). `mid` = after Part 2/3 (knowledge + memory + reasoning + planning, no tools yet). `violation` = a system that claims self-evolution while missing its knowledge-graph foundation (a dependency violation the layering forbids). Sources: Ch2 'The Eight Pillars of Agentic Graph Architecture', Table 2-1, 'The Initial State', 'The Transformation Arc'.",
+    "source": "Agentic Graph RAG (O'Reilly) Ch2 — Architecture Foundations",
+    "fictional_aws_account_id": "123456789012"
+  },
+  "systems": {
+    "initial": {
+      "knowledge_representation": "partial",
+      "memory": "missing",
+      "reasoning": "missing",
+      "planning": "missing",
+      "tool_orchestration": "missing",
+      "structured_output": "missing",
+      "self_evolution": "missing",
+      "optimization": "missing"
+    },
+    "mid": {
+      "knowledge_representation": "present",
+      "memory": "present",
+      "reasoning": "present",
+      "planning": "present",
+      "tool_orchestration": "partial",
+      "structured_output": "partial",
+      "self_evolution": "missing",
+      "optimization": "missing"
+    },
+    "violation": {
+      "knowledge_representation": "missing",
+      "memory": "missing",
+      "reasoning": "present",
+      "planning": "missing",
+      "tool_orchestration": "missing",
+      "structured_output": "missing",
+      "self_evolution": "present",
+      "optimization": "missing"
+    }
+  }
+}

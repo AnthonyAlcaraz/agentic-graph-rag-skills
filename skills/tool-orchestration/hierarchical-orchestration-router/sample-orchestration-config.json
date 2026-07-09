@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "description": "Hierarchical orchestration config: three enterprise domains (Sales, Finance, Operations) per the chapter's Enterprise Orchestrator tree, plus an Operations domain that carries the DevOps running example. Tools carry key_topics for functional clustering and a reliability signal (performance-based trust, as produced by draft-tool-trust-verifier) for failover ordering. Functional clusters that should emerge: a search toolkit, a metrics toolkit, and a logs toolkit.",
+    "source": "Agentic Graph RAG Ch6 — Hierarchical Orchestration (Example 6-11) + Functional Clustering (Baidu AI Search Paradigm)",
+    "fictional_aws_account_id": "123456789012"
+  },
+  "domains": [
+    {
+      "name": "Sales",
+      "keywords": ["deal", "deals", "lead", "leads", "pipeline", "crm", "quota", "opportunity", "prospect", "renewal", "revenue", "customer"],
+      "tools": ["crm_account_lookup", "lead_scoring", "pipeline_analytics"]
+    },
+    {
+      "name": "Finance",
+      "keywords": ["invoice", "invoicing", "revenue", "cost", "budget", "forecast", "compliance", "accounting", "margin", "reconciliation", "projection"],
+      "tools": ["invoice_generator", "revenue_forecast", "compliance_check"]
+    },
+    {
+      "name": "Operations",
+      "keywords": ["latency", "incident", "metrics", "logs", "deploy", "deployment", "service", "saturation", "inventory", "logistics", "checkout", "slow", "outage"],
+      "tools": ["baidu_ai_search", "arxiv_mcp_search", "perplexity_search", "openai_websearch", "cloudwatch_metrics", "prometheus_query", "datadog_metrics", "cloudwatch_logs", "loki_logs"]
+    }
+  ],
+  "tools": [
+    {"name": "crm_account_lookup", "key_topics": ["sales", "accounts"], "reliability": 0.9},
+    {"name": "lead_scoring", "key_topics": ["sales", "scoring"], "reliability": 0.8},
+    {"name": "pipeline_analytics", "key_topics": ["sales", "pipeline"], "reliability": 0.85},
+    {"name": "invoice_generator", "key_topics": ["finance", "billing"], "reliability": 0.9},
+    {"name": "revenue_forecast", "key_topics": ["finance", "forecast"], "reliability": 0.8},
+    {"name": "compliance_check", "key_topics": ["finance", "audit"], "reliability": 0.95},
+
+    {"name": "baidu_ai_search", "key_topics": ["search", "chinese"], "reliability": 0.75},
+    {"name": "arxiv_mcp_search", "key_topics": ["search", "academic"], "reliability": 0.8},
+    {"name": "perplexity_search", "key_topics": ["search", "conversational"], "reliability": 0.85},
+    {"name": "openai_websearch", "key_topics": ["search", "general"], "reliability": 0.9},
+
+    {"name": "cloudwatch_metrics", "key_topics": ["metrics", "cloudwatch"], "reliability": 0.9},
+    {"name": "prometheus_query", "key_topics": ["metrics", "timeseries"], "reliability": 0.85},
+    {"name": "datadog_metrics", "key_topics": ["metrics", "saas"], "reliability": 0.8},
+
+    {"name": "cloudwatch_logs", "key_topics": ["logs", "insights"], "reliability": 0.88},
+    {"name": "loki_logs", "key_topics": ["logs", "grafana"], "reliability": 0.82}
+  ]
+}

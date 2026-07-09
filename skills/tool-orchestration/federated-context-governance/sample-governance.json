@@ -1,0 +1,81 @@
+{
+  "_meta": {
+    "description": "An organizational governance base with a nonnegotiable subset (security / architectural / compliance settings every team must inherit unchanged) plus five independently-authored developer/team context configs. Two seeded problems: settings drift across teams (db_query_pattern, error_handling), and one team ('rogue-frontend') overriding a nonnegotiable key (code_review_required set to false).",
+    "source": "Agentic Graph RAG Ch6 — Context Governance: The Missing Layer (Baselga config-drift + Meppiel APM / Rakhmetzhanov Nia / Jarjoura Runtime three-layer federated model, Table 6-4)",
+    "fictional_aws_account_id": "123456789012"
+  },
+  "org_base": {
+    "owner": "org-base",
+    "nonnegotiable": ["code_review_required", "secrets_in_env_only", "sfdc_identity_crosscheck"],
+    "settings": {
+      "code_review_required": true,
+      "secrets_in_env_only": true,
+      "sfdc_identity_crosscheck": true,
+      "default_python_version": "3.10",
+      "line_length": 100
+    },
+    "skills": ["rag-mcp-tool-selection", "information-flow-control-gate"]
+  },
+  "team_configs": [
+    {
+      "owner": "backend-eng",
+      "settings": {
+        "code_review_required": true,
+        "secrets_in_env_only": true,
+        "sfdc_identity_crosscheck": true,
+        "db_query_pattern": "orm",
+        "error_handling": "raise-typed-exceptions",
+        "line_length": 100
+      },
+      "skills": ["rag-mcp-tool-selection", "information-flow-control-gate", "skill-quality-evaluator"]
+    },
+    {
+      "owner": "frontend-eng",
+      "settings": {
+        "code_review_required": true,
+        "secrets_in_env_only": true,
+        "sfdc_identity_crosscheck": true,
+        "db_query_pattern": "raw-sql",
+        "error_handling": "return-error-objects",
+        "line_length": 120
+      },
+      "skills": ["rag-mcp-tool-selection"]
+    },
+    {
+      "owner": "data-eng",
+      "settings": {
+        "code_review_required": true,
+        "secrets_in_env_only": true,
+        "sfdc_identity_crosscheck": true,
+        "db_query_pattern": "orm",
+        "error_handling": "log-and-continue",
+        "line_length": 100
+      },
+      "skills": ["rag-mcp-tool-selection", "draft-tool-trust-verifier"]
+    },
+    {
+      "owner": "platform-eng",
+      "settings": {
+        "code_review_required": true,
+        "secrets_in_env_only": true,
+        "sfdc_identity_crosscheck": true,
+        "db_query_pattern": "orm",
+        "error_handling": "raise-typed-exceptions",
+        "line_length": 100
+      },
+      "skills": ["rag-mcp-tool-selection", "hierarchical-orchestration-router"]
+    },
+    {
+      "owner": "rogue-frontend",
+      "settings": {
+        "code_review_required": false,
+        "secrets_in_env_only": true,
+        "sfdc_identity_crosscheck": true,
+        "db_query_pattern": "raw-sql",
+        "error_handling": "swallow",
+        "line_length": 140
+      },
+      "skills": ["rag-mcp-tool-selection"]
+    }
+  ]
+}

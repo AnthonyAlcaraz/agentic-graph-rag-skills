@@ -1,0 +1,52 @@
+{
+  "_meta": {
+    "description": "Sample systems positioned on Ch1's workflow-agent spectrum by their three agency dimensions (autonomy / action / authority) plus path determinism. Fictional AWS account 123456789012.",
+    "source": "Agentic Graph RAG Ch1 — Classifying Agentic Systems: The Workflow-Agent Spectrum + the three dimensions of agency"
+  },
+  "systems": [
+    {
+      "name": "faq-generator",
+      "note": "Chapter workflow example: receives support text, emits an FAQ on a fixed path.",
+      "autonomy": 0.1,
+      "action": 0.05,
+      "authority": 0.1,
+      "path_determinism": 0.95,
+      "memory": false,
+      "tool_use": false,
+      "contextual": false
+    },
+    {
+      "name": "market-commentary-report",
+      "note": "Chapter blended example: LLM retrieves/analyzes/submits; humans review compliance and submit to regulators.",
+      "autonomy": 0.5,
+      "action": 0.6,
+      "authority": 0.4,
+      "path_determinism": 0.55,
+      "memory": true,
+      "tool_use": true,
+      "contextual": true
+    },
+    {
+      "name": "devops-investigation-agent",
+      "note": "Autonomous DevOps agent: given a latency incident it determines the investigation path, calls tools, and remediates within bounds.",
+      "autonomy": 0.9,
+      "action": 0.8,
+      "authority": 0.5,
+      "path_determinism": 0.15,
+      "memory": true,
+      "tool_use": true,
+      "contextual": true
+    },
+    {
+      "name": "latency-advisor",
+      "note": "Read-only diagnostic: high autonomy in reasoning but cannot act on the environment — an advisor, not an agent.",
+      "autonomy": 0.85,
+      "action": 0.05,
+      "authority": 0.05,
+      "path_determinism": 0.2,
+      "memory": true,
+      "tool_use": true,
+      "contextual": true
+    }
+  ]
+}

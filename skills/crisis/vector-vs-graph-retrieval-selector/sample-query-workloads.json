@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "description": "Sample DevOps query workloads mapped to Ch1's BenchmarkQED scope x type quadrants, for the vector-vs-graph retrieval selector. Fictional AWS account 123456789012.",
+    "source": "Agentic Graph RAG Ch1 — The Limitations of Vector-Based Retrieval + GraphRAG (BenchmarkQED local/global x data/activity)"
+  },
+  "workloads": [
+    {
+      "name": "specific-5xx-lookup",
+      "note": "DataLocal: 'show me the 5xx errors in the checkout log in the last hour'.",
+      "query_scope": "local",
+      "query_type": "data",
+      "multi_hop": false,
+      "temporal": false,
+      "structured_domain": false,
+      "latency_critical": true
+    },
+    {
+      "name": "cascading-migration-impact",
+      "note": "Associativity gap: 'which services were affected by the database migration that followed the security patch we discussed last month'.",
+      "query_scope": "global",
+      "query_type": "activity",
+      "multi_hop": true,
+      "temporal": true,
+      "structured_domain": true,
+      "latency_critical": false
+    },
+    {
+      "name": "systemic-outage-pattern",
+      "note": "ActivityGlobal: 'what systematic issues across our infrastructure keep causing repeated outages'.",
+      "query_scope": "global",
+      "query_type": "activity",
+      "multi_hop": true,
+      "temporal": false,
+      "structured_domain": true,
+      "latency_critical": false
+    },
+    {
+      "name": "autonomous-devops-agent",
+      "note": "Agentic workload: moves constantly between specific configs (local) and system-wide implications (global).",
+      "query_scope": "mixed",
+      "query_type": "activity",
+      "multi_hop": true,
+      "temporal": true,
+      "structured_domain": true,
+      "agentic": true,
+      "dataset_scale_pages": 120000
+    },
+    {
+      "name": "bigger-window-proposal",
+      "note": "The rebuttal case: 'let us just use a 1M-token context window instead of a graph'.",
+      "query_scope": "global",
+      "query_type": "activity",
+      "multi_hop": true,
+      "temporal": false,
+      "structured_domain": true,
+      "larger_context_window": true,
+      "dataset_scale_pages": 100000
+    }
+  ]
+}

@@ -1,0 +1,141 @@
+{
+  "_meta": {
+    "description": "Sample skill catalog for the DevOps agent, each skill carrying SkillNet's five quality dimensions (eval_safety, eval_completeness, eval_executability, eval_maintainability, eval_cost_awareness) in [0,1] plus Toolshed retrieval hooks (description, synthetic_queries, key_topics). Ratings are illustrative and would in production come from an independent SkillNet-style evaluator, never self-reported. Two skills are deliberately seeded low-quality to exercise the gate: 'unsafe-shell-runner' (eval_safety=0, hard-excluded) and 'flaky-scraper-skill' (low composite, soft-excluded).",
+    "source": "Agentic Graph RAG Ch6 — Skills: The Judgment Layer / SkillNet five-dimension framework (Table 6-1)",
+    "fictional_aws_account_id": "123456789012"
+  },
+  "skills": [
+    {
+      "name": "safe-readonly-sql-query",
+      "description": "Run an analytical SQL query against a read-only replica: check the table exists first, use a read-only connection, limit result sets, and format output as markdown.",
+      "synthetic_queries": ["query the database for slow requests", "count orders by status", "read metrics from the reporting table", "analyze data without write access"],
+      "key_topics": ["database", "sql", "read-only", "analytics", "reporting"],
+      "eval_safety": 0.9,
+      "eval_completeness": 0.8,
+      "eval_executability": 0.9,
+      "eval_maintainability": 0.8,
+      "eval_cost_awareness": 0.7
+    },
+    {
+      "name": "latency-investigation-runbook",
+      "description": "Encodes the correct sequence for investigating a service latency spike: pull p99 metrics, check upstream dependency saturation, correlate with recent deploys, then form a hypothesis before acting.",
+      "synthetic_queries": ["why is the checkout api slow", "investigate the latency spike", "the service got slow after 3pm", "trace a latency incident to root cause"],
+      "key_topics": ["latency", "investigation", "metrics", "incident", "dependencies", "observability"],
+      "eval_safety": 0.95,
+      "eval_completeness": 0.9,
+      "eval_executability": 0.85,
+      "eval_maintainability": 0.8,
+      "eval_cost_awareness": 0.75
+    },
+    {
+      "name": "log-triage-error-patterns",
+      "description": "Search service logs for error and 5xx patterns during a time window, group by error class, and surface the top offenders with example lines.",
+      "synthetic_queries": ["show me 5xx errors in the last hour", "find error patterns in the logs", "what errors happened during the spike", "triage the log noise"],
+      "key_topics": ["logs", "errors", "triage", "patterns", "investigation"],
+      "eval_safety": 0.9,
+      "eval_completeness": 0.75,
+      "eval_executability": 0.85,
+      "eval_maintainability": 0.7,
+      "eval_cost_awareness": 0.7
+    },
+    {
+      "name": "safe-rollback-deployment",
+      "description": "Roll back a deployment to the previous known-good revision with a pre-flight check, a dry-run diff, and an explicit human-approval gate before applying.",
+      "synthetic_queries": ["roll back the bad deploy", "revert the configuration change", "undo the last release", "restore the previous version"],
+      "key_topics": ["deployment", "rollback", "remediation", "configuration", "safety"],
+      "eval_safety": 0.85,
+      "eval_completeness": 0.85,
+      "eval_executability": 0.8,
+      "eval_maintainability": 0.75,
+      "eval_cost_awareness": 0.8
+    },
+    {
+      "name": "connection-pool-diagnostics",
+      "description": "Inspect database connection pool saturation, wait times, and exhaustion events; correlate pool size configuration changes with latency regressions.",
+      "synthetic_queries": ["is the connection pool exhausted", "why is the database saturated", "check pool wait times", "did a config change shrink the pool"],
+      "key_topics": ["database", "connection-pool", "saturation", "configuration", "latency"],
+      "eval_safety": 0.9,
+      "eval_completeness": 0.8,
+      "eval_executability": 0.85,
+      "eval_maintainability": 0.8,
+      "eval_cost_awareness": 0.75
+    },
+    {
+      "name": "trace-slow-span-analysis",
+      "description": "Analyze distributed traces to find the slowest span in a request, identify which downstream service propagated the latency, and rank spans by contribution.",
+      "synthetic_queries": ["which downstream service is slow", "find the slowest span", "trace the request that timed out", "where in the call chain did it slow down"],
+      "key_topics": ["tracing", "spans", "distributed-tracing", "latency", "microservices", "investigation"],
+      "eval_safety": 0.9,
+      "eval_completeness": 0.7,
+      "eval_executability": 0.8,
+      "eval_maintainability": 0.75,
+      "eval_cost_awareness": 0.7
+    },
+    {
+      "name": "oncall-paging-escalation",
+      "description": "Encode the correct escalation sequence for paging the on-call engineer about a queue backlog: check severity, batch duplicate alerts, and include a runbook link in the page.",
+      "synthetic_queries": ["page the on-call engineer", "escalate the queue backlog", "alert someone about the incident", "who do I notify about this"],
+      "key_topics": ["oncall", "escalation", "paging", "queues", "incident-response"],
+      "eval_safety": 0.85,
+      "eval_completeness": 0.8,
+      "eval_executability": 0.75,
+      "eval_maintainability": 0.7,
+      "eval_cost_awareness": 0.8
+    },
+    {
+      "name": "cost-aware-metrics-window",
+      "description": "Choose a metrics query window and step interval that answers the question without scanning excessive datapoints, minimizing observability-platform cost.",
+      "synthetic_queries": ["what does the latency trend look like", "get a cost-efficient metrics query", "pull metrics without a huge scan", "size the query window"],
+      "key_topics": ["metrics", "cost", "observability", "trends", "efficiency"],
+      "eval_safety": 0.9,
+      "eval_completeness": 0.7,
+      "eval_executability": 0.85,
+      "eval_maintainability": 0.75,
+      "eval_cost_awareness": 0.95
+    },
+    {
+      "name": "audit-config-change-history",
+      "description": "Look up who changed a production configuration and when, using the audit trail, and correlate the change timestamp with the incident timeline.",
+      "synthetic_queries": ["audit who changed the production database", "who modified the config", "when did the change happen", "correlate a config change with the incident"],
+      "key_topics": ["audit", "configuration", "change-history", "compliance", "timeline"],
+      "eval_safety": 0.9,
+      "eval_completeness": 0.75,
+      "eval_executability": 0.8,
+      "eval_maintainability": 0.7,
+      "eval_cost_awareness": 0.7
+    },
+    {
+      "name": "flaky-scraper-skill",
+      "description": "Scrape an internal dashboard page and guess the latency number from the rendered HTML. Brittle selectors, no error handling, undocumented failure modes.",
+      "synthetic_queries": ["scrape the latency dashboard", "get the number off the page", "read the metrics from the ui"],
+      "key_topics": ["scraping", "dashboard", "latency", "metrics"],
+      "eval_safety": 0.5,
+      "eval_completeness": 0.3,
+      "eval_executability": 0.35,
+      "eval_maintainability": 0.2,
+      "eval_cost_awareness": 0.4
+    },
+    {
+      "name": "unsafe-shell-runner",
+      "description": "Run an arbitrary shell command to clean up disk space, delete files, or restart services. No sandbox, no approval, executes whatever string it is given.",
+      "synthetic_queries": ["run a shell command to clean up disk", "delete old files to free space", "execute a cleanup command", "restart the service via shell"],
+      "key_topics": ["shell", "cleanup", "disk", "execute", "remediation"],
+      "eval_safety": 0.0,
+      "eval_completeness": 0.6,
+      "eval_executability": 0.5,
+      "eval_maintainability": 0.4,
+      "eval_cost_awareness": 0.5
+    },
+    {
+      "name": "self-generated-summarizer",
+      "description": "Agent-generated skill that summarizes an incident, produced without human review. Plausible description but unverified behavior and no test coverage.",
+      "synthetic_queries": ["summarize the incident", "write an incident report", "recap what happened"],
+      "key_topics": ["summary", "incident", "reporting"],
+      "eval_safety": 0.7,
+      "eval_completeness": 0.5,
+      "eval_executability": 0.45,
+      "eval_maintainability": 0.4,
+      "eval_cost_awareness": 0.6
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # agentic-graph-rag-skills
 
-Companion repo for *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz). Practical, multi-harness skills + AWS-serverless DevOps notebooks distilled from chapters Ch3-Ch7 of the book.
+Companion repo for *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz). Practical, multi-harness skills + AWS-serverless DevOps notebooks distilled from all eight chapters (Ch1-Ch8) of the book. **45 skills across 8 chapters, plus one deep pedagogical notebook per chapter.**
 
 > Read the book for the theory. Run these skills with your coding agent for the practice.
 
@@ -40,15 +40,20 @@ To run any notebook against your own AWS account: remove the `@mock_aws` decorat
 
 ## Chapter coverage
 
-| Chapter | Skills folder | Status |
-|---------|---------------|--------|
-| **Ch3 — Knowledge Representation** | **`skills/knowledge-representation/`** | **shipped — 6 skills** (`graph-model-selector`, `three-graph-router`, `schema-pattern-selector`, `homoiconic-meta-schema`, `knowledge-organization-classifier`, `capability-authorization-gate`) |
-| **Ch4 — Memory** | **`skills/memory/`** | **shipped — 6 skills** (`bi-temporal-edge`, `graphiti-incremental-update`, `hierarchical-memory`, `hindsight-epistemic-classifier`, `letta-failure-modes`, `rrf-hybrid-retrieval`) |
-| **Ch5 — Reasoning & Planning** | **`skills/reasoning-planning/`** | **shipped — 5 skills** (`pipeline-architecture-selector`, `investigation-dag-planner`, `loop-pipeline-router`, `constraint-guided-plan-validator`, `parallel-reconcile-merge`) |
-| **Ch6 — Tool Orchestration** | **`skills/tool-orchestration/`** | **shipped — 2 skills** (`rag-mcp-tool-selection`, `mcp-gateway-two-meta-tools`) |
-| **Ch7 — Self-Evolution & Evaluation** | **`skills/self-evolution/`** | **shipped — 1 skill** (`execution-graph`) |
+All eight chapters ship skills. Each chapter also has one deep pedagogical notebook (`notebooks/chN-*.ipynb`) that threads the running DevOps latency-investigation scenario against `moto`-mocked AWS.
 
-Ch1 (Crisis) and Ch2 (Architecture) are book-only narrative chapters — no skills extracted.
+| Chapter | Skills folder | Notebook | Skills |
+|---------|---------------|----------|--------|
+| **Ch1 — Defining Agentic AI** | **`skills/crisis/`** | `notebooks/ch1-defining-agentic-ai.ipynb` | **5** — `context-failure-classifier`, `enterprise-readiness-scorer`, `agent-constraint-triangle-scorer`, `workflow-agent-spectrum-classifier`, `vector-vs-graph-retrieval-selector` |
+| **Ch2 — Architecture Foundations** | **`skills/architecture/`** | `notebooks/ch2-architecture-foundations.ipynb` | **3** — `dual-graph-router`, `harness-node-splitter`, `eight-pillar-readiness-map` |
+| **Ch3 — Knowledge Representation** | **`skills/knowledge-representation/`** | `notebooks/ch3-knowledge-representation.ipynb` | **6** — `graph-model-selector`, `three-graph-router`, `schema-pattern-selector`, `homoiconic-meta-schema`, `knowledge-organization-classifier`, `capability-authorization-gate` |
+| **Ch4 — Memory** | **`skills/memory/`** | `notebooks/ch4-memory.ipynb` | **7** — `bi-temporal-edge`, `graphiti-incremental-update`, `hierarchical-memory`, `hindsight-epistemic-classifier`, `letta-failure-modes`, `memory-consolidation`, `rrf-hybrid-retrieval` |
+| **Ch5 — Reasoning & Planning** | **`skills/reasoning-planning/`** | `notebooks/ch5-reasoning-planning.ipynb` | **5** — `pipeline-architecture-selector`, `investigation-dag-planner`, `loop-pipeline-router`, `constraint-guided-plan-validator`, `parallel-reconcile-merge` |
+| **Ch6 — Tool Orchestration** | **`skills/tool-orchestration/`** | `notebooks/ch6-tool-orchestration.ipynb` | **7** — `rag-mcp-tool-selection`, `mcp-gateway-two-meta-tools`, `skill-quality-evaluator`, `information-flow-control-gate`, `draft-tool-trust-verifier`, `hierarchical-orchestration-router`, `federated-context-governance` |
+| **Ch7 — Self-Evolution & Evaluation** | **`skills/self-evolution/`** | `notebooks/ch7-self-evolution.ipynb` | **7** — `execution-graph`, `four-layer-eval-cascade`, `evolution-taxonomy-classifier`, `intervention-selector`, `semantic-backprop-attributor`, `graduated-validation-protocol`, `xskill-self-improving-object` |
+| **Ch8 — Optimization** | **`skills/optimization/`** | `notebooks/ch8-optimization.ipynb` | **5** — `model-routing-selector`, `cost-performance-scorer`, `subgraph-access-control`, `schema-evolution-migrator`, `kv-cache-latency-budgeter` |
+
+Total: **45 skills, 8 pedagogical notebooks.** The Ch1 folder is named `skills/crisis/` for historical reasons (the chapter opens on the crisis of enterprise agentic AI); it is the Chapter 1 folder. The six original `notebooks/spike-*.ipynb` seam-validation notebooks are retained.
 
 ## How a skill is structured
 

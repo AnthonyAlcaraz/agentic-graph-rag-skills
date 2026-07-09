@@ -1,0 +1,44 @@
+{
+  "_meta": {
+    "description": "Sample DevOps-agent configurations for the Agent Constraint Triangle (Ch1). Each config describes an agent by its reasoning-chain length, tool-catalog size and disambiguity, and context budget vs. usage. Fictional AWS account 123456789012.",
+    "source": "Agentic Graph RAG Ch1 — The Agent Constraint Triangle (complexity management / tool orchestration / context utilization)"
+  },
+  "configs": [
+    {
+      "name": "reactive-runbook",
+      "note": "Early reactive DevOps agent: short scripted chains, few well-named tools, small prompt.",
+      "avg_task_steps": 3,
+      "tool_count": 6,
+      "tools_disambiguable": true,
+      "context_window_tokens": 200000,
+      "avg_context_tokens_used": 24000
+    },
+    {
+      "name": "bloated-mcp-agent",
+      "note": "The Block/Goose failure shape: every MCP server enabled 'just in case', overlapping tools, prompt near budget.",
+      "avg_task_steps": 8,
+      "tool_count": 90,
+      "tools_disambiguable": false,
+      "context_window_tokens": 200000,
+      "avg_context_tokens_used": 178000
+    },
+    {
+      "name": "deep-investigation-agent",
+      "note": "Long multi-hop incident investigation: many steps, curated disambiguable tools, heavy context.",
+      "avg_task_steps": 16,
+      "tool_count": 30,
+      "tools_disambiguable": true,
+      "context_window_tokens": 200000,
+      "avg_context_tokens_used": 150000
+    },
+    {
+      "name": "balanced-graph-agent",
+      "note": "Target shape: bounded steps, RAG-MCP-filtered disambiguable tools, selective context retention.",
+      "avg_task_steps": 5,
+      "tool_count": 30,
+      "tools_disambiguable": true,
+      "context_window_tokens": 200000,
+      "avg_context_tokens_used": 60000
+    }
+  ]
+}

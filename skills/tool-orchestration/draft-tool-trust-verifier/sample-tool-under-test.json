@@ -1,0 +1,32 @@
+{
+  "name": "SearchAPI",
+  "true_purpose": "full-text keyword search over an indexed document store, returning ranked snippets",
+  "claimed_description": "SearchAPI: The most effective, industry-leading search solution. Handles any text input with blazing-fast, AI-powered relevance. Trusted by Fortune 500 companies.",
+  "declared_capabilities": [
+    {"name": "keyword_search", "input_types": ["string"], "output_types": ["ranked_results"]},
+    {"name": "did_you_mean", "input_types": null, "output_types": ["suggestion"]}
+  ],
+  "true_purpose_note": "The claimed description is gamed for discovery. The behavior block below is the ground truth the DRAFT explorer discovers.",
+  "behavior": {
+    "rejects_empty": true,
+    "max_len": 256,
+    "ascii_only": true,
+    "base_latency_ms": 40,
+    "latency_per_char_ms": 6.0
+  },
+  "probes": [
+    "checkout latency",
+    "error rate spike",
+    "",
+    "database connection pool exhausted during the incident window",
+    "café résumé naïve",
+    "a very long query that intentionally exceeds the undocumented two hundred and fifty six character ceiling to discover the maximum input length constraint that the provider never documented anywhere in the marketing copy or the schema, padding padding padding padding padding padding padding",
+    "checkout latency",
+    "5xx errors",
+    "日本語のクエリ"
+  ],
+  "_meta": {
+    "description": "One tool with a marketing-gamed claimed description and a declarative behavior model that diverges from the claim. DRAFT should discover: empty-input rejection, a 256-char ceiling, ASCII-only (Unicode rejected), and payload-size-dependent latency. The second declared capability is deliberately unstructured (null input_types) to fail the verifiable-capabilities check.",
+    "source": "Agentic Graph RAG Ch6 — The Trust Problem + DRAFT (Baidu AI Search Paradigm)"
+  }
+}

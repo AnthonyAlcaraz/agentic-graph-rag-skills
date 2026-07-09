@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "description": "Synthetic NodeInvocation log for the DevOps agent pipeline (Ch8 Example 8-3 shape). Fictional AWS account 123456789012. cost_usd figures are illustrative and reflect the selective-intelligence tiering: 3B SLM nodes ~1/30th, 8B ~1/10th, frontier 1x of a nominal frontier per-call cost.",
+    "source": "Agentic Graph RAG Ch8 — Measuring Cost-Performance Tradeoffs",
+    "fictional_aws_account_id": "123456789012"
+  },
+  "invocations": [
+    {"node_name": "AlertClassifier", "model_id": "llama-3.1-3b", "input_tokens": 180, "output_tokens": 12, "cost_usd": 0.00007, "latency_ms": 41.0, "success": true},
+    {"node_name": "AlertClassifier", "model_id": "llama-3.1-3b", "input_tokens": 210, "output_tokens": 12, "cost_usd": 0.00008, "latency_ms": 44.0, "success": true},
+    {"node_name": "AlertClassifier", "model_id": "llama-3.1-3b", "input_tokens": 195, "output_tokens": 12, "cost_usd": 0.00007, "latency_ms": 39.0, "success": true},
+    {"node_name": "AlertClassifier", "model_id": "llama-3.1-3b", "input_tokens": 205, "output_tokens": 12, "cost_usd": 0.00008, "latency_ms": 47.0, "success": false},
+    {"node_name": "LogParser", "model_id": "llama-3.1-3b", "input_tokens": 640, "output_tokens": 120, "cost_usd": 0.00021, "latency_ms": 88.0, "success": true},
+    {"node_name": "LogParser", "model_id": "llama-3.1-3b", "input_tokens": 720, "output_tokens": 140, "cost_usd": 0.00024, "latency_ms": 95.0, "success": true},
+    {"node_name": "LogParser", "model_id": "llama-3.1-3b", "input_tokens": 580, "output_tokens": 110, "cost_usd": 0.00019, "latency_ms": 81.0, "success": true},
+    {"node_name": "DependencyAnalyzer", "model_id": "llama-3.1-8b", "input_tokens": 1200, "output_tokens": 320, "cost_usd": 0.0011, "latency_ms": 180.0, "success": true},
+    {"node_name": "DependencyAnalyzer", "model_id": "llama-3.1-8b", "input_tokens": 1350, "output_tokens": 300, "cost_usd": 0.0012, "latency_ms": 190.0, "success": true},
+    {"node_name": "CausalAttributionNode", "model_id": "llama-3.1-8b", "input_tokens": 1500, "output_tokens": 420, "cost_usd": 0.0015, "latency_ms": 220.0, "success": true},
+    {"node_name": "CausalAttributionNode", "model_id": "claude-sonnet", "input_tokens": 1600, "output_tokens": 500, "cost_usd": 0.012, "latency_ms": 640.0, "success": true},
+    {"node_name": "CausalAttributionNode", "model_id": "llama-3.1-8b", "input_tokens": 1480, "output_tokens": 400, "cost_usd": 0.0014, "latency_ms": 210.0, "success": false},
+    {"node_name": "PredictionSynthesis", "model_id": "claude-sonnet", "input_tokens": 1800, "output_tokens": 620, "cost_usd": 0.015, "latency_ms": 710.0, "success": true},
+    {"node_name": "PredictionSynthesis", "model_id": "claude-sonnet", "input_tokens": 1750, "output_tokens": 600, "cost_usd": 0.014, "latency_ms": 690.0, "success": true}
+  ]
+}

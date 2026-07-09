@@ -1,0 +1,99 @@
+{
+  "_meta": {
+    "description": "Candidate operations for the checkout-API latency investigation (fictional AWS account 123456789012), plus a RedAI scanner/validator pair. `get_metrics` and `get_cpu` share an identical tool surface to demonstrate the >80%-overlap MERGE rule; `scan_code` and `validate_finding` are disjoint to demonstrate the SPLIT rule. `classify` and `analyze` are both tool-less reasoning nodes and stay split (their role lives in prompt+position, per Example 2-3). Grounds the benchmark battery. Sources: Ch2 'The Horizontal Workflow Graph' (Example 2-3), 'Defining the harness', 'Splitting a workflow into nodes' (RedAI scanner vs validator, the 80% Tip).",
+    "source": "Agentic Graph RAG (O'Reilly) Ch2 — Architecture Foundations",
+    "fictional_aws_account_id": "123456789012"
+  },
+  "operations": [
+    {
+      "id": "classify",
+      "task": "Classify alert severity and type",
+      "node_type": "reasoning",
+      "tools": [],
+      "reads": ["alert"],
+      "writes": ["severity"],
+      "input_contract": "AlertPayload",
+      "output_schema": "AlertClassification{severity,type}"
+    },
+    {
+      "id": "query_kg",
+      "task": "Find affected services and dependencies",
+      "node_type": "retrieval",
+      "tools": ["graph_read"],
+      "reads": ["vertical_kg"],
+      "writes": ["affected_services"],
+      "input_contract": "AlertClassification",
+      "output_schema": "DependencySet{services,databases,libraries}"
+    },
+    {
+      "id": "get_metrics",
+      "task": "Query live latency metrics for affected services",
+      "node_type": "execution",
+      "tools": ["cloudwatch_get_metric_data"],
+      "reads": ["affected_services"],
+      "writes": ["metrics"],
+      "input_contract": "DependencySet",
+      "output_schema": "MetricSeries"
+    },
+    {
+      "id": "get_cpu",
+      "task": "Query live CPU and memory metrics for the same services",
+      "node_type": "execution",
+      "tools": ["cloudwatch_get_metric_data"],
+      "reads": ["affected_services"],
+      "writes": ["resource_metrics"],
+      "input_contract": "DependencySet",
+      "output_schema": "MetricSeries"
+    },
+    {
+      "id": "query_logs",
+      "task": "Query CloudWatch Logs Insights for error patterns",
+      "node_type": "execution",
+      "tools": ["cloudwatch_logs_insights_query"],
+      "reads": ["affected_services"],
+      "writes": ["log_findings"],
+      "input_contract": "DependencySet",
+      "output_schema": "LogFindings"
+    },
+    {
+      "id": "analyze",
+      "task": "Correlate evidence and identify root cause",
+      "node_type": "reasoning",
+      "tools": [],
+      "reads": ["metrics", "log_findings", "affected_services"],
+      "writes": ["root_cause"],
+      "input_contract": "MetricSeries+DependencySet",
+      "output_schema": "RootCauseHypothesis"
+    },
+    {
+      "id": "report",
+      "task": "Generate structured incident report",
+      "node_type": "generation",
+      "tools": [],
+      "reads": ["root_cause"],
+      "writes": ["incident_report", "vertical_kg"],
+      "input_contract": "RootCauseHypothesis",
+      "output_schema": "IncidentReport"
+    },
+    {
+      "id": "scan_code",
+      "task": "Threat-model source and emit candidate findings (recall-optimized)",
+      "node_type": "execution",
+      "tools": ["filesystem"],
+      "reads": ["source_tree"],
+      "writes": ["candidate_findings"],
+      "input_contract": "SourceTree",
+      "output_schema": "CandidateFindings"
+    },
+    {
+      "id": "validate_finding",
+      "task": "Drive each candidate into a live environment and verdict it",
+      "node_type": "execution",
+      "tools": ["browser_driver", "ios_simulator", "network_stack", "scripting_runtime"],
+      "reads": ["candidate_findings"],
+      "writes": ["verdicts"],
+      "input_contract": "CandidateFindings",
+      "output_schema": "Verdict{confirmed|unable-to-test|disproved}"
+    }
+  ]
+}
