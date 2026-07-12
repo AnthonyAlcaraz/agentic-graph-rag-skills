@@ -1,6 +1,6 @@
 # Chapter 5 — Reasoning & Planning
 
-- **Skills folder:** `skills/reasoning-planning/` (5 skills)
+- **Skills folder:** `skills/reasoning-planning/` (6 skills)
 - **Notebook:** `notebooks/ch5-reasoning-planning.ipynb`
 - **Prev:** [Chapter 4](./04-memory.md) &nbsp;|&nbsp; **Next:** [Chapter 6](./06-tool-orchestration.md)
 
@@ -21,6 +21,7 @@ Hypotheses for the latency spike are ordered into an investigation DAG; the reme
 | `loop-pipeline-router` | The conditional-edge routing that turns a validate node into a bounded self-correcting loop (Ch5 Loop Pipeline + Error-handling strategies, Examples 5-6/5-9). | `python skills/reasoning-planning/loop-pipeline-router/cli.py --help` |
 | `parallel-reconcile-merge` | Controlled-parallelism window for a tree pipeline (Ch5 Tree Pipeline + "The architecture of controlled parallelism" + state reducers, Examples 5-7/5-8/5-16). | `python skills/reasoning-planning/parallel-reconcile-merge/cli.py --help` |
 | `pipeline-architecture-selector` | Treat pipeline-architecture choice as a routing decision inside a meta-pipeline (Ch5 Hybrid Architectures, Examples 5-10/5-11). | `python skills/reasoning-planning/pipeline-architecture-selector/cli.py --help` |
+| `structured-output-contract-designer` | Design the OUTPUT CONTRACT for a graph-agent node's seam, per Ch5 "Structured Generation: The Keystone of Reliable Communication" (Outlines). | `python skills/reasoning-planning/structured-output-contract-designer/cli.py --help` |
 
 ## Run it
 

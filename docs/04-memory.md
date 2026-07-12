@@ -1,6 +1,6 @@
 # Chapter 4 — Memory
 
-- **Skills folder:** `skills/memory/` (7 skills)
+- **Skills folder:** `skills/memory/` (8 skills)
 - **Notebook:** `notebooks/ch4-memory.ipynb`
 - **Prev:** [Chapter 3](./03-knowledge-representation.md) &nbsp;|&nbsp; **Next:** [Chapter 5](./05-reasoning-planning.md)
 
@@ -21,6 +21,7 @@ Prior `checkout-service` incidents are recalled with their time context; new tel
 | `hierarchical-memory` | Three-tier hierarchical memory (Letta / MemGPT pattern) — | `python skills/memory/hierarchical-memory/cli.py --help` |
 | `hindsight-epistemic-classifier` | Classify facts into HINDSIGHT's 4 epistemic networks (Latimer et al. | `python skills/memory/hindsight-epistemic-classifier/cli.py --help` |
 | `letta-failure-modes` | Reviewer skill: diagnose an agent's memory architecture against the 8 Letta Leaderboard failure modes (Ch4). | `python skills/memory/letta-failure-modes/cli.py --help` |
+| `memory-consistency-model-selector` | Choose a memory consistency model PER agent-coordination operation — | `python skills/memory/memory-consistency-model-selector/cli.py --help` |
 | `memory-consolidation` | Consolidation pipeline — | `python skills/memory/memory-consolidation/cli.py --help` |
 | `rrf-hybrid-retrieval` | Reciprocal Rank Fusion (RRF) hybrid retrieval across 4 parallel channels — | `python skills/memory/rrf-hybrid-retrieval/cli.py --help` |
 

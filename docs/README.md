@@ -1,7 +1,7 @@
 # Documentation — agentic-graph-rag-skills
 
 The operational documentation layer for the *Agentic Graph RAG* (O'Reilly) companion repo:
-**45 skills across 8 chapters, one pedagogical notebook per chapter, six seam-validation spikes.**
+**50 skills across 8 chapters, one pedagogical notebook per chapter, six seam-validation spikes.**
 The book carries the theory; this repo is the practice; these docs are the map that ties every
 component to the architecture and to one running example.
 
@@ -26,14 +26,14 @@ same investigation, so the components are never demonstrated in isolation.
 |---|---------|-----------|---|-----|----------|
 | 1 | Defining Agentic AI | `crisis/` | 5 | [01-defining-agentic-ai](./01-defining-agentic-ai.md) | `notebooks/ch1-defining-agentic-ai.ipynb` |
 | 2 | Architecture Foundations | `architecture/` | 3 | [02-architecture-foundations](./02-architecture-foundations.md) | `notebooks/ch2-architecture-foundations.ipynb` |
-| 3 | Knowledge Representation | `knowledge-representation/` | 6 | [03-knowledge-representation](./03-knowledge-representation.md) | `notebooks/ch3-knowledge-representation.ipynb` |
-| 4 | Memory | `memory/` | 7 | [04-memory](./04-memory.md) | `notebooks/ch4-memory.ipynb` |
-| 5 | Reasoning & Planning | `reasoning-planning/` | 5 | [05-reasoning-planning](./05-reasoning-planning.md) | `notebooks/ch5-reasoning-planning.ipynb` |
-| 6 | Tool Orchestration | `tool-orchestration/` | 7 | [06-tool-orchestration](./06-tool-orchestration.md) | `notebooks/ch6-tool-orchestration.ipynb` |
+| 3 | Knowledge Representation | `knowledge-representation/` | 8 | [03-knowledge-representation](./03-knowledge-representation.md) | `notebooks/ch3-knowledge-representation.ipynb` |
+| 4 | Memory | `memory/` | 8 | [04-memory](./04-memory.md) | `notebooks/ch4-memory.ipynb` |
+| 5 | Reasoning & Planning | `reasoning-planning/` | 6 | [05-reasoning-planning](./05-reasoning-planning.md) | `notebooks/ch5-reasoning-planning.ipynb` |
+| 6 | Tool Orchestration | `tool-orchestration/` | 8 | [06-tool-orchestration](./06-tool-orchestration.md) | `notebooks/ch6-tool-orchestration.ipynb` |
 | 7 | Self-Evolution & Evaluation | `self-evolution/` | 7 | [07-self-evolution](./07-self-evolution.md) | `notebooks/ch7-self-evolution.ipynb` |
 | 8 | Optimization | `optimization/` | 5 | [08-optimization](./08-optimization.md) | `notebooks/ch8-optimization.ipynb` |
 
-**Total: 45 skills.** Read a row as "this chapter deepens *that* part of the Chapter-2 foundation."
+**Total: 50 skills.** Read a row as "this chapter deepens *that* part of the Chapter-2 foundation."
 
 ## How every skill is structured
 
