@@ -1,0 +1,64 @@
+name: skill-lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  skills:
+    name: "50 skills: compile + --help + benchmark (zero pip installs)"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # Deliberately NO pip install: every skill's lib.py + cli.py must run on the stdlib alone.
+      - name: Compile every lib.py and cli.py
+        run: |
+          fail=0
+          for py in $(find skills -name '*.py'); do
+            python -m py_compile "$py" || { echo "COMPILE FAIL: $py"; fail=1; }
+          done
+          exit $fail
+
+      - name: Every CLI --help exits 0
+        run: |
+          fail=0
+          for cli in $(find skills -name cli.py); do
+            (cd "$(dirname "$cli")" && python cli.py --help > /dev/null) || { echo "HELP FAIL: $cli"; fail=1; }
+          done
+          exit $fail
+
+      - name: Every skill's self-check battery passes
+        run: |
+          fail=0
+          for cli in $(find skills -name cli.py); do
+            dir=$(dirname "$cli")
+            if grep -q '"prompt-budget"' "$cli"; then sub="prompt-budget"; else sub="benchmark"; fi
+            (cd "$dir" && python cli.py "$sub" > /dev/null) || { echo "BENCHMARK FAIL: $dir [$sub]"; fail=1; }
+          done
+          exit $fail
+
+      - name: SKILL.md frontmatter contract (name, description, chapter-source)
+        run: |
+          python - <<'EOF'
+          import glob, sys
+          missing = []
+          files = sorted(glob.glob("skills/*/*/SKILL.md"))
+          for f in files:
+              head = "".join(open(f, encoding="utf-8").readlines()[:25])
+              for field in ("name:", "description:", "chapter-source:"):
+                  if field not in head:
+                      missing.append((f, field))
+          print(f"SKILL.md files checked: {len(files)}")
+          for f, field in missing:
+              print(f"MISSING {field} in {f}")
+          sys.exit(1 if missing else 0)
+          EOF

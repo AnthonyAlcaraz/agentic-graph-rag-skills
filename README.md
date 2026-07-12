@@ -1,5 +1,9 @@
 # agentic-graph-rag-skills
 
+[![skill-lint](https://github.com/AnthonyAlcaraz/agentic-graph-rag-skills/actions/workflows/skill-lint.yml/badge.svg)](https://github.com/AnthonyAlcaraz/agentic-graph-rag-skills/actions/workflows/skill-lint.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
+
 Companion repo for [*Agentic GraphRAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien). **50 practical skills across 8 chapters, plus one deep pedagogical notebook per chapter**, distilled into runnable code you drive with your coding agent.
 
 > Read the book for the theory. Run these skills with your coding agent for the practice.
