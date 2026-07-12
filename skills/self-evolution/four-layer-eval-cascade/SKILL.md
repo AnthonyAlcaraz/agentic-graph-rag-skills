@@ -15,7 +15,7 @@ description: |
   first).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The Multi-Layered Evaluation Framework: A Cognitive Autopsy + Examples 7-2/7-3/7-4/7-6/7-16/7-17"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The Multi-Layered Evaluation Framework: A Cognitive Autopsy + the J1 context-sufficiency judge, diagnostic-report, and premature-closure autopsy examples"
 references:
   - "GLiClass (Knowledgator, 2025) — zero-shot NLI hallucination detection for Layer 0"
   - "Meta J1 reasoning-trace judge — Layer 1 context sufficiency"
@@ -51,12 +51,12 @@ question (Ch7 Figure 7-1):
   against the KG. Its reward is `correctness * format * tool`, multiplicative
   so a confidently wrong but well-formatted answer scores zero.
 
-The output is a structured diagnostic report (Ch7 Example 7-4): it names the
+The output is a structured diagnostic report (the chapter's diagnostic-report example): it names the
 failure mode, locates it by node ID, and prescribes an intervention. That
 report is what drives the self-improvement engine.
 
-The worked anchor is the DevOps premature-closure autopsy (Ch7 Example 7-16 /
-7-17): sufficient context, Knowledge Index 0.91, InfoGain trace
+The worked anchor is the DevOps premature-closure autopsy (the chapter's InfoGain-trace and
+diagnostic-report examples): sufficient context, Knowledge Index 0.91, InfoGain trace
 `[0.34, 0.29, 0.22, 0.03, -0.01, 0.19]`, low-InfoGain steps `[4, 5]`, fault at
 CausalAttributionNode, recommended intervention PROMPT_REFINEMENT.
 
@@ -96,8 +96,8 @@ Phrases: "cognitive autopsy", "why did the agent fail", "evaluation cascade",
 | 2 | query + context (+ required_claims) | `lib.layer1_context_evaluator(...)` | `ContextVerdict(sufficient, missing_information, conflicting_statements, confidence)` | sufficient iff every required claim token-appears in context; missing ones listed |
 | 3 | infogain_trace + knowledge_index (+ fault_node, thresholds, diagnosis) | `lib.layer2_cognitive_fault_isolator(...)` | `CognitiveVerdict(failure_type, fault_location, knowledge_index, infogain_trace, low_infogain_steps, diagnosis)` | KI < ki_threshold -> KNOWLEDGE else REASONING; low_infogain_steps are 1-based indices below infogain_floor |
 | 4 | claim_value + expected_value (+ format_ok, tool_ok) | `lib.layer3_tir_judge(...)` | `TIRReward(correctness, format_compliance, tool_accuracy, composite)` | composite is multiplicative; a wrong value zeroes it regardless of format |
-| 5 | execution dict | `lib.run_cascade(execution)` | diagnostic report (Example 7-4 shape) | runs L0->L1->L2->L3, stops at first failing layer; report carries stopped_at_layer + recommended_intervention + target_nodes |
-| 6 | (bundled) | `cli.py scenario devops-autopsy` | rebuilds Example 7-16/7-17 report | stops at Layer 2, REASONING, low steps [4,5], recommends PROMPT_REFINEMENT |
+| 5 | execution dict | `lib.run_cascade(execution)` | diagnostic report (diagnostic-report shape) | runs L0->L1->L2->L3, stops at first failing layer; report carries stopped_at_layer + recommended_intervention + target_nodes |
+| 6 | (bundled) | `cli.py scenario devops-autopsy` | rebuilds the premature-closure autopsy / diagnostic report | stops at Layer 2, REASONING, low steps [4,5], recommends PROMPT_REFINEMENT |
 
 ## Rationalizations
 
@@ -137,7 +137,7 @@ Phrases: "cognitive autopsy", "why did the agent fail", "evaluation cascade",
    premature-closure trace; the devops-autopsy scenario recommends
    PROMPT_REFINEMENT.
 2. **Run the DevOps scenario.** `python cli.py scenario devops-autopsy`
-   rebuilds the Ch7 Example 7-16 / 7-17 report: stops at Layer 2, REASONING,
+   rebuilds the chapter's premature-closure diagnostic report: stops at Layer 2, REASONING,
    fault at CausalAttributionNode, low steps [4, 5], recommended
    PROMPT_REFINEMENT.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints the SKILL.md

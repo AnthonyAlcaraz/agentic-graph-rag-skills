@@ -157,7 +157,7 @@ def cmd_scenario(args):
     if args.name == "devops-prediction":
         edges, node_outputs, failure_node, predicted, actual, feedback_text = _devops_graph()
         print("=" * 70)
-        print("DevOps prediction - neighbor-aware feedback (Ch7 Example 7-19)")
+        print("DevOps prediction - neighbor-aware feedback (Ch7 worked example)")
         print("=" * 70)
         print("Running example context:")
         print("  AWS account 123456789012")
@@ -167,7 +167,7 @@ def cmd_scenario(args):
         responsible = attribute(edges, node_outputs, failure_node, predicted, actual)
         print(f"\nAttributed to: {responsible}")
         fb = backprop(edges, node_outputs, failure_node, predicted, actual, feedback_text)
-        print("\nExample 7-19 neighbor-aware semantic feedback:")
+        print("\nNeighbor-aware semantic feedback (chapter worked example):")
         print(json.dumps(fb.to_dict(), indent=2))
         return
     print(f"unknown scenario: {args.name}", file=sys.stderr)

@@ -58,10 +58,10 @@ def _skill_description() -> str:
     return " ".join(d for d in desc if d) or "four-layer-eval-cascade (Ch7)"
 
 
-# -- devops-autopsy scenario (Ch7 Example 7-16 / 7-17) -----------------------
+# -- devops-autopsy scenario (the chapter's premature-closure autopsy) -------
 
 def _devops_execution() -> dict:
-    """Rebuild the premature-closure execution from Ch7 Example 7-16 / 7-17.
+    """Rebuild the chapter's premature-closure execution end to end.
 
     Fictional AWS account 123456789012. stripe-python 3.2.1 -> 3.3.0, timeout
     30s -> 10s, checkout-service -> order-service -> fulfillment-service.

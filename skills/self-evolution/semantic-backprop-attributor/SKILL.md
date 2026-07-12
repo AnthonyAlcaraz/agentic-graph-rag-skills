@@ -15,7 +15,7 @@ description: |
   refinement make the change stick).
 osmani-pattern: Generator
 ghosh-layer: Workflow
-chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Semantic Backpropagation: Coherent Evolution Across the Graph + Example 7-19"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Semantic Backpropagation: Coherent Evolution Across the Graph + the neighbor-aware feedback example"
 references:
   - "TextGrad — textual feedback as a gradient signal (chapter foundational cite)"
   - "Composes on top of the execution-graph primitive and the diagnostic report"
@@ -48,14 +48,14 @@ a DateChecker's "Date: 2022") flags that the exchange rate was 0.9, not 0.95.
 Without neighbor context, feedback to the Extractor reads "your $10M led to a
 conversion error" and the Extractor might wrongly change its extraction. With
 neighbor context, the error is correctly assigned to the CurrencyConverter's rate
-lookup and the Extractor is left unchanged. Example 7-19 shows the same shape for
+lookup and the Extractor is left unchanged. the neighbor-aware feedback example shows the same shape for
 a DevOps CausalAttributionNode, with ChangelogRetrieval and KnowledgeGraphQuery
 as the neighbor predecessors.
 
 **Honesty note on the metaphor:** "backpropagation" here is an analogy, not a
 mechanism. A numerical gradient is exact and deterministic; this skill's
 "gradient" is credit assignment produced by LLM judgment over the execution
-graph — structured, neighbor-aware, and far better than blame-by-vibes, but
+graph — structured, neighbor-aware, and far better than unstructured blame, but
 still a hypothesis about causality, not a derivative. Treat every attribution
 as a claim to verify (rerun the trace with the blamed node patched) before
 committing an intervention on it. What IS deterministic in this skill: the
@@ -95,7 +95,7 @@ caused this", "credit assignment", "textual gradient", "action at a distance",
 | 1 | edges (parent, child), node_id | `lib.predecessors_of(edges, node_id)` | parents of node_id, in edge order | returns [Extractor] for CurrencyConverter; [CurrencyConverter, DateChecker] for Validator |
 | 2 | edges, node_outputs, target_node, successor | `lib.neighbor_context_for(...)` | dict "<node>_output" of every OTHER predecessor of successor | target_node excluded; sibling predecessor included |
 | 3 | edges, node_outputs, failure_node, predicted, actual | `lib.attribute(...)` | responsible node_id (may differ from failure_node) | currency case returns CurrencyConverter, not Extractor or Validator |
-| 4 | target_node, successor, edges, node_outputs, predicted, actual, feedback_text | `lib.generate_feedback(...)` | `SemanticFeedback` (Example 7-19 shape) | neighbor_context populated; empty feedback_text synthesizes a neighbor-grounded string |
+| 4 | target_node, successor, edges, node_outputs, predicted, actual, feedback_text | `lib.generate_feedback(...)` | `SemanticFeedback` (the neighbor-aware feedback example shape) | neighbor_context populated; empty feedback_text synthesizes a neighbor-grounded string |
 | 5 | edges, node_outputs, failure_node, predicted, actual, feedback_text | `lib.backprop(...)` | attribute then generate_feedback for the responsible node | devops case targets CausalAttributionNode with both neighbor outputs |
 | 6 | `SemanticFeedback` | `.to_dict()` / `SemanticFeedback.from_dict(d)` | serialize / deserialize | round-trip preserves all four fields |
 | 7 | list of `NodeIO` | `lib.outputs_from(nodes)` | node_outputs mapping | keys match node ids, values are output strings |
@@ -107,7 +107,7 @@ caused this", "credit assignment", "textual gradient", "action at a distance",
 | "The node that flagged the error is the node to fix." | The chapter is explicit: the Validator surfaces the error but "the error originated in the CurrencyConverter's rate lookup." Attribution is a graph question, not a which-node-raised-it question. |
 | "Feedback to a node only needs that node's output and the error." | That is exactly the failure mode the chapter names. Without the DateChecker's output as neighbor context, the Extractor "might reasonably conclude it should have extracted a different number, a wrong fix." Include all other predecessors of the successor. |
 | "Improving one node in isolation is fine if its own tests pass." | Ch7: "improving a component in isolation can cause 'action at a distance' failures." A change to one node must be evaluated in the context of what every other connected node needs. |
-| "A vague 'consider more factors' directive is enough feedback." | Example 7-19: the neighbor_context (timeout 30s->10s present in input, no batch_charge usage found) is "what makes the feedback specific enough to generate a targeted prompt update rather than a vague directive." |
+| "A vague 'consider more factors' directive is enough feedback." | the neighbor-aware feedback example: the neighbor_context (timeout 30s->10s present in input, no batch_charge usage found) is "what makes the feedback specific enough to generate a targeted prompt update rather than a vague directive." |
 | "Attribution and the intervention are the same step." | Ch7: "semantic backpropagation determines where to change and what the change should accomplish. The remaining question is how to make that change stick." Different frameworks (SEAL / TPT / prompt refinement) own the how. |
 
 ## Red Flags
@@ -138,7 +138,7 @@ caused this", "credit assignment", "textual gradient", "action at a distance",
 2. **Run the currency scenario.** `python cli.py scenario currency` shows
    attribution landing on CurrencyConverter with the Extractor left unchanged.
 3. **Run the devops scenario.** `python cli.py scenario devops-prediction`
-   emits the Example 7-19 neighbor-aware feedback for the CausalAttributionNode.
+   emits the the neighbor-aware feedback example neighbor-aware feedback for the CausalAttributionNode.
 4. **Verify CLI help.** `python cli.py --help` exits 0 and prints the SKILL.md
    description.
 
@@ -174,7 +174,7 @@ caused this", "credit assignment", "textual gradient", "action at a distance",
 ## Source Attribution
 
 Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch7 — Semantic
-Backpropagation: Coherent Evolution Across the Graph, plus Example 7-19
+Backpropagation: Coherent Evolution Across the Graph, plus the neighbor-aware feedback example
 (Neighbor-aware semantic feedback for the causal attribution node). The chapter
 credits TextGrad for the foundational insight that textual feedback can serve as
 a gradient signal, and adapts the chain rule so a structured natural-language

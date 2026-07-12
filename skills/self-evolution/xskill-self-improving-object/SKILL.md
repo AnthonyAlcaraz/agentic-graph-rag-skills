@@ -16,11 +16,11 @@ description: |
   this consumes).
 osmani-pattern: Pipeline
 ghosh-layer: Workflow
-chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Inference-Time Knowledge Augmentation + Skills as Self-Improving Graph Objects + Example 7-20 (KnowledgeAccumulator) and Example 7-22 (SkillNode / SkillGraph)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Inference-Time Knowledge Augmentation + Skills as Self-Improving Graph Objects + the KnowledgeAccumulator and SkillNode / SkillGraph examples"
 references:
   - "XSkill (Jiang et al., 2026) — dual-stream continual learning"
   - "Cognee add-cognify-search-learn skill-as-graph-object pipeline"
-  - "Consumes the execution-graph skill (Ch7 Example 7-1) as its input substrate"
+  - "Consumes the execution-graph skill (Ch7 the execution-graph example) as its input substrate"
 ---
 
 # XSkill Self-Improving Graph Objects
@@ -47,7 +47,7 @@ trajectories:
   experiences, the average success rate rises from 33.6% to 40.3%.
 
 Cognee closes the remaining gap: XSkill's skills are static artifacts. Cognee
-treats a skill as a first-class graph node (Example 7-22) with execution
+treats a skill as a first-class graph node (the SkillNode example) with execution
 records, a success rate, and an amendment history. Its four-stage pipeline is
 add (parse SKILL.md, compute content hash) then cognify (extract trigger
 phrases and complexity) then search (route by which skill SUCCEEDS at similar
@@ -99,10 +99,10 @@ Phrases: "learn from past failures", "self-improving skill", "amendify",
 | Agent rationalization | Documented rebuttal |
 |------------------------|--------------------|
 | "Route by description similarity, it is simpler." | Ch7 is explicit that this is the core architectural choice: "the graph selects skills by demonstrated performance, not description similarity." A newly added canary-deployment skill with successful executions must outrank a general deployment skill with a 40% failure rate on canary-specific tasks. Similarity picks the wrong one. |
-| "Extract an experience from every node." | Only nodes whose outcome diverged from expectation carry a lesson (Example 7-20 filters on `outcome_diverged_from_expectation`). A routine success teaches nothing; extracting it dilutes retrieval with noise. |
-| "Emit a skill from any successful run." | The chapter requires >= 3 executions sharing a common successful path before a skill is real (Example 7-20: `len(executions) >= 3`). One run is an anecdote, not a pattern. |
+| "Extract an experience from every node." | Only nodes whose outcome diverged from expectation carry a lesson (the KnowledgeAccumulator example filters on `outcome_diverged_from_expectation`). A routine success teaches nothing; extracting it dilutes retrieval with noise. |
+| "Emit a skill from any successful run." | The chapter requires >= 3 executions sharing a common successful path before a skill is real (the KnowledgeAccumulator example: `len(executions) >= 3`). One run is an anecdote, not a pattern. |
 | "Skip retirement, more knowledge is better." | Ch7 names knowledge retirement as the critical design choice: experiences not revalidated within 90 days lose half their retrieval weight, and skills below 60% success over the most recent 10 attempts are flagged. Unretired knowledge serves stale lessons after the environment has moved. |
-| "Let amendify() rewrite the skill whenever it fails." | Every amendment must validate against held-out execution records before replacing the current version, and failed amendments roll back automatically (Example 7-22). Rewriting on raw failure count reintroduces reward-hacking: the skill confirms its own bias instead of correcting it. |
+| "Let amendify() rewrite the skill whenever it fails." | Every amendment must validate against held-out execution records before replacing the current version, and failed amendments roll back automatically (the SkillGraph amendment example). Rewriting on raw failure count reintroduces reward-hacking: the skill confirms its own bias instead of correcting it. |
 
 ## Red Flags
 
@@ -154,7 +154,7 @@ Phrases: "learn from past failures", "self-improving skill", "amendify",
 
 ## Composition
 
-- **Consumes** the `execution-graph` skill (Ch7 Example 7-1): the nodes and
+- **Consumes** the `execution-graph` skill (Ch7 the execution-graph example): the nodes and
   successful subgraphs it extracts from are execution-graph output.
 - **Composes with** the Ch7 evaluation layers, which score the outcomes that
   become experience and skill success labels.
@@ -167,7 +167,7 @@ Phrases: "learn from past failures", "self-improving skill", "amendify",
 
 Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien)
 Chapter 7 — Self-Evolution and Evaluation, the Inference-Time Knowledge
-Augmentation section (Example 7-20, KnowledgeAccumulator dual-stream
+Augmentation section (the KnowledgeAccumulator dual-stream
 extraction) and the Skills as Self-Improving Graph Objects section (Example
 7-22, SkillNode / SkillGraph with amendify() and success-rate routing). Named
 sources: XSkill (Jiang et al., 2026) for dual-stream continual learning and the

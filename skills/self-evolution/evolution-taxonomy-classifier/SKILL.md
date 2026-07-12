@@ -30,7 +30,7 @@ references:
 Your agent has diagnosed a reasoning failure. The execution graph shows where
 it went wrong and the cognitive-fault isolator has classified the breakdown.
 Now what? The temptation is to jump straight to a fix: tweak a prompt, retrain
-an adapter, add a guardrail. But self-evolution is not a single lever. It is a
+an adapter, add a guardrail. But self-evolution spans more than a single lever: it is a
 four-dimensional design space, and pulling the wrong lever wastes compute,
 introduces regressions, or both.
 

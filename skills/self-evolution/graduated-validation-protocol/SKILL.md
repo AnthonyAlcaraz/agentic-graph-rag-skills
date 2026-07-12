@@ -17,7 +17,7 @@ description: |
   candidate (this validates the candidate, it does not generate it).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The RPO Spine and Graduated Validation Protocol + Persistent Self-Learning Without Entropy Collapse + Example 7-1"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The RPO Spine and Graduated Validation Protocol + Persistent Self-Learning Without Entropy Collapse + the full-evolutionary-loop example"
 references:
   - "RPO spine: Recursion / Provenance / Optimization (source control for thought)"
   - "Kepler dual-store garbage collection (OpenAI, 2026)"
@@ -69,7 +69,7 @@ been retrieved in 30 days.
 ## When to Use
 
 - Gating a continuous self-evolution loop: candidate changes must be
-  validated before they reach live traffic (Ch7 Example 7-1, the
+  validated before they reach live traffic (the chapter's full-evolutionary-loop example, the
   `graduated_validation(candidate).passed` branch)
 - Routing a mixed stream of candidates (prompt tweaks, fine-tunes, new-tool
   integrations) to the right level of scrutiny automatically
@@ -186,7 +186,7 @@ validation", "RPO spine", "entropy collapse", "garbage-collect learnings",
 - **Consumes** candidates produced by the execution-graph,
   semantic-backpropagation, and intervention skills (Ch7). It is the
   `graduated_validation(candidate).passed` branch of the full evolutionary
-  loop (Example 7-1).
+  loop (the full-evolutionary-loop example).
 - **Composes with** the RPO Provenance ledger: `provenance_signature` signs a
   candidate before the gate result is recorded, giving instant rollback.
 - **Pairs with** the Kepler dual-store: the GC traversal runs on the same
@@ -201,7 +201,7 @@ validation", "RPO spine", "entropy collapse", "garbage-collect learnings",
 Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien)
 Chapter 7 — Self-Evolution and Evaluation, the sections "The RPO Spine and
 Graduated Validation Protocol" and "Persistent Self-Learning Without Entropy
-Collapse", plus the full evolutionary loop of Example 7-1. Key references
+Collapse", plus the chapter's full-evolutionary-loop example. Key references
 named in the chapter: the RPO spine (Recursion / Provenance / Optimization,
 "source control for thought"); the three-tier Graduated Validation Protocol
 (canary release / staging gauntlet / airlock protocol) shown in Figure 7-3;

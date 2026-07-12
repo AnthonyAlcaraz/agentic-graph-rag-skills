@@ -142,7 +142,7 @@ def select_intervention(
     low_step_max: int = 2,
     ki_floor: float = 0.8,
 ) -> Intervention:
-    """Route a diagnostic report to exactly one intervention (Ch7 Example 7-9).
+    """Route a diagnostic report to exactly one intervention (Ch7 the chapter's select_intervention routing example).
 
     The four branches, in order:
 

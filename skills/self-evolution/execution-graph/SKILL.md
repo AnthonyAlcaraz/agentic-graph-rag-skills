@@ -16,7 +16,7 @@ description: |
   it already).
 osmani-pattern: Generator
 ghosh-layer: Primitive
-chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The Execution Graph subsection + Example 7-1"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The Execution Graph subsection + the chapter's execution-graph example"
 references:
   - "OpenTelemetry distributed tracing as the production substrate"
   - "Composes with all Ch7 evaluation layers (0/1/2/3) and Semantic Backpropagation"
@@ -44,7 +44,7 @@ Each node represents one atomic operation:
 - **Parent-child edges** — `TRIGGERED` relationships establishing causal
   lineage
 
-Two-phase write is the central primitive (Ch7 Example 7-1):
+Two-phase write is the central primitive (the chapter's execution-graph example):
 
 1. **Phase 1 (on-start)**: create node + link to parent. If the operation
    fails or crashes, the graph still captures *what was about to happen*.
@@ -93,7 +93,7 @@ Phrases: "execution graph", "trace the agent's run", "cognitive autopsy",
 | Agent rationalization | Documented rebuttal |
 |------------------------|--------------------|
 | "Logs are good enough — I don't need a graph." | The Ch7 chapter quote is explicit: "That kind of query is only possible when execution data lives in a graph database rather than a flat log file." The query "every tool invocation that followed an LLM call with confidence < 0.7 and resulted in latency > 3s" requires graph-traversal semantics. Flat logs cannot answer it. |
-| "One-phase write is simpler — just record on complete." | Then a crashed node produces no record, and the causal chain is broken at the point of greatest diagnostic interest. Ch7 Example 7-1 is explicit about this: "the graph captures the causal structure even if the operation fails." |
+| "One-phase write is simpler — just record on complete." | Then a crashed node produces no record, and the causal chain is broken at the point of greatest diagnostic interest. Ch7 the chapter's execution-graph example is explicit about this: "the graph captures the causal structure even if the operation fails." |
 | "I'll skip cost / token tracking — those are billing concerns." | Cost and tokens are reasoning-shape signals (Ch7 Reasoning Shape Analysis section). A reasoning trace with high cost and low InfoGain is a "grinding" failure mode that you cannot detect without the cost field. |
 | "Parent edges are redundant with timestamps — temporal order is enough." | Temporal order tells you what happened *when*. Parent edges tell you what happened *because of what*. Sibling nodes that ran in parallel (e.g. two retrieval channels) have the same parent but different timestamps. Without the edge, the causal structure is lost. |
 
@@ -142,5 +142,5 @@ Phrases: "execution graph", "trace the agent's run", "cognitive autopsy",
 ## Source Attribution
 
 Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch7 — The
-Foundation of Self-Awareness section + Example 7-1. Production substrate:
+Foundation of Self-Awareness section + the chapter's execution-graph example. Production substrate:
 OpenTelemetry distributed tracing → Neo4j graph store.

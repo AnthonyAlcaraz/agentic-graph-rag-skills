@@ -26,14 +26,14 @@ from dataclasses import dataclass, field, asdict
 from typing import Any, Dict, List, Optional
 
 
-# -- recommended-intervention vocabulary (Ch7 Example 7-4 / 7-17) ------------
+# -- recommended-intervention vocabulary (Ch7 diagnostic-report vocabulary) ------------
 BLOCK_AND_REGENERATE = "BLOCK_AND_REGENERATE"
 RETRIEVAL_FIX = "RETRIEVAL_FIX"
 PROMPT_REFINEMENT = "PROMPT_REFINEMENT"
 FINE_TUNE = "FINE_TUNE"
 NONE = "NONE"
 
-# -- gate action vocabulary (Ch7 Example 7-2 + SLM-LLM flywheel) -------------
+# -- gate action vocabulary (Ch7 J1 judge example + SLM-LLM flywheel) -------------
 PROCEED = "PROCEED"
 ESCALATE = "ESCALATE"
 
@@ -100,7 +100,7 @@ def layer0_hallucination_gate(
     toward 0, which is the batch_charge failure mode from Ch7: the agent claims
     an edge the graph does not contain.
 
-    Scoring bands (Ch7 Example 7-2 + SLM-LLM flywheel):
+    Scoring bands (Ch7 J1 judge example + SLM-LLM flywheel):
       score >= threshold     -> passed, PROCEED
       ESCALATE_FLOOR..thresh -> not passed, ESCALATE to full pipeline (no block)
       score < ESCALATE_FLOOR -> not passed, BLOCK_AND_REGENERATE, skip full eval
@@ -213,7 +213,7 @@ def layer1_context_evaluator(
     verdict defaults to sufficient at a high confidence.
 
     # TODO(production): swap for a Meta J1 reasoning-trace judge that emits a
-    <think> justification and binary sufficient/not verdict (Ch7 Example 7-3),
+    <think> justification and binary sufficient/not verdict (the chapter's context-sufficiency verdict shape),
     validated against domain-expert labels until agreement exceeds 90%.
     """
     claims = list(required_claims or [])
@@ -317,7 +317,7 @@ def layer3_tir_judge(
 ) -> TIRReward:
     """Layer 3: verify a quantitative claim by comparison against ground truth.
 
-    Three-component reward (Ch7 Example 7-6). The composite is MULTIPLICATIVE,
+    Three-component reward (the chapter's tool-integrated-reasoning reward example). The composite is MULTIPLICATIVE,
     not additive: a perfectly formatted response with an incorrect answer
     scores zero, because a confidently wrong answer that looks well structured
     is more dangerous than an obviously malformed one.
@@ -358,7 +358,7 @@ def run_cascade(execution: Dict[str, Any]) -> Dict[str, Any]:
       infogain_trace, knowledge_index, fault_node, claim_value, expected_value,
       format_ok, tool_ok, diagnosis.
 
-    Returns a diagnostic report shaped like Ch7 Example 7-4:
+    Returns a diagnostic report shaped like the chapter's diagnostic-report example:
       execution_id, overall_verdict ("PASS" | "FAILURE"), stopped_at_layer
       (0/1/2/3 or None), layer_1_context (when reached), layer_2_cognitive
       (when reached), recommended_intervention, target_nodes.

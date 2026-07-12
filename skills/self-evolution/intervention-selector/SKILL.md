@@ -9,13 +9,13 @@ description: |
   else -> FINE_TUNE. A second axis ranks intervention types on the
   self-modification intensity hierarchy (prompt tuning lightest, weight
   adaptation middle, code modification heaviest). Ports
-  Ch7 Example 7-9 exactly, thresholds tunable per the chapter Tip. Use AFTER a
+  Ch7 the select_intervention routing example exactly, thresholds tunable per the chapter Tip. Use AFTER a
   diagnostic report exists and you must choose the fix. NOT for producing the
   diagnosis itself (that is the Layer 0/1/2 evaluation pipeline), NOT for
   applying the fix (this routes; SEAL/TPT/Outlines apply).
 osmani-pattern: Reviewer
 ghosh-layer: Reasoning
-chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Choosing the Right Intervention: Prompt, Fine-Tune, or Constrain? + Example 7-9 (select_intervention) + self-modification intensity hierarchy"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Choosing the Right Intervention: Prompt, Fine-Tune, or Constrain? + the select_intervention routing example + self-modification intensity hierarchy"
 references:
   - "Ch7 Tip: intervention selection must be deterministic and auditable, tuned against historical diagnostic data"
   - "Composes downstream with Semantic Backpropagation, SEAL, TPT, and the Graduated Validation Protocol"
@@ -33,7 +33,7 @@ Applying the wrong fix wastes time at best and makes things worse at worst.
 
 The diagnostic report already contains the failure type and target nodes, so
 mapping them to an intervention is a straightforward routing function (Ch7
-Example 7-9). The chapter Tip is explicit about why this is a function and not
+the select_intervention routing example). The chapter Tip is explicit about why this is a function and not
 a human call: intervention selection should be deterministic and auditable,
 not a judgment call made differently by each on-call engineer.
 
@@ -116,7 +116,7 @@ diagnosis", "select_intervention", "how do I fix this diagnosed failure",
 | "The engineer on call can just decide the fix." | The Ch7 Tip is explicit: "intervention selection should be deterministic and auditable, not a judgment call made differently by each on-call engineer." A per-person decision is neither reproducible nor auditable. |
 | "A format violation just needs a better prompt to speak JSON." | Ch7 rejects this: "Rather than teaching the model to speak JSON better through more training, attach an output schema constraint directly to that specific node." The constraint makes the error impossible, not merely less likely, and produces a permanent fix for that component. |
 | "Every diagnosed failure should trigger fine-tuning to be safe." | Fine-tuning is the heavyweight fix, reserved for a systemic knowledge gap or a recurring pattern. Ch7: prompt refinement "is fast, reversible, and the right first resort" for a localized reasoning failure. Retraining a single-node reasoning slip is expensive and slow to validate for no gain. |
-| "Skip the context check; failure_type already tells me everything." | Ch7 Example 7-9 checks `layer_1_context.sufficient` first for a reason: if the context was insufficient, no model-side intervention helps. The fix is upstream in the retrieval pipeline. Routing a context gap to a prompt or fine-tune change treats the wrong layer. |
+| "Skip the context check; failure_type already tells me everything." | Ch7 The select_intervention example checks `layer_1_context.sufficient` first for a reason: if the context was insufficient, no model-side intervention helps. The fix is upstream in the retrieval pipeline. Routing a context gap to a prompt or fine-tune change treats the wrong layer. |
 | "The 0.8 KI and two-step thresholds are magic numbers I can ignore." | Ch7 Tip: "The thresholds here are starting points. Tune them against your own historical diagnostic data." They are exposed as `low_step_max` and `ki_floor` parameters precisely so you tune them, not so you discard the check. |
 | "Let the router emit a code fix when the prompt path fails." | Ch7 Caution: "Code-level self-modification is the most powerful and most dangerous form of self-evolution. Use it only in sandboxed environments with full rollback capability." It is never an automated router output; it belongs to a SICA loop with an overseer. |
 
@@ -196,7 +196,7 @@ diagnosis", "select_intervention", "how do I fix this diagnosed failure",
 
 Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien)
 Chapter 7 — Self-Evolution and Evaluation, the section "Choosing the Right
-Intervention: Prompt, Fine-Tune, or Constrain?" It ports Example 7-9
+Intervention: Prompt, Fine-Tune, or Constrain?" It ports the select_intervention routing example
 (`select_intervention`) exactly, including the chapter thresholds (two or
 fewer low-InfoGain steps for a prompt fix, a knowledge index above 0.8 for a
 reasoning-only diagnosis) exposed as tunable parameters per the accompanying

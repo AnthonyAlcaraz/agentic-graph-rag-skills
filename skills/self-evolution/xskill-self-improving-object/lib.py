@@ -301,7 +301,7 @@ class SkillNode:
         if self.success_rate >= failure_threshold:
             return False
         failing = [e for e in self.executions if e.outcome == "failure"]
-        # Last 10 failures as evidence (Ch7 Example 7-2: failing_runs[-10:]).
+        # Last 10 failures as evidence (Ch7 the chapter's SkillGraph example: failing_runs[-10:]).
         amended = _generate_amendment(self.definition, failing[-10:])
         if _validate_amendment(amended, self.executions, self.definition):
             self.definition = amended

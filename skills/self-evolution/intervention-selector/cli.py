@@ -52,7 +52,7 @@ def _skill_description() -> str:
     return " ".join(d for d in desc if d) or "intervention-selector (Ch7)"
 
 
-# The DevOps prediction failure report (Ch7 running example, Example 7-16).
+# The DevOps prediction failure report (the chapter's premature-closure diagnostic).
 # stripe-python 3.2.1 -> 3.3.0 deploy across checkout-service -> order-service
 # -> fulfillment-service (fictional AWS account 123456789012); the changelog
 # reduced default connection_timeout 30s -> 10s. The agent committed to an "API

@@ -48,7 +48,7 @@ their context).
 function are clustered for intelligent failover. Baidu's AI Search Paradigm
 embeds tools by what they DO (DRAFT-refined docs + usage patterns), then
 K-means++ groups them into functional toolkits. When the primary tool is
-overloaded, the orchestrator seamlessly switches to a functionally-equivalent
+overloaded, the orchestrator fails over to a functionally-equivalent
 alternative from the same cluster — a "Search Toolkit" of Baidu AI Search / ArXiv
 MCP / Perplexity / OpenAI WebSearch — adapting parameters as it fails over. No
 single point of failure.

@@ -50,7 +50,7 @@ class NodeIO:
 
 @dataclass
 class SemanticFeedback:
-    """Neighbor-aware structured feedback (Ch7 Example 7-19 shape).
+    """Neighbor-aware structured feedback (Ch7 the chapter's neighbor-aware feedback example shape).
 
     failure_context carries the keys `predicted` and `actual`; neighbor_context
     maps "<node>_output" to that predecessor's output; feedback is the textual
