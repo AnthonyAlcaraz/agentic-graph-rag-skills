@@ -1,0 +1,13 @@
+{
+  "actions": [
+    {"name": "query_cloudwatch_latency", "side_effect_scope": "none", "idempotent": true},
+    {"name": "rollback_db_parameter_group", "side_effect_scope": "internal",
+     "compensating_action": "reapply_parameter_change",
+     "preconditions": ["rollbackApproved", "lastKnownGoodVersion"]},
+    {"name": "scale_out_ecs_service", "side_effect_scope": "internal",
+     "compensating_action": "scale_in_ecs_service", "idempotent": true},
+    {"name": "delete_stale_connection_pool_snapshot", "side_effect_scope": "internal",
+     "data_destructive": true},
+    {"name": "page_oncall_dba", "side_effect_scope": "external"}
+  ]
+}

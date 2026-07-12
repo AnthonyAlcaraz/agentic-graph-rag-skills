@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 
-Companion repo for [*Agentic GraphRAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien). **50 practical skills across 8 chapters, plus one deep pedagogical notebook per chapter**, distilled into runnable code you drive with your coding agent.
+Companion repo for [*Agentic GraphRAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien). **51 practical skills across 8 chapters, plus one deep pedagogical notebook per chapter**, distilled into runnable code you drive with your coding agent.
 
 > Read the book for the theory. Run these skills with your coding agent for the practice.
 
@@ -33,11 +33,11 @@ Read each chapter as *"this deepens that part of the Chapter-2 foundation."*
 | 3 | **Knowledge Representation** | *Fills* the vertical graph: graph-model choice, three-graph routing, schema patterns, entity resolution, extraction, capability authorization. | `knowledge-representation/` | 8 | [ch 3](./docs/03-knowledge-representation.md) |
 | 4 | **Memory** | Makes the vertical graph *durable and temporal*: bi-temporal edges, incremental update, hierarchical tiers, hybrid retrieval, multi-agent consistency. | `memory/` | 8 | [ch 4](./docs/04-memory.md) |
 | 5 | **Reasoning & Planning** | *Plans over* the horizontal graph: the investigation DAG, pipeline architectures, loop-vs-pipeline routing, constraint-checked plans, structured-output as the reliability keystone. | `reasoning-planning/` | 6 | [ch 5](./docs/05-reasoning-planning.md) |
-| 6 | **Tool Orchestration** | *Executes* the horizontal graph as tools: RAG-MCP tool selection, the gateway pattern, information-flow control, trust-by-verification, CLI-vs-MCP-vs-Skill choice. | `tool-orchestration/` | 8 | [ch 6](./docs/06-tool-orchestration.md) |
+| 6 | **Tool Orchestration** | *Executes* the horizontal graph as tools: RAG-MCP tool selection, the gateway pattern, information-flow control, trust-by-verification, CLI-vs-MCP-vs-Skill choice, the irreversible-action gate. | `tool-orchestration/` | 9 | [ch 6](./docs/06-tool-orchestration.md) |
 | 7 | **Self-Evolution & Evaluation** | *Closes the loop*: the execution graph as the agent's autobiography, a four-layer eval cascade, semantic backprop to the causal node, graduated validation to production. | `self-evolution/` | 7 | [ch 7](./docs/07-self-evolution.md) |
 | 8 | **Optimization** | Makes it *affordable*: route each node to the cheapest sufficient model, budget KV-cache-bound concurrency, scope subgraph access per persona, migrate schema without breaking consumers. | `optimization/` | 5 | [ch 8](./docs/08-optimization.md) |
 
-**Total: 50 skills.** Chapters 1–2 set up the foundation; 3–4 build and maintain the vertical graph; 5–6 plan and execute over the horizontal graph; 7–8 make the system improve itself and pay for itself.
+**Total: 51 skills.** Chapters 1–2 set up the foundation; 3–4 build and maintain the vertical graph; 5–6 plan and execute over the horizontal graph; 7–8 make the system improve itself and pay for itself.
 
 *(The Chapter 1 folder is named `skills/crisis/` for historical reasons — the chapter opens on the crisis of enterprise agentic AI — but it is the Chapter 1 folder.)*
 
@@ -95,6 +95,8 @@ Deliberately small, so a skill runs anywhere and an agent can trust it.
 | **Multi-harness** | `SKILL.md` (agent-facing) + `cli.py` (shell-facing). | The same primitive works in Claude Code / Cursor / Gemini CLI / Windsurf / OpenCode and from cron / CI / scripts. |
 
 Everything the notebooks need is in `requirements.txt` (`anthropic`, `boto3`, `moto[...]`, `jupyter`, `ipykernel`). Running a skill's `cli.py` needs none of it.
+
+**What the benchmarks prove — and what they don't.** Every skill ships a self-check battery, and CI runs all of them on every push. Those batteries prove *contract consistency*: the code does exactly what its SKILL.md claims, including the negative cases. They do not prove *ground truth*: the scoring weights inside the selector skills encode the book's engineering judgment, not a fitted model. Treat a selector's recommendation as a structured, explainable starting position — then validate it against your own workload before you build on it. A skill that made you check is doing its job.
 
 ## Quickstart
 

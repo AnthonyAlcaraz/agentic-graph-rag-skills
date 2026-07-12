@@ -1,0 +1,9 @@
+{
+  "name": "rollback_db_parameter_group",
+  "side_effect_scope": "internal",
+  "idempotent": false,
+  "data_destructive": false,
+  "compensating_action": "reapply_parameter_change",
+  "supports_dry_run": false,
+  "preconditions": ["rollbackApproved", "lastKnownGoodVersion"]
+}

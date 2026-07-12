@@ -1,7 +1,7 @@
 # Documentation — agentic-graph-rag-skills
 
 The operational documentation layer for the [*Agentic GraphRAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien) companion repo:
-**50 skills across 8 chapters, one pedagogical notebook per chapter, six seam-validation spikes.**
+**51 skills across 8 chapters, one pedagogical notebook per chapter, six seam-validation spikes.**
 The book carries the theory; this repo is the practice; these docs are the map that ties every
 component to the architecture and to one running example.
 
@@ -29,11 +29,11 @@ same investigation, so the components are never demonstrated in isolation.
 | 3 | Knowledge Representation | `knowledge-representation/` | 8 | [03-knowledge-representation](./03-knowledge-representation.md) | `notebooks/ch3-knowledge-representation.ipynb` |
 | 4 | Memory | `memory/` | 8 | [04-memory](./04-memory.md) | `notebooks/ch4-memory.ipynb` |
 | 5 | Reasoning & Planning | `reasoning-planning/` | 6 | [05-reasoning-planning](./05-reasoning-planning.md) | `notebooks/ch5-reasoning-planning.ipynb` |
-| 6 | Tool Orchestration | `tool-orchestration/` | 8 | [06-tool-orchestration](./06-tool-orchestration.md) | `notebooks/ch6-tool-orchestration.ipynb` |
+| 6 | Tool Orchestration | `tool-orchestration/` | 9 | [06-tool-orchestration](./06-tool-orchestration.md) | `notebooks/ch6-tool-orchestration.ipynb` |
 | 7 | Self-Evolution & Evaluation | `self-evolution/` | 7 | [07-self-evolution](./07-self-evolution.md) | `notebooks/ch7-self-evolution.ipynb` |
 | 8 | Optimization | `optimization/` | 5 | [08-optimization](./08-optimization.md) | `notebooks/ch8-optimization.ipynb` |
 
-**Total: 50 skills.** Read a row as "this chapter deepens *that* part of the Chapter-2 foundation."
+**Total: 51 skills.** Read a row as "this chapter deepens *that* part of the Chapter-2 foundation."
 
 ## How every skill is structured
 

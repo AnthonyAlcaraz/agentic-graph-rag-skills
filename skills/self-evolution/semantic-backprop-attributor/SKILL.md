@@ -52,6 +52,15 @@ lookup and the Extractor is left unchanged. Example 7-19 shows the same shape fo
 a DevOps CausalAttributionNode, with ChangelogRetrieval and KnowledgeGraphQuery
 as the neighbor predecessors.
 
+**Honesty note on the metaphor:** "backpropagation" here is an analogy, not a
+mechanism. A numerical gradient is exact and deterministic; this skill's
+"gradient" is credit assignment produced by LLM judgment over the execution
+graph — structured, neighbor-aware, and far better than blame-by-vibes, but
+still a hypothesis about causality, not a derivative. Treat every attribution
+as a claim to verify (rerun the trace with the blamed node patched) before
+committing an intervention on it. What IS deterministic in this skill: the
+graph traversal, the neighbor-context assembly, and the routing of the verdict.
+
 ## When to Use
 
 - After a diagnostic report has localized a failing node and you need feedback

@@ -1,6 +1,6 @@
 # Chapter 6 — Tool Orchestration
 
-- **Skills folder:** `skills/tool-orchestration/` (8 skills)
+- **Skills folder:** `skills/tool-orchestration/` (9 skills)
 - **Notebook:** `notebooks/ch6-tool-orchestration.ipynb`
 - **Prev:** [Chapter 5](./05-reasoning-planning.md) &nbsp;|&nbsp; **Next:** [Chapter 7](./07-self-evolution.md)
 
@@ -20,6 +20,7 @@ From 30+ AWS/MCP tools, only the ones relevant to a latency probe (CloudWatch, X
 | `federated-context-governance` | Govern agent-configuration drift once tool orchestration scales from one developer to a team. | `python skills/tool-orchestration/federated-context-governance/cli.py --help` |
 | `hierarchical-orchestration-router` | Expose ONE orchestrator to the agent instead of thousands of tools. | `python skills/tool-orchestration/hierarchical-orchestration-router/cli.py --help` |
 | `information-flow-control-gate` | A deterministic security-policy layer for chained tools. | `python skills/tool-orchestration/information-flow-control-gate/cli.py --help` |
+| `irreversible-action-gate` | Gate agent tool calls by reversibility BEFORE execution: classify each action REVERSIBLE / SEMI_REVERSIBLE / IRREVERSIBLE from its declared properties (side-effect scope, idempotency, destructiveness, compensating action), prescribe the matching delivery contract (idempotency key, retry policy, dry-run-first, human approval, compensation registration), check deterministic preconditions against graph facts, and analyze multi-step plans as sagas with an explicit point of no return. | `python skills/tool-orchestration/irreversible-action-gate/cli.py --help` |
 | `mcp-gateway-two-meta-tools` | Build a gateway that exposes any-size tool registry through just two meta-tools: search(query) and execute(tool_name, **params). | `python skills/tool-orchestration/mcp-gateway-two-meta-tools/cli.py --help` |
 | `rag-mcp-tool-selection` | Select the top-K tools from a registry of 30+ MCP / AWS / internal-API tools for a given natural-language query, replacing MCP's tools/list dump with a RAG-style filter that reduces prompt tokens 50-70%. | `python skills/tool-orchestration/rag-mcp-tool-selection/cli.py --help` |
 | `skill-quality-evaluator` | Score a skill against SkillNet's five quality dimensions (safety, completeness, executability, maintainability, cost_awareness), compute a safety/executability-weighted composite, and gate skill retrieval so an agent pulls the most-relevant skill that ALSO clears a quality threshold. | `python skills/tool-orchestration/skill-quality-evaluator/cli.py --help` |
