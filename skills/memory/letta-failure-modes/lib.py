@@ -343,9 +343,12 @@ def format_text(report: DiagnosticReport) -> str:
     lines.append("")
     lines.append("=" * 70)
     s = total_score(report)
+    # Bands match SKILL.md Process Step 4: 0 = production-ready,
+    # >=10 = ship at risk, >=18 = do not ship. The 1-9 band is below the
+    # ship-at-risk threshold (minor issues to review, not yet at-risk).
     verdict = "production-ready" if s == 0 else \
-              ("ship at risk" if s < 10 else
-               ("ship at high risk" if s < 18 else "do not ship"))
+              ("minor issues — review before ship" if s < 10 else
+               ("ship at risk" if s < 18 else "do not ship"))
     lines.append(f"Total severity: {s}/24  ({verdict})")
     lines.append("=" * 70)
     return "\n".join(lines)

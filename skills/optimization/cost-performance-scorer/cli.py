@@ -174,15 +174,17 @@ def cmd_benchmark(args):
 
 def main():
     p = argparse.ArgumentParser(prog="cost-performance-scorer", description=_skill_description())
-    p.add_argument("--log", type=Path, default=DEFAULT_LOG,
-                   help="Path to an invocation log JSON (default: bundled sample)")
+    log_parent = argparse.ArgumentParser(add_help=False)
+    log_parent.add_argument("--log", type=Path, default=DEFAULT_LOG,
+                            help="Path to an invocation log JSON (default: bundled sample)")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    sc = sub.add_parser("score", help="Score the whole policy: cost-per-success per node")
+    sc = sub.add_parser("score", parents=[log_parent],
+                        help="Score the whole policy: cost-per-success per node")
     sc.add_argument("--json", action="store_true")
     sc.set_defaults(func=cmd_score)
 
-    nd = sub.add_parser("node", help="Per-node cost/latency report")
+    nd = sub.add_parser("node", parents=[log_parent], help="Per-node cost/latency report")
     nd.add_argument("node")
     nd.set_defaults(func=cmd_node)
 

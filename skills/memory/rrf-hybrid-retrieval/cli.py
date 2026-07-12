@@ -47,7 +47,11 @@ def _skill_description() -> str:
 def cmd_fuse(args):
     with open(args.channels_path) as f:
         channels = json.load(f)
-    fused = rrf_fuse(channels, k=args.k)
+    try:
+        fused = rrf_fuse(channels, k=args.k)
+    except ValueError as exc:
+        print(json.dumps({"error": str(exc)}, indent=2), file=sys.stderr)
+        sys.exit(1)
     print(json.dumps([{"doc_id": d, "fusion_score": s} for d, s in fused], indent=2))
 
 

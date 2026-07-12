@@ -119,13 +119,31 @@ class Operation:
     collaboration: int = 0
     self_session_only: int = 0
 
+    def __post_init__(self):
+        # Weights are documented 0..3 (SKILL Process Step 1). Reject out-of-range
+        # input: negatives produce meaningless negative scores and >3 silently
+        # scales the ranking, both breaking the per-axis comparison.
+        for r in REQS:
+            v = getattr(self, r)
+            if not isinstance(v, int) or isinstance(v, bool) or not (0 <= v <= 3):
+                raise ValueError(f"{r} must be an int in 0..3, got {v!r}")
+
     def as_weights(self) -> Dict[str, int]:
         return {r: int(getattr(self, r)) for r in REQS}
 
 
+# Tie-break order among equal scores. The chapter's rule is "default to
+# causal, escalate to strong only for irreversible decision points", so an
+# operation with no dominant signal (all-tied scores, e.g. zero requirements)
+# resolves to causal, not to the most-expensive strong.
+_TIE_ORDER: Dict[str, int] = {"causal": 0, "strong": 1,
+                              "read_your_writes": 2, "eventual": 3}
+
+
 def score_models(op: Operation) -> List[Tuple[str, float]]:
     """Weighted dot-product of operation requirement weights and per-model
-    fitness. Returns [(model, score), ...] sorted descending.
+    fitness. Returns [(model, score), ...] sorted descending; ties resolve to
+    the chapter's default (causal) rather than to insertion order.
     """
     weights = op.as_weights()
     scored: List[Tuple[str, float]] = []
@@ -133,7 +151,7 @@ def score_models(op: Operation) -> List[Tuple[str, float]]:
         fit = REQ_MODEL_FIT[model]
         total = float(sum(weights[r] * fit[r] for r in REQS))
         scored.append((model, total))
-    scored.sort(key=lambda kv: kv[1], reverse=True)
+    scored.sort(key=lambda kv: (-kv[1], _TIE_ORDER[kv[0]]))
     return scored
 
 

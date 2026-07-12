@@ -59,6 +59,25 @@ def _skill_description() -> str:
     return " ".join(d for d in desc if d) or "hierarchical-memory primitive (Ch4)."
 
 
+def cmd_add_fact(args):
+    """Load-or-create a memory at --path, add a fact, persist it.
+
+    This is the CLI surface for Process-table Step 3 (`mem.add_fact`). Without
+    it, `query` / `diagnostics` (which require a snapshot at --path) are
+    unreachable end-to-end from the CLI.
+    """
+    mem = load_memory(args.path) if Path(args.path).exists() else HierarchicalMemory(core_limit=args.core_limit)
+    mem.add_fact(args.content, args.durability)
+    save_memory(mem, args.path)
+    print(json.dumps({
+        "added": args.content,
+        "durability": args.durability,
+        "core_size": len(mem.core),
+        "core_limit": mem.core_limit,
+        "archival_size": len(mem.archival),
+    }, indent=2))
+
+
 def cmd_diagnostics(args):
     mem = load_memory(args.path)
     print(json.dumps(mem.diagnostics(), indent=2))
@@ -237,6 +256,14 @@ def cmd_benchmark(args):
 def main():
     parser = argparse.ArgumentParser(description=_skill_description())
     sub = parser.add_subparsers(dest="cmd", required=True)
+    p_add = sub.add_parser("add-fact", help="Add a fact to a memory (creates the snapshot if absent)")
+    p_add.add_argument("--path", required=True)
+    p_add.add_argument("--content", required=True)
+    p_add.add_argument("--durability", default=DURABILITY_SHORT_LIVED,
+                       choices=(DURABILITY_DURABLE, DURABILITY_SHORT_LIVED))
+    p_add.add_argument("--core-limit", type=int, default=50,
+                       help="core_limit used only when creating a new memory")
+    p_add.set_defaults(func=cmd_add_fact)
     p_diag = sub.add_parser("diagnostics", help="Print health report")
     p_diag.add_argument("--path", required=True)
     p_diag.set_defaults(func=cmd_diagnostics)

@@ -57,6 +57,13 @@ class Agent:
     granted_level: str = "Public"
     granted_resources: List[str] = field(default_factory=list)
 
+    def __post_init__(self):
+        if self.granted_level not in AUTH_ORDER:
+            raise ValueError(
+                f"unknown authorization level '{self.granted_level}'; "
+                f"expected one of {AUTH_ORDER}"
+            )
+
     def add_capability(self, cap: Capability) -> None:
         self.capabilities[cap.type] = cap
 

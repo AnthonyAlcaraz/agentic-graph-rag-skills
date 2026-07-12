@@ -48,13 +48,17 @@ def _skill_description() -> str:
 
 
 def _op_from_args(args) -> Operation:
-    return Operation(
-        shared_authoritative_state=args.shared_authoritative_state,
-        conflict_intolerance=args.conflict_intolerance,
-        staleness_budget=args.staleness_budget,
-        collaboration=args.collaboration,
-        self_session_only=args.self_session_only,
-    )
+    try:
+        return Operation(
+            shared_authoritative_state=args.shared_authoritative_state,
+            conflict_intolerance=args.conflict_intolerance,
+            staleness_budget=args.staleness_budget,
+            collaboration=args.collaboration,
+            self_session_only=args.self_session_only,
+        )
+    except ValueError as exc:
+        print(json.dumps({"error": str(exc)}, indent=2), file=sys.stderr)
+        sys.exit(1)
 
 
 def cmd_recommend(args):

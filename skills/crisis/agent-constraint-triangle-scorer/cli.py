@@ -109,7 +109,12 @@ def cmd_batch(args: argparse.Namespace) -> int:
         return 0
     print(f"Ranked by peak constraint pressure (most constrained first):")
     print("-" * 60)
-    for r in out["results"]:
+    ranked = sorted(
+        out["results"],
+        key=lambda r: max(p["pressure"] for p in r["pressures"].values()),
+        reverse=True,
+    )
+    for r in ranked:
         peak = max(p["pressure"] for p in r["pressures"].values())
         name = r["config"].get("name", "unnamed")
         print(f"  {name:<28} peak={peak:>5}  {r['overall_band']}")

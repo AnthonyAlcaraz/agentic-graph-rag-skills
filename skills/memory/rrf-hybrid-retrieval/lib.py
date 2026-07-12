@@ -24,6 +24,11 @@ def rrf_fuse(channels: Dict[str, List[str]], k: int = DEFAULT_K) -> List[Tuple[s
     where rank is 1-indexed within each channel.
     Items missing from a channel contribute 0 from that channel.
     """
+    # RRF constant must be non-negative: with 1-indexed ranks the smallest
+    # denominator is k+1, so k < 0 makes k+rank hit 0 (ZeroDivisionError) or go
+    # negative (nonsensical scores). Standard is k=60 (Cormack et al. 2009).
+    if k < 0:
+        raise ValueError(f"RRF constant k must be >= 0, got {k}")
     scores: Dict[str, float] = defaultdict(float)
     for ranking in channels.values():
         for rank_zero, doc_id in enumerate(ranking):

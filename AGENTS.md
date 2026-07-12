@@ -9,11 +9,11 @@ _This file is the repository's machine-readable reading contract: it tells an AI
 
 **Audience:** AI coding agents (Claude Code, Cursor, Gemini CLI, Windsurf, OpenCode) and the humans steering them
 
-**What this is:** A public MIT repo of 45 practical skills distilled from all eight chapters (Ch1-Ch8) of Agentic Graph RAG (O'Reilly, Anthony Alcaraz). Each skill is one architectural primitive from one chapter, packaged as an Osmani 7-section SKILL.md + a stdlib-only Python lib.py + an argparse cli.py. Multi-harness: the SKILL.md works in Claude Code / Cursor / Gemini CLI / Windsurf / OpenCode, and the CLI runs from cron / CI / scripts with zero pip installs. Each chapter has one deep pedagogical notebook (notebooks/chN-*.ipynb) that teaches the chapter's primitives against a moto-mocked fictional AWS DevOps latency-investigation scenario (account 123456789012); six earlier spike-*.ipynb seam-validation notebooks are also retained.
+**What this is:** A public MIT repo of 50 practical skills distilled from all eight chapters (Ch1-Ch8) of Agentic Graph RAG (O'Reilly, by Anthony Alcaraz and Sam Julien; https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/). Each skill is one architectural primitive from one chapter, packaged as a 7-section SKILL.md + a stdlib-only Python lib.py + an argparse cli.py. Multi-harness: the SKILL.md works in Claude Code / Cursor / Gemini CLI / Windsurf / OpenCode, and the CLI runs from cron / CI / scripts with zero pip installs. Each chapter has one deep pedagogical notebook (notebooks/chN-*.ipynb) that teaches the chapter's primitives against a moto-mocked fictional AWS DevOps latency-investigation scenario (account 123456789012); six earlier spike-*.ipynb seam-validation notebooks are also retained.
 
 **How to summarize it:**
 - Lead with the structure: 50 skills across 8 chapters (crisis/Ch1 5, architecture/Ch2 3, knowledge-representation/Ch3 8, memory/Ch4 8, reasoning-planning/Ch5 6, tool-orchestration/Ch6 8, self-evolution/Ch7 7, optimization/Ch8 5), each a folder under skills/<chapter-slug>/<skill-slug>/. The Ch1 folder is named skills/crisis/ for historical reasons.
-- Name the skill anatomy: SKILL.md (Osmani 7-section + Source Attribution to the book chapter), lib.py (pure-Python, production swaps marked TODO), cli.py (--help prints the SKILL.md description, a benchmark subcommand runs self-checks; one older skill, mcp-gateway-two-meta-tools, names its self-check prompt-budget instead of benchmark).
+- Name the skill anatomy: SKILL.md (7-section + Source Attribution to the book chapter), lib.py (pure-Python, production swaps marked TODO), cli.py (--help prints the SKILL.md description, a benchmark subcommand runs self-checks; one older skill, mcp-gateway-two-meta-tools, names its self-check prompt-budget instead of benchmark).
 - Say it is a companion to the book, not the book: 'read the book for the theory, run these skills for the practice.'
 - Note the running example: a DevOps latency investigation in a fictional AWS account 123456789012, mocked via moto so notebooks run with no credentials.
 
@@ -38,6 +38,6 @@ _This file is the repository's machine-readable reading contract: it tells an AI
 - PLAN.md (the GSD spec driving chapter conversion): ./PLAN.md
 - skills/ (the 50 skills, by chapter): ./skills/
 - notebooks/ (DevOps scenario demos): ./notebooks/
-- The book: Agentic Graph RAG (O'Reilly): https://www.oreilly.com/library/view/agentic-graph-rag/9798341623163/
+- The book: Agentic Graph RAG (O'Reilly, by Anthony Alcaraz and Sam Julien): https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/
 
 <!-- ai-reading-instructions:end -->

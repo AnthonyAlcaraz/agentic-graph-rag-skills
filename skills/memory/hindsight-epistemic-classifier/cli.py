@@ -51,7 +51,11 @@ def _skill_description() -> str:
 
 def cmd_classify(args):
     md = json.loads(args.metadata) if args.metadata else None
-    f = classify(args.text, metadata=md, confidence=args.confidence)
+    try:
+        f = classify(args.text, metadata=md, confidence=args.confidence)
+    except ValueError as exc:
+        print(json.dumps({"error": str(exc)}, indent=2), file=sys.stderr)
+        sys.exit(1)
     print(json.dumps(f.to_dict(), indent=2))
 
 

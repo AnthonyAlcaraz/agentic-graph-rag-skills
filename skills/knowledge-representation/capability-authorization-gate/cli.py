@@ -46,7 +46,12 @@ def _skill_description() -> str:
 
 def cmd_authorize(args):
     with open(args.agent_path) as f:
-        agent = agent_from_spec(json.load(f))
+        spec = json.load(f)
+    try:
+        agent = agent_from_spec(spec)
+    except ValueError as e:
+        print(json.dumps({"error": str(e)}, indent=2))
+        sys.exit(2)
     print(json.dumps(authorize(agent, args.capability, amount=args.amount), indent=2))
 
 
@@ -142,10 +147,16 @@ def cmd_benchmark(args):
     if can_do(agent, "Process-Refund", amount=600) is not False:
         failures.append("can_do should be False for escalated action")
 
-    # Test 8: unknown authorization level raises at construction.
+    # Test 8: unknown authorization level raises at construction (both an
+    # unknown capability authorization_level AND an unknown agent granted_level).
     try:
         Capability(type="x", authorization_level="Wizard")
-        failures.append("unknown auth level should raise")
+        failures.append("unknown capability auth level should raise")
+    except ValueError:
+        pass
+    try:
+        Agent(id="x", granted_level="Wizard")
+        failures.append("unknown agent granted_level should raise")
     except ValueError:
         pass
 

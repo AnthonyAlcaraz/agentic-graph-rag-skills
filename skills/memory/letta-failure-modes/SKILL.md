@@ -72,7 +72,7 @@ Phrases: "audit my memory architecture", "why is my agent forgetting",
 | 2 | Report | `lib.format_text(report)` | Human-readable diagnostic | every "present" mode includes evidence + fix recommendation |
 | 3 | Report | `lib.format_json(report)` | machine-readable JSON | round-trip serializable |
 | 4 | Report | `lib.total_score(report)` | int 0-24 (sum of severities) | 0 = production-ready; ≥10 = ship at risk; ≥18 = do not ship |
-| 5 | Memory + scenario | `lib.run_scenario(mem, scenario)` | scenario-driven test that EXERCISES failure modes (e.g. inject contradiction → check silent-overwrite triggers) | scenarios cover each of the 8 modes with at least one concrete trigger |
+| 5 | Scenario name | `cli.py scenario broken-vs-clean` | showcase that EXERCISES all 8 modes: an anti-pattern snapshot triggers all 8 (`present`) and a clean composed snapshot triggers 0 | broken reports 8 `present`, clean reports 0 |
 
 ## Diagnostic Heuristics (per failure mode)
 

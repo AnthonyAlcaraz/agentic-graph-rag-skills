@@ -141,6 +141,14 @@ def assess(profile: Dict[str, Any]) -> Dict[str, Any]:
     total = round(flaw_pts + agency_pts + cap_pts + trace_pts, 1)
     band, band_desc = band_for(total)
 
+    # Open flaws dominate (Ch1: the five fatal flaws ARE the architectural
+    # failure). An agent with every flaw still open is naive-vector by
+    # definition, regardless of how high its agency/capability/trace
+    # self-reports push the numeric score. This enforces the SKILL.md
+    # Red Flag: "All five flaws open but band is not NAIVE-VECTOR" is a bug.
+    if len(open_flaws) == len(FLAW_CURE):
+        band, band_desc = BANDS[-1][1], BANDS[-1][2]
+
     recommendations: List[str] = []
     for flaw in open_flaws:
         recommendations.append(

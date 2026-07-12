@@ -83,6 +83,13 @@ def classify(
     """
     metadata = metadata or {}
 
+    # Enforce the documented output contract: confidence in [0, 1] (Process
+    # table Step 1). Reject out-of-range input rather than silently emitting a
+    # fact whose confidence violates the invariant.
+    conf_check = confidence if confidence is not None else metadata.get("confidence")
+    if conf_check is not None and not (0.0 <= conf_check <= 1.0):
+        raise ValueError(f"confidence must be in [0, 1], got {conf_check}")
+
     # 1. Experience — first-person action, optionally with metadata source==agent
     is_first_person = _matches_any(text, FIRST_PERSON_PATTERNS)
     is_agent_action = metadata.get("source") == "agent" or metadata.get("action_type")

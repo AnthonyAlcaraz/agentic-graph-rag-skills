@@ -1,6 +1,6 @@
 # Documentation — agentic-graph-rag-skills
 
-The operational documentation layer for the *Agentic Graph RAG* (O'Reilly) companion repo:
+The operational documentation layer for the [*Agentic Graph RAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien) companion repo:
 **50 skills across 8 chapters, one pedagogical notebook per chapter, six seam-validation spikes.**
 The book carries the theory; this repo is the practice; these docs are the map that ties every
 component to the architecture and to one running example.
@@ -39,7 +39,7 @@ same investigation, so the components are never demonstrated in isolation.
 
 Each `skills/<chapter>/<skill>/` folder is a self-contained, multi-harness primitive:
 
-- **`SKILL.md`** — Osmani 7-section anatomy (Overview / When to Use / When NOT / Process / Rationalizations / Red Flags / Non-Negotiable Verification) + Security Posture + Source Attribution to the chapter.
+- **`SKILL.md`** — 7-section anatomy (Overview / When to Use / When NOT / Process / Rationalizations / Red Flags / Non-Negotiable Verification) + Security Posture + Source Attribution to the chapter.
 - **`lib.py`** — pure-Python implementation; production swaps flagged as TODOs at the seam.
 - **`cli.py`** — argparse CLI; `--help` prints the SKILL.md description; every Process step maps to a subcommand or flag. Runs in Claude Code, Cursor, Gemini CLI, Windsurf, OpenCode, or from cron / CI.
 

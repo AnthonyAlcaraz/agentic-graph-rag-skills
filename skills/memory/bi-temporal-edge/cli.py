@@ -92,7 +92,22 @@ def cmd_as_of(args):
     ts = datetime.fromisoformat(args.timestamp)
     if ts.tzinfo is None:
         ts = ts.replace(tzinfo=timezone.utc)
-    result = as_of(args.source, args.relationship, ts, edges)
+    try:
+        result = as_of(args.source, args.relationship, ts, edges)
+    except ValueError as exc:
+        # More than one edge valid at ts for (source, rel). For a genuinely
+        # single-valued config field this is the corruption the Red Flags
+        # section warns about; for a multi-valued relationship (e.g. depends_on
+        # with several targets) it is expected — point-in-time on a set needs
+        # `history` / `traverse`, not `as-of`. Surface cleanly, never a traceback.
+        print(json.dumps({
+            "error": "multiple_valid_edges",
+            "detail": str(exc),
+            "hint": "as-of returns a single value; for multi-valued relationships "
+                    "use `history` or `traverse --at-time` to list all valid edges.",
+            "queried_at": ts.isoformat(),
+        }, indent=2), file=sys.stderr)
+        sys.exit(1)
     if result is None:
         print(json.dumps({"valid_edge": None, "queried_at": ts.isoformat()}, indent=2))
         sys.exit(0)
