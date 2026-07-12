@@ -10,6 +10,7 @@ Companion repo for *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz). Practical, mu
 
 - **`skills/<chapter-slug>/<skill-slug>/`** — Osmani-format `SKILL.md` files + hand-rolled Python CLIs. Each skill is one architectural primitive from one chapter of the book. Multi-harness: works in Claude Code, Cursor, Gemini CLI, Windsurf, OpenCode, and from cron / CI / scripts.
 - **`notebooks/`** — Jupyter notebooks demonstrating each skill against a fictional AWS DevOps scenario. Real boto3 code, mocked AWS via [`moto`](https://github.com/getmoto/moto) so notebooks run with zero credentials. Swap the `@mock_aws` decorator for your real account to deploy.
+- **`docs/`** — The documentation layer: [`docs/README.md`](./docs/README.md) is the architecture overview + reading map, and one page per chapter (`docs/0N-*.md`) ties that chapter's skills to the architecture and to the running DevOps example. Start here to navigate the 45 skills.
 - **`PLAN.md`** — The GSD spec that drives chapter conversion. Vertical-slice ordering, locked decisions, verification gates.
 
 ## Quickstart
