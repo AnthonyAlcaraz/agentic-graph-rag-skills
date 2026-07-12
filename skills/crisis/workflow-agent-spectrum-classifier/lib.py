@@ -1,5 +1,5 @@
 """
-Workflow-agent spectrum classifier (Agentic Graph RAG, Ch1 — Classifying
+Workflow-agent spectrum classifier (Agentic GraphRAG, Ch1 — Classifying
 Agentic Systems).
 
 Ch1 rejects the binary "is it an agent or not" framing. Following Andrew Ng

@@ -15,7 +15,7 @@ description: |
   (that is rag-mcp-tool-selection, Ch6).
 osmani-pattern: Generator
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch2 — Architecture Foundations — Defining the harness + Splitting a workflow into nodes"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch2 — Architecture Foundations — Defining the harness + Splitting a workflow into nodes"
 references:
   - "Ch2 'The Horizontal Workflow Graph' — reasoning / execution / decision / validation nodes; each node has a focused responsibility (Example 2-3)"
   - "Ch2 'Defining the harness' — the six harness surfaces: workflow-state, advancement policy, typed tool registry, typed memory interface, schema validator, append-only observation record"
@@ -166,7 +166,7 @@ nodes", "the 80% tool-overlap rule", "constrain the node's context".
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 2 — Agentic Graph Architecture Foundations:
 
 - "The Horizontal Workflow Graph" — reasoning/execution/decision/validation node

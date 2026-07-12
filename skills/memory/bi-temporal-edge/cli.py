@@ -2,8 +2,8 @@
 """
 bi-temporal-edge CLI — multi-harness invocation surface.
 
-Per Agentic Graph RAG Ch4 (Temporal Awareness) + HINDSIGHT (Latimer et al. 2025).
-SKILL.md description is printed on --help (CLAUDE.md CLI mandate).
+Per Agentic GraphRAG Ch4 (Temporal Awareness) + HINDSIGHT (Latimer et al. 2025).
+SKILL.md description is printed on --help (so any harness can discover the skill from --help).
 """
 
 from __future__ import annotations

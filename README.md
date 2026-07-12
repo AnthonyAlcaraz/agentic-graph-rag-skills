@@ -1,6 +1,6 @@
 # agentic-graph-rag-skills
 
-Companion repo for [*Agentic Graph RAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien). **50 practical skills across 8 chapters, plus one deep pedagogical notebook per chapter**, distilled into runnable code you drive with your coding agent.
+Companion repo for [*Agentic GraphRAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien). **50 practical skills across 8 chapters, plus one deep pedagogical notebook per chapter**, distilled into runnable code you drive with your coding agent.
 
 > Read the book for the theory. Run these skills with your coding agent for the practice.
 
@@ -22,16 +22,16 @@ Everything else is an elaboration of those three. That is the logic the eight ch
 
 Read each chapter as *"this deepens that part of the Chapter-2 foundation."*
 
-| # | Chapter | What it adds to the foundation | `skills/` | n |
-|---|---------|--------------------------------|-----------|---|
-| 1 | **Defining Agentic AI** | Names the failure modes that motivate the whole stack: why naive vector RAG collapses in the enterprise, and what an "agent" actually is (a spectrum, not a binary). | `crisis/` | 5 |
-| 2 | **Architecture Foundations** | **The foundation itself.** The dual graph and the harness. Every later chapter plugs in here. | `architecture/` | 3 |
-| 3 | **Knowledge Representation** | *Fills* the vertical graph: graph-model choice, three-graph routing, schema patterns, entity resolution, extraction, capability authorization. | `knowledge-representation/` | 8 |
-| 4 | **Memory** | Makes the vertical graph *durable and temporal*: bi-temporal edges, incremental update, hierarchical tiers, hybrid retrieval, multi-agent consistency. | `memory/` | 8 |
-| 5 | **Reasoning & Planning** | *Plans over* the horizontal graph: the investigation DAG, pipeline architectures, loop-vs-pipeline routing, constraint-checked plans, structured-output as the reliability keystone. | `reasoning-planning/` | 6 |
-| 6 | **Tool Orchestration** | *Executes* the horizontal graph as tools: RAG-MCP tool selection, the gateway pattern, information-flow control, trust-by-verification, CLI-vs-MCP-vs-Skill choice. | `tool-orchestration/` | 8 |
-| 7 | **Self-Evolution & Evaluation** | *Closes the loop*: the execution graph as the agent's autobiography, a four-layer eval cascade, semantic backprop to the causal node, graduated validation to production. | `self-evolution/` | 7 |
-| 8 | **Optimization** | Makes it *affordable*: route each node to the cheapest sufficient model, budget KV-cache-bound concurrency, scope subgraph access per persona, migrate schema without breaking consumers. | `optimization/` | 5 |
+| # | Chapter | What it adds to the foundation | `skills/` | n | Doc |
+|---|---------|--------------------------------|-----------|---|-----|
+| 1 | **Defining Agentic AI** | Names the failure modes that motivate the whole stack: why naive vector RAG collapses in the enterprise, and what an "agent" actually is (a spectrum, not a binary). | `crisis/` | 5 | [ch 1](./docs/01-defining-agentic-ai.md) |
+| 2 | **Architecture Foundations** | **The foundation itself.** The dual graph and the harness. Every later chapter plugs in here. | `architecture/` | 3 | [ch 2](./docs/02-architecture-foundations.md) |
+| 3 | **Knowledge Representation** | *Fills* the vertical graph: graph-model choice, three-graph routing, schema patterns, entity resolution, extraction, capability authorization. | `knowledge-representation/` | 8 | [ch 3](./docs/03-knowledge-representation.md) |
+| 4 | **Memory** | Makes the vertical graph *durable and temporal*: bi-temporal edges, incremental update, hierarchical tiers, hybrid retrieval, multi-agent consistency. | `memory/` | 8 | [ch 4](./docs/04-memory.md) |
+| 5 | **Reasoning & Planning** | *Plans over* the horizontal graph: the investigation DAG, pipeline architectures, loop-vs-pipeline routing, constraint-checked plans, structured-output as the reliability keystone. | `reasoning-planning/` | 6 | [ch 5](./docs/05-reasoning-planning.md) |
+| 6 | **Tool Orchestration** | *Executes* the horizontal graph as tools: RAG-MCP tool selection, the gateway pattern, information-flow control, trust-by-verification, CLI-vs-MCP-vs-Skill choice. | `tool-orchestration/` | 8 | [ch 6](./docs/06-tool-orchestration.md) |
+| 7 | **Self-Evolution & Evaluation** | *Closes the loop*: the execution graph as the agent's autobiography, a four-layer eval cascade, semantic backprop to the causal node, graduated validation to production. | `self-evolution/` | 7 | [ch 7](./docs/07-self-evolution.md) |
+| 8 | **Optimization** | Makes it *affordable*: route each node to the cheapest sufficient model, budget KV-cache-bound concurrency, scope subgraph access per persona, migrate schema without breaking consumers. | `optimization/` | 5 | [ch 8](./docs/08-optimization.md) |
 
 **Total: 50 skills.** Chapters 1–2 set up the foundation; 3–4 build and maintain the vertical graph; 5–6 plan and execute over the horizontal graph; 7–8 make the system improve itself and pay for itself.
 
@@ -126,8 +126,8 @@ MIT. See `LICENSE`.
 
 ## Attribution
 
-Distilled from [*Agentic Graph RAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien). Each skill cites its source chapter in `SKILL.md` frontmatter. The skills are operational tooling; the book carries the architectural IP.
+Distilled from [*Agentic GraphRAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien). Each skill cites its source chapter in `SKILL.md` frontmatter. The skills are operational tooling; the book carries the architectural IP.
 
-## Contributing
+## Contributing & issues
 
-Spec-driven: read `PLAN.md` first. New skills should mirror the structure of `skills/tool-orchestration/rag-mcp-tool-selection/` and pass `python cli.py --help` + a `benchmark` battery + at least one notebook cell exercising the skill against `moto`-mocked AWS.
+Found a problem, or want to add a skill? Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and open a [GitHub issue](https://github.com/AnthonyAlcaraz/agentic-graph-rag-skills/issues). New skills mirror the structure of `skills/tool-orchestration/rag-mcp-tool-selection/` and must pass `python cli.py --help` + a `benchmark` battery; CI enforces both on every push with zero pip installs.

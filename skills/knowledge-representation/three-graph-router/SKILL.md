@@ -6,13 +6,9 @@ description: |
   truth), LEXICAL (verbatim source text with provenance, the "retrieval" in
   RAG), or SUBJECT (LLM-extracted artifacts kept SEPARATE from domain until
   entity resolution links them). The router enforces the boundaries that make
-  the architecture work: raw text without provenance is refused from the
-  lexical graph, extractions without a confidence score are refused from the
-  subject graph, and an extraction can NEVER be written straight into the
-  domain graph (it must enter subject and link via CORRESPONDS_TO above a
-  confidence threshold, default 0.85). Includes the CORRESPONDS_TO entity-
-  linkage gate and the cross-graph query traversal path (domain ->
-  CORRESPONDS_TO -> subject -> EXTRACTED_FROM -> lexical). Use when ingesting
+  the architecture work — an extraction can NEVER be written straight into the
+  domain graph; it must enter subject and link via CORRESPONDS_TO above a
+  confidence threshold (default 0.85). Use when ingesting
   mixed structured + unstructured data into an agent knowledge graph, when
   designing the separation between trusted and extracted knowledge, or when
   preventing extraction errors from contaminating ground truth. NOT for
@@ -21,7 +17,7 @@ description: |
   swaps in at the seam), NOT for graph storage/query engine choice.
 osmani-pattern: Inversion
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch3 — Knowledge Representation — The Three-Graph Architecture for Agent Knowledge"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch3 — Knowledge Representation — The Three-Graph Architecture for Agent Knowledge"
 references:
   - "Ch3 Three-Graph Architecture (domain / lexical / subject), Figure 3-2"
   - "Ch3 Entity Resolution and Linking Across Graphs (CORRESPONDS_TO, Jaro-Winkler thresholds 0.95/0.85/0.75)"
@@ -51,7 +47,10 @@ certainty, and semantic role**:
   version, timestamp).
 
 The router refuses the boundary violations that quietly destroy the
-architecture. The critical operation is entity resolution: a subject entity
+architecture: raw text without provenance is refused from the lexical graph,
+extractions without a confidence score are refused from the subject graph, and
+an extraction is never written straight into the domain graph. The critical
+operation is entity resolution: a subject entity
 links to a domain entity via `CORRESPONDS_TO` only when similarity clears a
 confidence threshold (default 0.85; 0.95 high-stakes, 0.75 exploratory). The
 worked example: a review mentions "the Stockholm chair", the system extracts a
@@ -129,11 +128,26 @@ Phrases: "three-graph", "domain/lexical/subject graph", "CORRESPONDS_TO",
 2. **Run the scenario.** `python cli.py scenario stockholm-chair` routes all
    three record types and shows the CORRESPONDS_TO link forming.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this SKILL.md
-   description (CLAUDE.md CLI mandate).
+   description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** Records are untrusted by design - subject-graph
+  extractions come from adversarial documents. The router never executes
+  payload content; its refusal rules ARE the defense that keeps injected
+  extractions out of the trusted domain graph. The attack to resist is
+  threshold-lowering or marking extractions entity_resolved to bypass the gate.
+- **Data exfiltration.** No network calls, no file writes. Record payloads and
+  provenance metadata stay in-process; routing decisions go to stdout and the
+  caller owns downstream piping.
+- **Privilege escalation.** A CORRESPONDS_TO link is the escalation surface: it
+  promotes extracted data toward trusted status. The gate links only above the
+  confidence threshold, and no code path writes an extraction directly to
+  domain - keep those invariants when swapping in a real matcher at the seam.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch3 — Knowledge
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch3 — Knowledge
 Representation, section "The Three-Graph Architecture for Agent Knowledge"
 (domain / lexical / subject graphs, Figure 3-2) and "Entity Resolution and
 Linking Across Graphs" (the CORRESPONDS_TO three-stage linking pipeline and the

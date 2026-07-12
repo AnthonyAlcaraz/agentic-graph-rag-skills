@@ -1,5 +1,5 @@
 """
-Agent-constraint-triangle scorer (Agentic Graph RAG, Ch1 — The Agent
+Agent-constraint-triangle scorer (Agentic GraphRAG, Ch1 — The Agent
 Constraint Triangle).
 
 Ch1 names three interconnected constraints that create "an inherently

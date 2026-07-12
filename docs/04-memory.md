@@ -18,12 +18,12 @@ Prior `checkout-service` incidents are recalled with their time context; new tel
 |-------|--------------|-----|
 | `bi-temporal-edge` | Bi-temporal edge primitive for agentic graph memory. | `python skills/memory/bi-temporal-edge/cli.py --help` |
 | `graphiti-incremental-update` | Graphiti (Zep) incremental-update pattern (Ch4). | `python skills/memory/graphiti-incremental-update/cli.py --help` |
-| `hierarchical-memory` | Three-tier hierarchical memory (Letta / MemGPT pattern) — | `python skills/memory/hierarchical-memory/cli.py --help` |
+| `hierarchical-memory` | Three-tier hierarchical memory (Letta / MemGPT pattern) — core / recall / archival. | `python skills/memory/hierarchical-memory/cli.py --help` |
 | `hindsight-epistemic-classifier` | Classify facts into HINDSIGHT's 4 epistemic networks (Latimer et al. | `python skills/memory/hindsight-epistemic-classifier/cli.py --help` |
 | `letta-failure-modes` | Reviewer skill: diagnose an agent's memory architecture against the 8 Letta Leaderboard failure modes (Ch4). | `python skills/memory/letta-failure-modes/cli.py --help` |
-| `memory-consistency-model-selector` | Choose a memory consistency model PER agent-coordination operation — | `python skills/memory/memory-consistency-model-selector/cli.py --help` |
-| `memory-consolidation` | Consolidation pipeline — | `python skills/memory/memory-consolidation/cli.py --help` |
-| `rrf-hybrid-retrieval` | Reciprocal Rank Fusion (RRF) hybrid retrieval across 4 parallel channels — | `python skills/memory/rrf-hybrid-retrieval/cli.py --help` |
+| `memory-consistency-model-selector` | Choose a memory consistency model PER agent-coordination operation — STRONG (linearizable), CAUSAL, READ-YOUR-WRITES, or EVENTUAL — by scoring the operation's requirements (shared authoritative state, conflict intolerance, staleness budget, collaboration, self-session continuity), per Ch4 "Memory consistency models for agent coordination". | `python skills/memory/memory-consistency-model-selector/cli.py --help` |
+| `memory-consolidation` | Consolidation pipeline — turn noisy raw episodes into durable knowledge (Agentic GraphRAG Ch4, Example 4-5 + Example 4-13). | `python skills/memory/memory-consolidation/cli.py --help` |
+| `rrf-hybrid-retrieval` | Reciprocal Rank Fusion (RRF) hybrid retrieval across 4 parallel channels — semantic / keyword / graph-traversal / temporal — followed by cross-encoder rerank and token-budget filter (HINDSIGHT, Latimer et al. | `python skills/memory/rrf-hybrid-retrieval/cli.py --help` |
 
 ## Run it
 

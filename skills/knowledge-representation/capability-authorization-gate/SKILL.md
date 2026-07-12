@@ -5,24 +5,20 @@ description: |
   self-aware agent represents its own capabilities, required resources/grants,
   authorization level, and quantitative limits as queryable structure, then
   checks at PLANNING time whether it may perform an action BEFORE attempting it.
-  Returns one of three decisions: allow (capability declared, auth level met,
-  resources present, within limit), escalate (the agent itself cannot but a
-  higher authority could — auth too low, missing grant, or amount over limit —
-  route appropriately), or deny (the capability is undeclared; the agent has no
-  such ability). The canonical case: a support agent with a $500 refund limit
-  receiving a $600 request recognizes it exceeds authority and escalates instead
-  of attempting a prohibited action. DevOps manifestation: agent tool-use
-  capabilities (read_metrics / query_logs / restart_instance / scale) as
-  queryable authority nodes (the model gating tool orchestration in Ch6). Use
-  when an agent must decide can-I-do-this before acting, when modeling agent
-  operational boundaries, or when building the queryable authority layer for
-  tool use. NOT for human RBAC/IAM policy enforcement (use the platform's IAM),
-  NOT for validating that a capability NODE is well-formed (use schema-pattern-
-  selector's capability_model validation), NOT a replacement for actual
-  credential checks at the API boundary (this is the planning-time gate).
+  Returns allow, escalate (the agent itself cannot but a higher authority
+  could — route appropriately), or deny (the capability is undeclared). The
+  canonical case: a support agent with a $500 refund limit escalates a $600
+  request. Use when an agent must
+  decide can-I-do-this before acting, when modeling agent operational
+  boundaries, or when building the queryable authority layer that gates tool
+  use (Ch6). NOT for human RBAC/IAM policy enforcement (use the platform's
+  IAM), NOT for validating that a capability NODE is well-formed (use
+  schema-pattern-selector's capability_model validation), NOT a replacement for
+  actual credential checks at the API boundary (this is the planning-time
+  gate).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch3 — Knowledge Representation — Capability Model Pattern (Example 3-5)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch3 — Knowledge Representation — Capability Model Pattern (Example 3-5)"
 references:
   - "Ch3 Capability Model Pattern (Example 3-5: Customer-Support-Agent, $500 refund limit -> escalate $600)"
   - "Ch3 DevOps 'Applying schema patterns to infrastructure' — capability model as queryable authority for tool orchestration (Ch6)"
@@ -133,11 +129,26 @@ Phrases: "capability model", "can the agent do X", "authorization level",
    `python cli.py scenario devops-latency` print allow/escalate/deny across the
    chapter's cases (DevOps anchored in AWS account 123456789012).
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this SKILL.md
-   description (CLAUDE.md CLI mandate).
+   description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** The agent spec JSON is untrusted configuration: an
+  adversarial spec that inflates granted_level, pads granted_resources, or
+  raises a capability limit turns the gate into a rubber stamp. The gate never
+  executes spec content - load specs only from the real authority source, not
+  from agent- or user-supplied text.
+- **Data exfiltration.** No network calls, no file writes. Capability
+  declarations may reveal internal authority topology; decisions go to stdout
+  and the caller owns downstream piping.
+- **Privilege escalation.** The gate is itself an anti-escalation control, but
+  it is planning-time and advisory: an "allow" grants no credential, and a
+  bypassed gate must still hit server-side IAM at the API boundary. Defense in
+  depth - never let this replace boundary enforcement.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch3 — Knowledge
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch3 — Knowledge
 Representation, section "Capability Model Pattern" (Example 3-5: the
 Customer-Support-Agent with a $500 refund limit that escalates a $600 request).
 The DevOps capability-as-queryable-authority manifestation is from "Applying

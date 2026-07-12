@@ -14,7 +14,7 @@ description: |
   the two IFC mechanisms the chapter names, not arbitrary rules).
 osmani-pattern: Reviewer
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch6 — Tool Orchestration"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch6 — Tool Orchestration"
 ---
 
 # Information Flow Control Gate
@@ -160,7 +160,7 @@ data", "opaque variable", "IFC".
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly), Chapter 6 — Tool Orchestration,
+Distilled from *Agentic GraphRAG* (O'Reilly), Chapter 6 — Tool Orchestration,
 sections "Tool Dependencies and Type Matching" and "Securing Data Flow with
 Information Flow Control". Named references:
 

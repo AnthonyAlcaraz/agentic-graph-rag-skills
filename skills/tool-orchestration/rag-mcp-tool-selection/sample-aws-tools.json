@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "description": "30 real AWS service tools with boto3-derived metadata. Each tool follows the Toolshed enhanced-representation pattern from Ch5/Ch6 of Agentic Graph RAG: name, description, boto3_method, parameters, synthetic_queries (LLM-generated example user intents), key_topics.",
-    "source": "Agentic Graph RAG Ch5/Ch6 — Toolshed five-component representation (Zhu et al. via Anthropic agent-skills + Microsoft Core AI Platform research)",
+    "description": "30 real AWS service tools with boto3-derived metadata. Each tool follows the Toolshed enhanced-representation pattern from Ch5/Ch6 of Agentic GraphRAG: name, description, boto3_method, parameters, synthetic_queries (LLM-generated example user intents), key_topics.",
+    "source": "Agentic GraphRAG Ch5/Ch6 — Toolshed five-component representation (Zhu et al. via Anthropic agent-skills + Microsoft Core AI Platform research)",
     "fictional_aws_account_id": "123456789012"
   },
   "tools": [

@@ -11,7 +11,7 @@ description: |
   observability (this is a static diagnostic, not a runtime monitor).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch4 — Memory — The Problem section (Letta Leaderboard 8 failure modes) + composes with hierarchical-memory + bi-temporal-edge"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch4 — Memory — The Problem section (Letta Leaderboard 8 failure modes) + composes with hierarchical-memory + bi-temporal-edge"
 references:
   - "Letta Leaderboard for agentic memory (Ch4 anchor — 8 failure modes named)"
 ---
@@ -123,9 +123,22 @@ Phrases: "audit my memory architecture", "why is my agent forgetting",
    reports 8 vs 0 failure modes respectively.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints SKILL.md.
 
+## Security Posture
+
+- **Prompt injection.** Memory snapshots and architecture descriptions are
+  untrusted input analyzed statically - nothing in them is executed. The risk
+  is a crafted snapshot that hides its failure modes to earn a false clean
+  report; diagnose real exported state, not a hand-written summary.
+- **Data exfiltration.** Snapshots contain actual memory content (facts,
+  conversation traces). No network calls, no file writes; the diagnostic
+  report goes to stdout and the caller owns where it flows.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import.
+  A zero-failure-mode report is advisory - it is a static diagnostic, not a
+  production go-ahead, and does not replace runtime observability.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 4 — The Problem section (Letta Leaderboard 8 failure modes).
 Composes with sibling Ch4 skills: bi-temporal-edge / hierarchical-memory /
 graphiti-incremental-update.

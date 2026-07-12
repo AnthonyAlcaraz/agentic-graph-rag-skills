@@ -16,9 +16,9 @@ The 3:47 a.m. `checkout-service` latency page is classified: which failure mode 
 
 | Skill | What it does | CLI |
 |-------|--------------|-----|
-| `agent-constraint-triangle-scorer` | Score an agent configuration against Ch1's Agent Constraint Triangle — | `python skills/crisis/agent-constraint-triangle-scorer/cli.py --help` |
+| `agent-constraint-triangle-scorer` | Score an agent configuration against Ch1's Agent Constraint Triangle — the three interconnected constraints (complexity management, tool orchestration, context utilization) that make agent design an inherently difficult operational problem. | `python skills/crisis/agent-constraint-triangle-scorer/cli.py --help` |
 | `context-failure-classifier` | Classify an observed agent symptom into Ch1's context-failure taxonomy. | `python skills/crisis/context-failure-classifier/cli.py --help` |
-| `enterprise-readiness-scorer` | Score a proposed or deployed enterprise agent against the architectural requirements Ch1 argues are non-negotiable: absence of the five fatal flaws of naive vector RAG (context amnesia / relationship blindness / temporal | `python skills/crisis/enterprise-readiness-scorer/cli.py --help` |
+| `enterprise-readiness-scorer` | Score a proposed or deployed enterprise agent against the architectural requirements Ch1 argues are non-negotiable: absence of the five fatal flaws of naive vector RAG (context amnesia / relationship blindness / temporal ignorance / reasoning paralysis / tool chaos), calibration of the three agency dimensions (autonomy / action / authority), presence of the four emergent capabilities, and the decision-trace test that separates a real context graph from a relabeled search index. | `python skills/crisis/enterprise-readiness-scorer/cli.py --help` |
 | `vector-vs-graph-retrieval-selector` | Recommend VECTOR / GRAPH / HYBRID retrieval for a query workload, grounded in Ch1's BenchmarkQED evidence for where vector RAG succeeds and where it collapses. | `python skills/crisis/vector-vs-graph-retrieval-selector/cli.py --help` |
 | `workflow-agent-spectrum-classifier` | Place an AI system on Ch1's continuous workflow-agent spectrum instead of the false binary "is it an agent or not". | `python skills/crisis/workflow-agent-spectrum-classifier/cli.py --help` |
 

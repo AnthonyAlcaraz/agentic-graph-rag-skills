@@ -14,7 +14,7 @@ description: |
   gaps, it does not assert business correctness), NOT a security scanner.
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch6 — Tool Orchestration"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch6 — Tool Orchestration"
 ---
 
 # DRAFT Tool-Trust Verifier
@@ -175,7 +175,7 @@ description is gamed", "trust score", "DRAFT", "rewrite the tool docs",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly), Chapter 6 — Tool Orchestration,
+Distilled from *Agentic GraphRAG* (O'Reilly), Chapter 6 — Tool Orchestration,
 sections "The Trust Problem: When Tools Game the System", "Verification-based
 trust", and "DRAFT: Learning what tools actually do". Named references:
 

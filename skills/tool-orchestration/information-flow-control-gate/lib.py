@@ -1,7 +1,7 @@
 """
 Information Flow Control gate — type-matched tool chaining + taint tracking.
 
-Distilled from Agentic Graph RAG (O'Reilly), Chapter 6 — Tool Orchestration
+Distilled from Agentic GraphRAG (O'Reilly), Chapter 6 — Tool Orchestration
 ("Tool Dependencies and Type Matching" + "Securing Data Flow with Information
 Flow Control").
 

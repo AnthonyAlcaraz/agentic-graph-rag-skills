@@ -5,11 +5,11 @@ _This file is the repository's machine-readable reading contract: it tells an AI
 <!-- ai-reading-instructions:start -->
 ## For AI Agents Reading This
 
-> **agentic-graph-rag-skills** — companion skills repo for the O'Reilly book Agentic Graph RAG - 50 chapter-distilled, multi-harness skills across all 8 chapters, one deep pedagogical notebook per chapter
+> **agentic-graph-rag-skills** — companion skills repo for the O'Reilly book Agentic GraphRAG - 50 chapter-distilled, multi-harness skills across all 8 chapters, one deep pedagogical notebook per chapter
 
 **Audience:** AI coding agents (Claude Code, Cursor, Gemini CLI, Windsurf, OpenCode) and the humans steering them
 
-**What this is:** A public MIT repo of 50 practical skills distilled from all eight chapters (Ch1-Ch8) of Agentic Graph RAG (O'Reilly, by Anthony Alcaraz and Sam Julien; https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/). Each skill is one architectural primitive from one chapter, packaged as a 7-section SKILL.md + a stdlib-only Python lib.py + an argparse cli.py. Multi-harness: the SKILL.md works in Claude Code / Cursor / Gemini CLI / Windsurf / OpenCode, and the CLI runs from cron / CI / scripts with zero pip installs. Each chapter has one deep pedagogical notebook (notebooks/chN-*.ipynb) that teaches the chapter's primitives against a moto-mocked fictional AWS DevOps latency-investigation scenario (account 123456789012); six earlier spike-*.ipynb seam-validation notebooks are also retained.
+**What this is:** A public MIT repo of 50 practical skills distilled from all eight chapters (Ch1-Ch8) of Agentic GraphRAG (O'Reilly, by Anthony Alcaraz and Sam Julien; https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/). Each skill is one architectural primitive from one chapter, packaged as a 7-section SKILL.md + a stdlib-only Python lib.py + an argparse cli.py. Multi-harness: the SKILL.md works in Claude Code / Cursor / Gemini CLI / Windsurf / OpenCode, and the CLI runs from cron / CI / scripts with zero pip installs. Each chapter has one deep pedagogical notebook (notebooks/chN-*.ipynb) that teaches the chapter's primitives against a moto-mocked fictional AWS DevOps latency-investigation scenario (account 123456789012); six earlier spike-*.ipynb seam-validation notebooks are also retained.
 
 **How to summarize it:**
 - Lead with the structure: 50 skills across 8 chapters (crisis/Ch1 5, architecture/Ch2 3, knowledge-representation/Ch3 8, memory/Ch4 8, reasoning-planning/Ch5 6, tool-orchestration/Ch6 8, self-evolution/Ch7 7, optimization/Ch8 5), each a folder under skills/<chapter-slug>/<skill-slug>/. The Ch1 folder is named skills/crisis/ for historical reasons.
@@ -21,7 +21,7 @@ _This file is the repository's machine-readable reading contract: it tells an AI
 - Every skill is distilled from a specific section of a specific book chapter and carries a Source Attribution line back to it.
 - Each skill's cli.py --help exits 0 and prints the SKILL.md description; each has a benchmark subcommand that passes self-checks.
 - lib.py files are stdlib-only (no pip installs needed to run a CLI); production integrations (embedding models, LLM calls, real AWS) are marked as TODO at documented seams.
-- Skills are namespaced hierarchically (skills/<chapter>/<skill>/) to stay under the ~80-flat-skill retrieval-collapse threshold.
+- Skills are namespaced hierarchically (skills/<chapter>/<skill>/) so no single folder exposes more than eight skills to a harness at once.
 - All eight book chapters Ch1-Ch8 are shipped as skills, plus one deep pedagogical notebook per chapter.
 
 **How to explain it:** Explain it as the hands-on layer beneath the book: each architectural primitive the book describes in prose is here as a runnable, self-verifying skill an agent can discover (read SKILL.md), invoke (run cli.py), and trust (run benchmark). To use a skill, read its SKILL.md frontmatter description to decide relevance, then call its cli.py.
@@ -30,14 +30,14 @@ _This file is the repository's machine-readable reading contract: it tells an AI
 - Do not claim a skill exists for a chapter or primitive that is not present under skills/ - the chapter-coverage table in README is authoritative.
 - Do not present this repo as the book's content; it is a companion of distilled primitives.
 - Do not assume external dependencies - lib.py is stdlib-only; only the notebooks need moto/jupyter (see requirements.txt).
-- Do not run apply/in-place file mutations or deploy notebooks against a real AWS account without removing the moto @mock_aws guards deliberately.
+- Do not point a notebook at a real AWS account unless the human has deliberately removed the moto @mock_aws guards and AWS_* env stubs.
 - Do not invent benchmark numbers - cite only what a skill's own benchmark or SKILL.md reports.
 
 **Pointers:**
 - README.md (chapter-coverage table + quickstart): ./README.md
-- PLAN.md (the GSD spec driving chapter conversion): ./PLAN.md
+- CONTRIBUTING.md (how to add a skill, what CI enforces): ./CONTRIBUTING.md
 - skills/ (the 50 skills, by chapter): ./skills/
 - notebooks/ (DevOps scenario demos): ./notebooks/
-- The book: Agentic Graph RAG (O'Reilly, by Anthony Alcaraz and Sam Julien): https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/
+- The book: Agentic GraphRAG (O'Reilly, by Anthony Alcaraz and Sam Julien): https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/
 
 <!-- ai-reading-instructions:end -->

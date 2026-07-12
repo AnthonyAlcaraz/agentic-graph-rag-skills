@@ -12,7 +12,7 @@ description: |
   NOT for measuring a policy after the fact (that is cost-performance-scorer).
 osmani-pattern: Inversion
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch8 — Optimization"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch8 — Optimization"
 ---
 
 # Model Routing Selector
@@ -152,7 +152,7 @@ Before shipping a routing policy built on this skill:
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 8 — Optimization, "Selective Intelligence" / "Routing Strategies".
 Key references named in the chapter:
 

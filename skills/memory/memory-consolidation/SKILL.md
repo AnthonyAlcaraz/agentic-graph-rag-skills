@@ -2,7 +2,7 @@
 name: memory-consolidation
 description: |
   Consolidation pipeline — turn noisy raw episodes into durable knowledge
-  (Agentic Graph RAG Ch4, Example 4-5 + Example 4-13). Four steps: cluster
+  (Agentic GraphRAG Ch4, Example 4-5 + Example 4-13). Four steps: cluster
   related episodes by topic, summarize each cluster into one consolidated
   fact, create the consolidated node, and maintain a provenance chain back
   to the source episodes so "how do you know that?" is answerable. Clusters
@@ -17,7 +17,7 @@ description: |
   addressable (consolidation merges them).
 osmani-pattern: Pipeline
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) by Anthony Alcaraz & Julien — Ch4: Memory — Consolidation: From Experience to Knowledge (Example 4-5) + Adding Memory to the DevOps Agent (Example 4-13)"
+chapter-source: "Agentic GraphRAG (O'Reilly) by Anthony Alcaraz and Sam Julien — Ch4: Memory — Consolidation: From Experience to Knowledge (Example 4-5) + Adding Memory to the DevOps Agent (Example 4-13)"
 references:
   - "Letta + UC Berkeley sleep-time compute (Ch4): shift heavy computation to idle periods — ~5x lower active inference cost, 13-18% accuracy lift at same budget"
   - "HINDSIGHT narrative-fact extraction (Latimer et al. 2025, cited Ch4): 2-5 comprehensive narrative facts per conversation, not sentence-level fragments"
@@ -117,9 +117,25 @@ CLI: `cluster`, `consolidate`, `scenario incident-consolidation`, `benchmark`.
 2. **Verify CLI help.** `python cli.py --help` exits 0 and prints the SKILL.md
    description.
 
+## Security Posture
+
+- **Prompt injection.** Episodes are untrusted content, and repetition is the
+  attack: planting the same false claim >= min-cluster-size times manufactures
+  a "confirmed 3 times" consolidated fact. Clustering never executes episode
+  text; the provenance chain is the audit path - inspect sources before
+  trusting a consolidated node.
+- **Data exfiltration.** Consolidation copies episode content into durable
+  nodes: sensitive details survive in summaries and DERIVED_FROM links long
+  after raw episodes age out. Redact before consolidating; the skill makes no
+  network calls and writes no files itself.
+- **Privilege escalation.** No shell invocation, no eval. Consolidated facts
+  gain durable, trusted standing in the graph, and sleep-time jobs run
+  unattended - bound the background job's write scope and gate what gets
+  promoted from episode to knowledge.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly) by Anthony Alcaraz & Julien —
+Distilled from *Agentic GraphRAG* (O'Reilly) by Anthony Alcaraz and Sam Julien —
 Ch4: Memory — "Consolidation: From Experience to Knowledge" (Example 4-5) and
 "Adding Memory to the DevOps Agent" (Example 4-13). Sleep-time compute: Letta +
 UC Berkeley research cited in Ch4. Narrative-fact extraction: HINDSIGHT

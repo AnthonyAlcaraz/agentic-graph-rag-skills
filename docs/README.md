@@ -1,6 +1,6 @@
 # Documentation — agentic-graph-rag-skills
 
-The operational documentation layer for the [*Agentic Graph RAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien) companion repo:
+The operational documentation layer for the [*Agentic GraphRAG*](https://www.oreilly.com/library/view/agentic-graphrag/9798341623163/) (O'Reilly, by Anthony Alcaraz and Sam Julien) companion repo:
 **50 skills across 8 chapters, one pedagogical notebook per chapter, six seam-validation spikes.**
 The book carries the theory; this repo is the practice; these docs are the map that ties every
 component to the architecture and to one running example.

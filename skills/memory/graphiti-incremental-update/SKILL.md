@@ -13,7 +13,7 @@ description: |
   for static knowledge bases (no updates means no incremental anything).
 osmani-pattern: Pipeline
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch4 — Memory — Graphiti Pattern + Example 4-8"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch4 — Memory — Graphiti Pattern + Example 4-8"
 references:
   - "Graphiti / Zep (production anchor — sub-second retrieval at millions-of-nodes)"
   - "Composes with bi-temporal-edge (every incremental update gets bi-temporal timestamps)"
@@ -94,7 +94,7 @@ resolution", "deduplicate against existing nodes", "Graphiti pattern",
 | "Entity resolution is too brittle — I'll create a new node every time." | Then the graph bloats: 50 different ids for "Sarah" across 50 interactions. The Ch4 quote: "this step ensures they resolve to the same entity rather than creating duplicates." Without resolution, `manages` edges scatter across duplicate Sarah-nodes and the agent can't aggregate. |
 | "Fuzzy match is good enough — I'll skip canonical + alias." | Order matters. Canonical match is O(1) dictionary lookup; alias is O(1); fuzzy is O(n) or worse. Resolution should try cheap-and-exact first, fall back to expensive-and-approximate. Skipping the cheap path is a perf regression hiding as a correctness "improvement." |
 | "Incremental update sounds like premature optimization — start with full re-extract." | At small scale it doesn't matter. At any production scale (Zep target: millions of nodes), full re-extract is impossible. Building the architecture incremental-from-day-one means migration day never comes. |
-| "Touched-nodes verification is overkill — trust the algorithm." | The locality invariant is the load-bearing property. A bug that silently touches every node looks identical to a correct incremental update at the call site. The verify_locality step is the falsifier — without it, regressions land silently. |
+| "Touched-nodes verification is overkill — trust the algorithm." | The locality invariant is the property everything else rests on. A bug that silently touches every node looks identical to a correct incremental update at the call site. The verify_locality step is the falsifier — without it, regressions land silently. |
 
 ## Red Flags
 
@@ -124,8 +124,25 @@ resolution", "deduplicate against existing nodes", "Graphiti pattern",
    episode << total graph size.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints SKILL.md.
 
+## Security Posture
+
+- **Prompt injection.** Episodes are untrusted input (chat turns, incident
+  feeds). Extraction and resolution treat episode text as data - nothing is
+  executed - but an adversarial episode can plant false entities or alias
+  itself onto an existing node to corrupt what the graph "knows". Type-aware
+  resolution and the resolution-method log are the audit surface; review
+  high-impact merges.
+- **Data exfiltration.** Episode content is persisted into the durable graph -
+  sensitive facts mentioned once stay retrievable indefinitely. No network
+  calls or file writes in the skill itself; apply retention policy at the
+  graph store.
+- **Privilege escalation.** No shell invocation, no eval. The escalation path
+  is graph poisoning: a crafted episode that resolves onto a trusted node
+  inherits that node's standing in downstream reasoning. Keep the locality
+  check (touched_nodes) as a blast-radius bound and gate bulk merges.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 4 — Graphiti Pattern section + Example 4-8. Production anchor: Zep
 Graphiti.

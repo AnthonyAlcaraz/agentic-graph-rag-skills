@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Sample skill catalog for the DevOps agent, each skill carrying SkillNet's five quality dimensions (eval_safety, eval_completeness, eval_executability, eval_maintainability, eval_cost_awareness) in [0,1] plus Toolshed retrieval hooks (description, synthetic_queries, key_topics). Ratings are illustrative and would in production come from an independent SkillNet-style evaluator, never self-reported. Two skills are deliberately seeded low-quality to exercise the gate: 'unsafe-shell-runner' (eval_safety=0, hard-excluded) and 'flaky-scraper-skill' (low composite, soft-excluded).",
-    "source": "Agentic Graph RAG Ch6 — Skills: The Judgment Layer / SkillNet five-dimension framework (Table 6-1)",
+    "source": "Agentic GraphRAG Ch6 — Skills: The Judgment Layer / SkillNet five-dimension framework (Table 6-1)",
     "fictional_aws_account_id": "123456789012"
   },
   "skills": [

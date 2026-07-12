@@ -5,13 +5,11 @@ description: |
   (Recursion, Provenance, Optimization) plus the Graduated Validation
   Protocol that gates what reaches production. Assigns every candidate
   change a risk tier and applies the matching scrutiny: Tier 1 canary
-  (1% traffic, statistically significant target lift with no core-KPI
-  regression, automatic rollback), Tier 2 staging gauntlet (multi-objective
-  utility U = w_accuracy*accuracy + w_cost*(1-cost) + w_safety*safety_score,
-  passes only net-positive with no safety regression), Tier 3 airlock
-  (sandboxed risk/reward report escalated for human approve/reject/modify).
-  Also the entropy-collapse guard (Kepler dual-store): a daily
-  garbage-collection traversal that reclaims agent-generated Learnings once
+  (1% traffic, automatic rollback), Tier 2 staging gauntlet (multi-objective
+  utility, passes only net-positive with no safety regression), Tier 3
+  airlock (sandboxed risk/reward report escalated for human
+  approve/reject/modify). Also the entropy-collapse guard (Kepler dual-store):
+  daily garbage collection of agent-generated Learnings once
   promoted, contradicted, or idle past a 30-day TTL. Use to gate a
   continuous self-evolution loop before candidate changes reach users. NOT
   for a one-off manual deploy (a single approval gate is enough), NOT for
@@ -19,7 +17,7 @@ description: |
   candidate (this validates the candidate, it does not generate it).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The RPO Spine and Graduated Validation Protocol + Persistent Self-Learning Without Entropy Collapse + Example 7-1"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The RPO Spine and Graduated Validation Protocol + Persistent Self-Learning Without Entropy Collapse + Example 7-1"
 references:
   - "RPO spine: Recursion / Provenance / Optimization (source control for thought)"
   - "Kepler dual-store garbage collection (OpenAI, 2026)"
@@ -53,7 +51,7 @@ The three tiers:
 | Tier | Risk class | Gate | Outcome |
 |------|-----------|------|---------|
 | 1 canary release | low: minor prompt updates, hyperparameter adjustments | ~1% live traffic; statistically significant target-metric lift with no core-KPI degradation | pass or automatic rollback |
-| 2 staging gauntlet | moderate: SEAL/TPT fine-tune results, refined tool integration | benchmark + regression (catastrophic forgetting) + safety/alignment (bias drift) + performance (latency/cost) suites; net-positive multi-objective utility, no safety regressions | pass or archive |
+| 2 staging gauntlet | moderate: SEAL/TPT fine-tune results, refined tool integration | benchmark + regression (catastrophic forgetting) + safety/alignment (bias drift) + performance (latency/cost) suites; net-positive multi-objective utility U = w_accuracy*accuracy + w_cost*(1-cost) + w_safety*safety_score, no safety regressions | pass or archive |
 | 3 airlock protocol | high: modifies safety protocols, integrates a brand-new tool, or failed staging with large potential | sandboxed isolated environment; automated risk/reward report | escalated for human approve / reject / modify |
 
 The second half is the entropy-collapse guard. In production the agent
@@ -183,7 +181,7 @@ validation", "RPO spine", "entropy collapse", "garbage-collect learnings",
 ## Composition
 
 - **Composes with** the Anthropic `agent-skills` Reviewer pattern at the
-  Osmani layer and the Ghosh Workflow layer: it reviews a candidate change
+  pattern layer and the Ghosh Workflow layer: it reviews a candidate change
   and returns a pass/fail verdict for an orchestration loop above it.
 - **Consumes** candidates produced by the execution-graph,
   semantic-backpropagation, and intervention skills (Ch7). It is the
@@ -200,7 +198,7 @@ validation", "RPO spine", "entropy collapse", "garbage-collect learnings",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming)
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien)
 Chapter 7 — Self-Evolution and Evaluation, the sections "The RPO Spine and
 Graduated Validation Protocol" and "Persistent Self-Learning Without Entropy
 Collapse", plus the full evolutionary loop of Example 7-1. Key references

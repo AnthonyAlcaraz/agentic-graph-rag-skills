@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "An organizational governance base with a nonnegotiable subset (security / architectural / compliance settings every team must inherit unchanged) plus five independently-authored developer/team context configs. Two seeded problems: settings drift across teams (db_query_pattern, error_handling), and one team ('rogue-frontend') overriding a nonnegotiable key (code_review_required set to false).",
-    "source": "Agentic Graph RAG Ch6 — Context Governance: The Missing Layer (Baselga config-drift + Meppiel APM / Rakhmetzhanov Nia / Jarjoura Runtime three-layer federated model, Table 6-4)",
+    "source": "Agentic GraphRAG Ch6 — Context Governance: The Missing Layer (Baselga config-drift + Meppiel APM / Rakhmetzhanov Nia / Jarjoura Runtime three-layer federated model, Table 6-4)",
     "fictional_aws_account_id": "123456789012"
   },
   "org_base": {

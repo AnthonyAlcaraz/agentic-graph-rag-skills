@@ -1,5 +1,5 @@
 """
-Context-failure-mode classifier (Agentic Graph RAG, Ch1 — The Crisis).
+Context-failure-mode classifier (Agentic GraphRAG, Ch1 — The Crisis).
 
 Given an observed agent symptom (a sentence describing what went wrong),
 classify it into the Ch1 failure taxonomy and name the architectural root
@@ -22,7 +22,7 @@ import re
 from typing import Any, Dict, List, Tuple
 
 
-# Agent-level failure modes (Ch1 lines 159-168). Each compounds from one or
+# Agent-level failure modes (Ch1, consequences for vector-based agents). Each compounds from one or
 # more of the five fatal flaws and reinforces the others.
 AGENT_FAILURE_MODES: Dict[str, Dict[str, Any]] = {
     "action_blindness": {
@@ -77,7 +77,7 @@ AGENT_FAILURE_MODES: Dict[str, Dict[str, Any]] = {
 }
 
 # The fifth fatal flaw (tool chaos) is an architecture-level cause that
-# manifests as wrong-tool / wrong-API selection (Ch1 line 14 + line 110).
+# manifests as wrong-tool / wrong-API selection (Ch1, five fatal flaws + tool chaos).
 # It is not in the four agent-level modes but is a distinct classifiable
 # symptom, so we carry it as its own bucket.
 TOOL_CHAOS = {

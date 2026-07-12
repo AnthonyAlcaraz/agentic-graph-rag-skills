@@ -16,7 +16,7 @@ description: |
   as the constraint extractor itself (it consumes extracted constraints).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch5 — Reasoning & Planning — Constraint-guided planning (Example 5-14) + DevOps hypothesis-formation capability-model filter + Ontological grounding"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch5 — Reasoning & Planning — Constraint-guided planning (Example 5-14) + DevOps hypothesis-formation capability-model filter + Ontological grounding"
 references:
   - "Ch5 Example 5-14 — ConstraintAwarePlanningNode: extract constraints, generate plan, verify, refine if score < THRESHOLD"
   - "Ch5 'Integrating the Knowledge Graph for Grounded Hypotheses' — capability-model filter removes hypotheses the agent cannot execute"
@@ -116,9 +116,24 @@ score", "refine plan with feedback".
    - score stays within [0,1] and `.feedback` enumerates violations
 2. **Verify CLI help.** Exits 0 and prints the SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** Plans are typically LLM-generated from untrusted
+  requests - exactly why they are validated. Plan steps and constraint specs
+  are parsed as data, never executed; a malicious step name can at most fail
+  validation. The constraint spec and capability model must come from the
+  trusted policy source, not from the same LLM that wrote the plan.
+- **Data exfiltration.** No network calls, no file writes. Plans and
+  constraints may describe privileged operations; they stay in-process and
+  surface only in the stdout feedback the caller owns.
+- **Privilege escalation.** This gate exists to block it: a write step under a
+  read-only capability is a hard violation. Keep it that way - `passed=False`
+  on hard violations must never be softened into a score deduction, and the
+  gate composes with (never replaces) boundary-side IAM enforcement.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch5 — Reasoning &
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch5 — Reasoning &
 Planning: "Constraint-guided planning" (Example 5-14,
 `ConstraintAwarePlanningNode`), the capability-model filter from "Integrating
 the Knowledge Graph for Grounded Hypotheses," and the domain/range checks from

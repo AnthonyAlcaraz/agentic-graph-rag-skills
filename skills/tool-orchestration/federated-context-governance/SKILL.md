@@ -15,7 +15,7 @@ description: |
   does not store secrets).
 osmani-pattern: Reviewer
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch6 — Tool Orchestration"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch6 — Tool Orchestration — Context Governance: The Missing Layer in Tool Orchestration"
 ---
 
 # Federated Context Governance
@@ -50,7 +50,7 @@ of one federated architecture (Table 6-4), mapped to organizational scale:
 The architecture is FEDERATED, not centralized: teams own domain-specific context
 but inherit an organizational base encoding nonnegotiable standards (security
 policies, architectural constraints, code-review requirements, compliance rules).
-Jarjoura's diagnosis is the load-bearing one: "Context failure, not AI failure."
+Jarjoura's diagnosis is the decisive one: "Context failure, not AI failure."
 Agents amplify whatever structure they receive; incomplete or inconsistent
 structure produces amplified ambiguity at the speed of token generation.
 
@@ -163,12 +163,12 @@ layer".
 - **The nonnegotiable base** is the natural home for the security policies from
   `information-flow-control-gate` and the quality thresholds from
   `skill-quality-evaluator`.
-- Maps to the local GSD "Federated Pull-Substrate" / config-sync discipline: an
+- Mirrors an org-baseline-plus-local-extensions config-sync discipline: an
   org base every machine inherits, with local extensions composed on top.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly), Chapter 6 — Tool Orchestration,
+Distilled from *Agentic GraphRAG* (O'Reilly), Chapter 6 — Tool Orchestration,
 section "Context Governance: The Missing Layer in Tool Orchestration". Named
 references:
 

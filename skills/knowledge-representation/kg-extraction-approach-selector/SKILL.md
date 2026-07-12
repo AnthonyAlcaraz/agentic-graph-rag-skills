@@ -6,19 +6,16 @@ description: |
   vs RAKG (document-level) — by scoring a SOURCE PROFILE against five features
   (handles unstructured text, incremental-friendly, document-level context,
   determinism, setup cost), per Ch3 "Extraction Approaches for Heterogeneous
-  Sources". A structured source hard-routes to schema materialization; an
-  unstructured + growing corpus routes to iText2KG (extend without re-extracting
-  everything); unstructured + whole-document context routes to RAKG; a
-  one-shot unstructured pass routes to plain LLM extraction. The `incremental-cost`
-  helper makes the iText2KG win concrete: it re-processes only new documents
-  while a full rebuild re-processes the entire corpus. Use when picking how to
-  ingest a source into an agent's knowledge graph. NOT for choosing the graph
-  MODEL class (use graph-model-selector), NOT for vendor/product selection, NOT
-  for temporal/bitemporal modeling (that is the ATOM discussion, out of scope
+  Sources". A structured source hard-routes to schema materialization; the
+  `incremental-cost` helper makes the iText2KG win concrete (re-process only
+  new documents, not the entire corpus). Use when picking how to ingest a
+  source into an agent's knowledge graph. NOT for choosing the graph MODEL
+  class (use graph-model-selector), NOT for vendor/product selection, NOT for
+  temporal/bitemporal modeling (that is the ATOM discussion, out of scope
   here), NOT when the ingestion pipeline is already mandated.
 osmani-pattern: Decision-Table
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch3 — Building the Knowledge Graph — Extraction Approaches for Heterogeneous Sources (structured integration / LLM extraction / iText2KG incremental / RAKG document-level)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch3 — Building the Knowledge Graph — Extraction Approaches for Heterogeneous Sources (structured integration / LLM extraction / iText2KG incremental / RAKG document-level)"
 references:
   - "iText2KG — incremental, topic-independent, schema-free KG construction with entity disambiguation (Ch3 'The incremental approach')"
   - "RAKG — Document-level Retrieval-Augmented Knowledge Graph construction; reported 96% accuracy, 88% entity coverage, 95% relationship fidelity (Ch3 'Document-level extraction')"
@@ -56,7 +53,10 @@ Four approaches, each with a characteristic profile:
 The selector scores each approach across the five features weighted by the
 caller's source profile. A structured source is a categorical fact (you cannot
 LLM-extract triples from a relational table), so it hard-routes to
-materialization; everything else is decided by the weighted scores.
+materialization; everything else is decided by the weighted scores — an
+unstructured + growing corpus routes to iText2KG, unstructured + whole-document
+context routes to RAKG, and a one-shot unstructured pass routes to plain LLM
+extraction.
 
 The `incremental_cost` helper makes the iText2KG advantage concrete. Adding 50
 documents to a 5000-document corpus: iText2KG processes 50; a full-rebuild
@@ -131,11 +131,26 @@ KG construction", "document-level extraction", "extract triples from documents",
 2. **Run the scenario.** `python cli.py scenario growing-infra-telemetry`
    recommends the incremental approach and prints the per-update saving.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this
-   SKILL.md description (CLAUDE.md CLI mandate).
+   SKILL.md description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** The source profile is data-only knobs scored against
+  fixed feature tables; adversarial values can at most skew the recommendation.
+  The real injection surface is downstream: LLM/iText2KG/RAKG extraction runs
+  prompts over untrusted documents, so the chosen pipeline - not this selector -
+  must filter adversarial document content before extraction.
+- **Data exfiltration.** No network calls, no file writes. Corpus statistics
+  and source descriptions stay in-process; the report goes to stdout and the
+  caller owns downstream piping.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import.
+  The recommendation is advisory - standing up the actual ingestion pipeline
+  (DB credentials, retrieval infrastructure) happens elsewhere under the
+  platform's own access controls.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch3 — Building the
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch3 — Building the
 Knowledge Graph, section "Extraction Approaches for Heterogeneous Sources":
 structured database integration (graph materialization / virtual views / hybrid),
 LLM-based extraction of ontology-constrained triples, and the two LLM

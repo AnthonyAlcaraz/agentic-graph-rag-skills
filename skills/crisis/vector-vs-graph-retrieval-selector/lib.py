@@ -1,5 +1,5 @@
 """
-Vector-vs-graph retrieval selector (Agentic Graph RAG, Ch1 — The Limitations
+Vector-vs-graph retrieval selector (Agentic GraphRAG, Ch1 — The Limitations
 of Vector-Based Retrieval + GraphRAG).
 
 Ch1 quantifies exactly where vector RAG succeeds and where it collapses, using

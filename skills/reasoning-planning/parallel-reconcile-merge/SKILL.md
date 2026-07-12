@@ -17,7 +17,7 @@ description: |
   production swap).
 osmani-pattern: Pipeline
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch5 — Reasoning & Planning — Tree Pipeline (Example 5-7) + State management reducers (Example 5-8) + The Multi-Agent Debate / controlled parallelism (Example 5-16)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch5 — Reasoning & Planning — Tree Pipeline (Example 5-7) + State management reducers (Example 5-8) + The Multi-Agent Debate / controlled parallelism (Example 5-16)"
 references:
   - "Ch5 Example 5-7 — explore_reasoning_paths: parallel hypothesis verification via Send API"
   - "Ch5 Example 5-8 — state reducers (add_messages, operator.add): deterministic merge regardless of execution order"
@@ -121,9 +121,25 @@ coverage", "state reducer merge".
    - succeeded/failed partition matches branch outcomes
 2. **Verify CLI help.** Exits 0 and prints the SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** Branch results are untrusted - branches typically run
+  LLM reasoning over untrusted sources. The merge treats values and flags as
+  data (reducers, unions), never executing them; one compromised branch can
+  bias the merged value but cannot rewrite siblings' channels, because
+  branches get context copies and only the merge node combines.
+- **Data exfiltration.** No network calls, no file writes in the window
+  itself. The merge concentrates findings from every branch into one outcome -
+  apply per-branch data-access policy upstream, since the merged report sees
+  everything any branch saw.
+- **Privilege escalation.** No shell invocation, no eval. The guarded property
+  is signal integrity: flag union guarantees a failed or malicious sibling
+  cannot suppress another branch's fraud/red flag, and completion policy - not
+  any single branch - decides whether the window counts as done.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch5 — Reasoning &
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch5 — Reasoning &
 Planning: "Tree Pipeline: Parallel Exploration" (Example 5-7), "State
 management across pipelines" reducer pattern (Example 5-8), and "The
 Multi-Agent Debate" / "The architecture of controlled parallelism" (Example

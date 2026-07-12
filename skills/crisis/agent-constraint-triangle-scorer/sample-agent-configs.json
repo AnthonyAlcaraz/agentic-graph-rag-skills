@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Sample DevOps-agent configurations for the Agent Constraint Triangle (Ch1). Each config describes an agent by its reasoning-chain length, tool-catalog size and disambiguity, and context budget vs. usage. Fictional AWS account 123456789012.",
-    "source": "Agentic Graph RAG Ch1 — The Agent Constraint Triangle (complexity management / tool orchestration / context utilization)"
+    "source": "Agentic GraphRAG Ch1 — The Agent Constraint Triangle (complexity management / tool orchestration / context utilization)"
   },
   "configs": [
     {

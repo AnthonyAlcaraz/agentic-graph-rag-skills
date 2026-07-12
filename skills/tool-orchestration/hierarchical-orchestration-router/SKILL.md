@@ -15,7 +15,7 @@ description: |
   control is a separate layer).
 osmani-pattern: Inversion
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch6 — Tool Orchestration"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch6 — Tool Orchestration"
 ---
 
 # Hierarchical Orchestration Router
@@ -165,7 +165,7 @@ Phrases that invoke this skill: "route this query", "which domain owns this",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly), Chapter 6 — Tool Orchestration,
+Distilled from *Agentic GraphRAG* (O'Reilly), Chapter 6 — Tool Orchestration,
 "Orchestration at Scale": "The Intelligent Orchestrator", "Hierarchical
 Orchestration: When Scale Demands Structure" (Example 6-11), and "Functional
 Clustering: Resilience Through Redundancy". Named references:

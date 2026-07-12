@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Candidate operations for the checkout-API latency investigation (fictional AWS account 123456789012), plus a RedAI scanner/validator pair. `get_metrics` and `get_cpu` share an identical tool surface to demonstrate the >80%-overlap MERGE rule; `scan_code` and `validate_finding` are disjoint to demonstrate the SPLIT rule. `classify` and `analyze` are both tool-less reasoning nodes and stay split (their role lives in prompt+position, per Example 2-3). Grounds the benchmark battery. Sources: Ch2 'The Horizontal Workflow Graph' (Example 2-3), 'Defining the harness', 'Splitting a workflow into nodes' (RedAI scanner vs validator, the 80% Tip).",
-    "source": "Agentic Graph RAG (O'Reilly) Ch2 — Architecture Foundations",
+    "source": "Agentic GraphRAG (O'Reilly) Ch2 — Architecture Foundations",
     "fictional_aws_account_id": "123456789012"
   },
   "operations": [

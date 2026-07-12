@@ -1,6 +1,6 @@
 """
 KV-cache-bound concurrency and end-to-end latency budgeting for a specialist
-model fleet + GPU-accelerated graph analytics — distilled from Agentic Graph RAG
+model fleet + GPU-accelerated graph analytics — distilled from Agentic GraphRAG
 (O'Reilly), Chapter 8 — Optimization, "Hardware Acceleration".
 
 The architecture distributes work across two channels: graph traversals that

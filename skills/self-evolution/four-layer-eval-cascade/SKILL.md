@@ -3,14 +3,11 @@ name: four-layer-eval-cascade
 description: |
   The Multi-Layered Evaluation Framework as a sequential diagnostic cascade
   that STOPS at the first failing layer. Layer 0 is a zero-shot hallucination
-  gate (NLI grounding score, threshold 0.85, catches 60-70% of hallucinations
-  at under 5% of full-judge compute; scores 0.5-0.85 escalate). Layer 1 is a
-  context evaluator (binary sufficient/not plus missing_information, J1-style).
-  Layer 2 is a cognitive fault isolator (KNOWLEDGE vs REASONING via Knowledge
-  Index and an InfoGain trace; low_infogain_steps flag reasoning dead ends).
-  Layer 3 is the TIR-Judge (correctness times format times tool, MULTIPLICATIVE
-  so a well-formatted wrong answer scores 0; verifies quantitative claims by
-  code against the KG). The cascade emits a diagnostic report that names the
+  gate (NLI grounding, catches 60-70% of hallucinations at under 5% of
+  full-judge compute). Layer 1 is a context evaluator (binary sufficient/not).
+  Layer 2 is a cognitive fault isolator (KNOWLEDGE vs REASONING). Layer 3 is
+  the TIR-Judge (correctness times format times tool, MULTIPLICATIVE
+  so a well-formatted wrong answer scores 0). The cascade emits a diagnostic report that names the
   failure mode, locates it by node, and prescribes an intervention. Use to
   autopsy a failed agent execution and route the fix (retrieval / prompt /
   fine-tune). NOT for one-shot single-call agents (no reasoning trace to
@@ -18,7 +15,7 @@ description: |
   first).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The Multi-Layered Evaluation Framework: A Cognitive Autopsy + Examples 7-2/7-3/7-4/7-6/7-16/7-17"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The Multi-Layered Evaluation Framework: A Cognitive Autopsy + Examples 7-2/7-3/7-4/7-6/7-16/7-17"
 references:
   - "GLiClass (Knowledgator, 2025) — zero-shot NLI hallucination detection for Layer 0"
   - "Meta J1 reasoning-trace judge — Layer 1 context sufficiency"
@@ -45,7 +42,7 @@ question (Ch7 Figure 7-1):
 - **Layer 1 (context evaluator)** asks: did the agent even possess the
   information it needed? A failure here is a knowledge-representation or
   retrieval failure, not a reasoning failure. The verdict is binary
-  (sufficient or not) with a `missing_information` list.
+  (sufficient or not) with a `missing_information` list (J1-style).
 - **Layer 2 (cognitive fault isolator)** splits a cognitive failure into two
   mutually exclusive categories. A KNOWLEDGE failure means coherent reasoning
   over wrong facts (low Knowledge Index). A REASONING failure means the right
@@ -171,7 +168,7 @@ Phrases: "cognitive autopsy", "why did the agent fail", "evaluation cascade",
   report's `fault_location`, `low_infogain_steps`, and
   `recommended_intervention` are the inputs that scope a structured feedback
   signal to the responsible node.
-- **Composes with** the Anthropic `agent-skills` Reviewer pattern at the Osmani
+- **Composes with** the Anthropic `agent-skills` Reviewer pattern at the pattern-taxonomy
   layer and the Ghosh Workflow layer: the four sequential gates are a review
   pipeline whose output is a routing decision, not a code edit.
 - **Extends via** the dual-pathway model (Luo et al.): a `pathway_classification`
@@ -181,7 +178,7 @@ Phrases: "cognitive autopsy", "why did the agent fail", "evaluation cascade",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 7 — Self-Evolution and Evaluation, "The Multi-Layered Evaluation
 Framework: A Cognitive Autopsy" section, plus the DevOps cognitive-autopsy
 worked example. Chapter examples realized here: 7-2 (zero-shot hallucination

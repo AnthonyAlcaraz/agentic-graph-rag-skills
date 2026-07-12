@@ -1,6 +1,6 @@
 """
 Schema evolution, node/edge lifecycle, incremental updates, and staged-rollout
-deployment for a production knowledge graph — distilled from Agentic Graph RAG
+deployment for a production knowledge graph — distilled from Agentic GraphRAG
 (O'Reilly), Chapter 8 — Optimization, "Production Systems and Maintenance".
 
 A knowledge graph in production is not static. New data arrives continuously,

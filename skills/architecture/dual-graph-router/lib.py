@@ -16,7 +16,7 @@ two complementary kinds of structure:
     steps.
 
 This module routes an incoming request to one of those structures. The chapter's
-"Where the Two Graphs Meet" section is the load-bearing case: a complex request
+"Where the Two Graphs Meet" section is the central case: a complex request
 (diagnose, investigate, remediate) is a HORIZONTAL workflow whose nodes QUERY
 the VERTICAL graph for context and write results back. The router names that
 case explicitly as `both` (workflow drives, knowledge supplies and receives)

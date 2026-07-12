@@ -12,7 +12,7 @@ description: |
   NOT for relational migrations (Flyway/Liquibase), NOT for model routing.
 osmani-pattern: Pipeline
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch8 — Optimization"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch8 — Optimization"
 ---
 
 # Schema Evolution Migrator
@@ -161,7 +161,7 @@ Before shipping a graph change built on this skill:
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 8 — Optimization, "Production Systems and Maintenance". Key references:
 
 - Neo4j-Migrations (Michael Simons) — Flyway/Liquibase for graphs; Example 8-7

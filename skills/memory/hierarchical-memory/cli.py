@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """hierarchical-memory CLI — multi-harness invocation surface.
 
-Per Agentic Graph RAG Ch4 (Letta / MemGPT Approach + Example 4-6 + CPU
+Per Agentic GraphRAG Ch4 (Letta / MemGPT Approach + Example 4-6 + CPU
 Architecture of Agent Memory).
 """
 

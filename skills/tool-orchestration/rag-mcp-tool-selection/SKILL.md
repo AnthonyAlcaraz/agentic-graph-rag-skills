@@ -3,7 +3,7 @@ name: rag-mcp-tool-selection
 description: |
   Select the top-K tools from a registry of 30+ MCP / AWS / internal-API tools
   for a given natural-language query, replacing MCP's tools/list dump with a
-  RAG-style filter that reduces prompt tokens 50-90%. Three-step pipeline:
+  RAG-style filter that reduces prompt tokens 50-70%. Three-step pipeline:
   retrieve / validate / format. Use when the agent has access to many tools
   and prompt bloat is killing response quality. NOT for cases with under 10
   tools (just include them all), NOT a replacement for an MCP server (this
@@ -11,7 +11,7 @@ description: |
   toolset is known and fixed.
 osmani-pattern: Generator
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch5/Ch6 — Tool Orchestration"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch5/Ch6 — Tool Orchestration"
 ---
 
 # RAG-MCP Tool Selection
@@ -143,7 +143,7 @@ Before shipping a downstream agent built on this skill:
 ## Composition
 
 - **Composes with** Anthropic `agent-skills` Generator pattern at the
-  Osmani layer and Ghosh Primitive layer. The output (a filtered prompt
+  pattern layer and Ghosh Primitive layer. The output (a filtered prompt
   string + selected tool list) is consumable by any orchestration layer
   above.
 - **Composes with** the MCP Gateway pattern (Writer's two-meta-tool design,
@@ -151,13 +151,13 @@ Before shipping a downstream agent built on this skill:
   registered tools to surface.
 - **Replaces, does not compose with,** raw `tools/list` MCP calls when the
   registry exceeds ~15 tools.
-- **Pairs with** evaluation discipline from `agentic-graph/self-evolution/`
-  skills (forthcoming) — measure top-K accuracy on a labeled query set
-  before deploying.
+- **Pairs with** the evaluation discipline in `skills/self-evolution/`
+  (e.g. `four-layer-eval-cascade`) — measure top-K accuracy on a labeled
+  query set before deploying.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 5/6 — Tool Orchestration. Key references named in the chapter:
 
 - RAG-MCP framework (selection-accuracy and token-reduction benchmarks)

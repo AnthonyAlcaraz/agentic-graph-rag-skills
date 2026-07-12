@@ -12,7 +12,7 @@ description: |
   one channel dominates (the fusion is overhead).
 osmani-pattern: Pipeline
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch4 — Memory — Retrieval section + HINDSIGHT (Latimer et al. 2025)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch4 — Memory — Retrieval section + HINDSIGHT (Latimer et al. 2025)"
 references:
   - "Cormack et al., Reciprocal Rank Fusion outperforms Condorcet (2009) — the canonical RRF paper"
   - "HINDSIGHT 4-channel application in agentic memory (Ch4 anchor)"
@@ -110,9 +110,25 @@ channel search", "combine semantic and keyword", "cross-encoder rerank".
    - full pipeline produces results with all four score fields
 2. **Verify CLI help.** Exits 0 and prints SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** Retrieved items are untrusted content headed straight
+  for an LLM context - fusion and rerank order them, they do not sanitize
+  them. An adversarial document that ranks in multiple channels gets
+  RRF-amplified into the budget-filtered prompt; run an injection filter
+  between retrieval and prompt assembly.
+- **Data exfiltration.** Fusion aggregates across four channels with no ACL of
+  its own - a broad query can pull sensitive items from any channel into one
+  context. Enforce access control per channel BEFORE fusion; the skill itself
+  makes no network calls and writes no files.
+- **Privilege escalation.** No shell invocation, no eval. The influence vector
+  is rank manipulation: content stuffed with exact identifiers plus synonyms
+  to score across channels and dominate the token budget. Cross-encoder rerank
+  helps but is not a security control.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch4 — Retrieval
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch4 — Retrieval
 section. RRF formula: Cormack et al. 2009 (Reciprocal Rank Fusion
 outperforms Condorcet and individual rank learning methods). HINDSIGHT
 4-channel application: Latimer et al. 2025.

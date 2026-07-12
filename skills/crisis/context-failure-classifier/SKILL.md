@@ -13,7 +13,7 @@ description: |
   for model-quality issues (Ch1: the flaws are architectural, not the model).
 osmani-pattern: Reviewer
 ghosh-layer: Reasoning
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch1 — The Crisis — five fatal flaws (lines 9-15) + Consequences for vector-based agents (lines 159-168)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch1 — The Crisis — five fatal flaws + Consequences for vector-based agents"
 references:
   - "Microsoft 'From Local to Global: A GraphRAG Approach to Query-Focused Summarization' (local vs global query failure)"
   - "Anthropic 'Effective Context Engineering for Agents' (bloated tool sets / tool-chaos failure mode)"
@@ -80,8 +80,8 @@ wrong tool", "what should we fix first".
 |------------------------|--------------------|
 | "These are five separate bugs, fix them one at a time." | Ch1: "Each failure mode reinforces others, creating a cascade of agent incompetence." The classifier surfaces cascade_modes so you fix the shared root flaw, not five symptoms. |
 | "The agent hallucinated; we need a better model." | Ch1: the flaws "cannot be addressed by optimizing search or tweaking embedding models." If the symptom matches the taxonomy, the cure is a graph capability, not a model upgrade. |
-| "It picked the wrong tool because the prompt was bad." | Anthropic's failure mode (Ch1 line 85): bloated tool sets where "a human engineer can't definitively say which tool should be used." That is tool_chaos, cured by tool orchestration, not by prompt polishing. |
-| "Just retrieve more chunks and it'll connect the facts." | Planning paralysis comes from the associativity gap — transitive relationships "simply don't exist in isolated embeddings" (Ch1 line 146). More chunks don't create the missing edges. |
+| "It picked the wrong tool because the prompt was bad." | Anthropic's failure mode (Ch1, tool chaos): bloated tool sets where "a human engineer can't definitively say which tool should be used." That is tool_chaos, cured by tool orchestration, not by prompt polishing. |
+| "Just retrieve more chunks and it'll connect the facts." | Planning paralysis comes from the associativity gap — transitive relationships "simply don't exist in isolated embeddings" (Ch1, the associativity gap). More chunks don't create the missing edges. |
 
 ## Red Flags
 
@@ -105,9 +105,22 @@ wrong tool", "what should we fix first".
    - every taxonomy mode maps to a known fatal flaw
 2. **Verify CLI help.** `python cli.py --help` exits 0 and prints the SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** Symptom sentences are untrusted free text (often pasted
+  from post-mortems). The classifier only tokenizes them against a fixed signal
+  vocabulary and returns taxonomy labels; instructions embedded in a symptom are
+  never executed and can at most mis-classify that one symptom.
+- **Data exfiltration.** No network calls, no file writes. Post-mortem text may
+  contain incident details; it stays in-process and appears only in the stdout
+  report the caller owns.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import. The
+  cure list is advisory text - it grants nothing; the humans who read the
+  prioritized backlog decide what gets built.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly) by Anthony Alcaraz & Julien
+Distilled from *Agentic GraphRAG* (O'Reilly) by Anthony Alcaraz and Sam Julien
 — Ch1: The Crisis of Agentic AI, specifically the five-fatal-flaws opening
 and the "Consequences for vector-based agents" section (action blindness /
 memory fragmentation / planning paralysis / context drift, and the cascade

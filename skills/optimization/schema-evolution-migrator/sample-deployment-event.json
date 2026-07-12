@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "A deployment event for the DevOps agent running example (Ch8 Example 8-9): checkout-service updates stripe-python 3.2.1 -> 3.3.0. Fictional AWS account 123456789012.",
-    "source": "Agentic Graph RAG Ch8 — Incremental Updates"
+    "source": "Agentic GraphRAG Ch8 — Incremental Updates"
   },
   "service": "checkout-service",
   "environment": "production",

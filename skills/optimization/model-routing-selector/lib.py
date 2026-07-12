@@ -1,6 +1,6 @@
 """
 Model routing / selective intelligence — pick the cheapest model that meets a
-node's quality bar, distilled from Agentic Graph RAG (O'Reilly), Chapter 8 —
+node's quality bar, distilled from Agentic GraphRAG (O'Reilly), Chapter 8 —
 Optimization, "Selective Intelligence".
 
 The chapter's central claim: match model capability to task complexity. Instead

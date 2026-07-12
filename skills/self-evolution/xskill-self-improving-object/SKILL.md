@@ -16,7 +16,7 @@ description: |
   this consumes).
 osmani-pattern: Pipeline
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Inference-Time Knowledge Augmentation + Skills as Self-Improving Graph Objects + Example 7-20 (KnowledgeAccumulator) and Example 7-22 (SkillNode / SkillGraph)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Inference-Time Knowledge Augmentation + Skills as Self-Improving Graph Objects + Example 7-20 (KnowledgeAccumulator) and Example 7-22 (SkillNode / SkillGraph)"
 references:
   - "XSkill (Jiang et al., 2026) — dual-stream continual learning"
   - "Cognee add-cognify-search-learn skill-as-graph-object pipeline"
@@ -107,7 +107,7 @@ Phrases: "learn from past failures", "self-improving skill", "amendify",
 ## Red Flags
 
 - **route() returns the higher-similarity skill instead of the higher-success
-  one.** The load-bearing ranking key has been swapped back to similarity.
+  one.** The ranking key the whole design depends on has been swapped back to similarity.
 - **A skill's version keeps climbing but success_rate never recovers.**
   amendify() is validating against the same failures it is fitting to; the
   held-out set is not actually held out.
@@ -165,7 +165,7 @@ Phrases: "learn from past failures", "self-improving skill", "amendify",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming)
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien)
 Chapter 7 — Self-Evolution and Evaluation, the Inference-Time Knowledge
 Augmentation section (Example 7-20, KnowledgeAccumulator dual-stream
 extraction) and the Skills as Self-Improving Graph Objects section (Example

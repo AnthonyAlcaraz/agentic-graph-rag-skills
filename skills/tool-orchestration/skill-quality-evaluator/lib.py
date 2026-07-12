@@ -1,7 +1,7 @@
 """
 Skill quality evaluator — SkillNet five-dimension rating + quality-gated retrieval.
 
-Distilled from Agentic Graph RAG (O'Reilly), Chapter 6 — Tool Orchestration
+Distilled from Agentic GraphRAG (O'Reilly), Chapter 6 — Tool Orchestration
 ("Skills: The Judgment Layer" / "Skill quality evaluation" / "Integrating
 quality ratings into graph-based retrieval").
 

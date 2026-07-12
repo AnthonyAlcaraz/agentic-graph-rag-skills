@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Synthetic NodeInvocation log for the DevOps agent pipeline (Ch8 Example 8-3 shape). Fictional AWS account 123456789012. cost_usd figures are illustrative and reflect the selective-intelligence tiering: 3B SLM nodes ~1/30th, 8B ~1/10th, frontier 1x of a nominal frontier per-call cost.",
-    "source": "Agentic Graph RAG Ch8 — Measuring Cost-Performance Tradeoffs",
+    "source": "Agentic GraphRAG Ch8 — Measuring Cost-Performance Tradeoffs",
     "fictional_aws_account_id": "123456789012"
   },
   "invocations": [

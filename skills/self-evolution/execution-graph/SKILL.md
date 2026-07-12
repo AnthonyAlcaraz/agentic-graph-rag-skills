@@ -16,7 +16,7 @@ description: |
   it already).
 osmani-pattern: Generator
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The Execution Graph subsection + Example 7-1"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — The Execution Graph subsection + Example 7-1"
 references:
   - "OpenTelemetry distributed tracing as the production substrate"
   - "Composes with all Ch7 evaluation layers (0/1/2/3) and Semantic Backpropagation"
@@ -44,7 +44,7 @@ Each node represents one atomic operation:
 - **Parent-child edges** — `TRIGGERED` relationships establishing causal
   lineage
 
-Two-phase write is the load-bearing primitive (Ch7 Example 7-1):
+Two-phase write is the central primitive (Ch7 Example 7-1):
 
 1. **Phase 1 (on-start)**: create node + link to parent. If the operation
    fails or crashes, the graph still captures *what was about to happen*.
@@ -123,8 +123,24 @@ Phrases: "execution graph", "trace the agent's run", "cognitive autopsy",
    investigation query, then identifies the failing node.
 3. **Verify CLI help.** Exits 0 and prints SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** Node payloads capture raw inputs/outputs verbatim,
+  including untrusted content the agent processed. The graph never executes
+  payloads, but any later LLM pass over the trace (cognitive autopsy,
+  semantic backprop) re-reads them - treat trace payloads as data, not
+  instructions, in those consumers.
+- **Data exfiltration.** The execution graph is a high-value concentration:
+  exact inputs/outputs (possibly secrets, PII, credentials in tool args)
+  persisted immutably per query. Redact secrets before `begin_node` /
+  `complete_node` and access-control the graph store like a log with secrets.
+- **Privilege escalation.** No shell invocation, no eval. Post-completion
+  immutability is the audit invariant: an agent that can rewrite its own
+  trace can launder its history. Restrict writes to the two-phase API and
+  deny updates to completed nodes.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch7 — The
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch7 — The
 Foundation of Self-Awareness section + Example 7-1. Production substrate:
 OpenTelemetry distributed tracing → Neo4j graph store.

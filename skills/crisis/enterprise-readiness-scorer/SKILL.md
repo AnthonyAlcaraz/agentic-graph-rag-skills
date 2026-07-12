@@ -15,7 +15,7 @@ description: |
   consumer FAQ bots where vector RAG is a fine fit.
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch1 — The Crisis of Enterprise Agentic AI — five fatal flaws + agency dimensions + agent capabilities + Enterprise Context Graphs section"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch1 — The Crisis of Enterprise Agentic AI — five fatal flaws + agency dimensions + agent capabilities + Enterprise Context Graphs section"
 references:
   - "Singhal, 'Introducing the Knowledge Graph: things, not strings', Google 2012 (the strings-to-things shift)"
   - "Lilian Weng, 'LLM Powered Autonomous Agents', 2023 (LLM-as-brain: planning, memory, tool use)"
@@ -89,7 +89,7 @@ search index".
 |------------------------|--------------------|
 | "Our LLM is frontier-grade, so we are production-ready." | Ch1: the five flaws "aren't bugs. They represent an architectural failure" and "cannot be addressed by optimizing search or tweaking embedding models." Model quality does not cure an architecture gap. |
 | "We have a vector store, that covers retrieval." | A vector store cures none of the five flaws by itself. Score it: all five stay open, band is NAIVE-VECTOR. The flaws are cured by graph capabilities, not by a vector index. |
-| "We logged everything, so we have a context graph." | Marple's test (line 285): can it tell you what alternatives were *rejected*? Logging final states is read-time data. The decision-trace test is worth 15 points precisely to catch relabeled search indexes. |
+| "We logged everything, so we have a context graph." | Marple's test (Ch1, The Context Graph): can it tell you what alternatives were *rejected*? Logging final states is read-time data. The decision-trace test is worth 15 points precisely to catch relabeled search indexes. |
 | "Max out autonomy and authority for a powerful agent." | Ch1: agency dimensions are sliding scales and must be *calibrated*, not maximized. The real-estate agent has high autonomy, near-zero pricing authority. This scorer rewards calibration coverage, not magnitude. |
 
 ## Red Flags
@@ -112,9 +112,23 @@ search index".
    - agency scores calibration coverage, not magnitude
 2. **Verify CLI help.** `python cli.py --help` exits 0 and prints the SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** The profile JSON is untrusted input - a vendor can
+  self-report flattering capability booleans to inflate the score. The scorer
+  only reads fixed keys against a fixed rubric; adversarial field values can
+  skew the score but never execute, so verify claimed capabilities (especially
+  `captures_rejected_alternatives`) against evidence before trusting a band.
+- **Data exfiltration.** No network calls, no file writes. Architecture profiles
+  may describe internal systems; they stay in-process and surface only in the
+  stdout report the caller owns.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import. A
+  PRODUCTION-READY band is advisory - it authorizes nothing; the deployment
+  gate that consumes the score owns the actual go/no-go decision.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly) by Anthony Alcaraz & Julien
+Distilled from *Agentic GraphRAG* (O'Reilly) by Anthony Alcaraz and Sam Julien
 — Ch1: The Crisis of Agentic AI, specifically the five-fatal-flaws opening
 (the naive-vector failure), the "Defining Agentic AI" agency dimensions and
 capabilities, and the "Enterprise Context Graphs" decision-trace test.

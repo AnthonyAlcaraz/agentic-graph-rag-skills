@@ -16,7 +16,7 @@ description: |
   shape (that is architecture selection).
 osmani-pattern: Generator
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch5 — Reasoning & Planning — Dynamic DAG construction (Example 5-15) + Constructing the Investigation DAG (DevOps agent)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch5 — Reasoning & Planning — Dynamic DAG construction (Example 5-15) + Constructing the Investigation DAG (DevOps agent)"
 references:
   - "Ch5 Example 5-15 — GraphConstructingPlanningNode: extract dependencies, identify parallel groups, construct optimal DAG, parallelism_factor"
   - "Ch5 'Constructing the Investigation DAG' — phases, parallel-phase duration = max of concurrent tests, early termination on confirmation"
@@ -117,9 +117,24 @@ confirmation", "task graph".
    - within-phase ordering respects priority
 2. **Verify CLI help.** Exits 0 and prints the SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** Task rows (ids, dependencies, priorities, durations)
+  are data-only input, often LLM-proposed. The planner only sorts and groups
+  them - nothing is executed here - but forged dependencies or inflated
+  priorities can reorder an investigation to bury a hypothesis; malformed
+  graphs surface as `CycleError` instead of silent mis-execution.
+- **Data exfiltration.** No network calls, no file writes. Hypothesis names
+  and durations may describe internal infrastructure; they stay in-process and
+  appear only in the stdout phase plan the caller owns.
+- **Privilege escalation.** No shell invocation, no eval. The DAG is a
+  schedule, not an authorization: the harness that runs each phase's tests
+  must still gate each action against the capability model
+  (constraint-guided-plan-validator).
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch5 — Reasoning &
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch5 — Reasoning &
 Planning: "Dynamic DAG construction" (Example 5-15,
 `GraphConstructingPlanningNode`) and the DevOps agent's "Constructing the
 Investigation DAG" section (phases, max-duration parallel model, early

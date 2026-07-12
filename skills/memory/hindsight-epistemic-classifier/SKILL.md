@@ -13,7 +13,7 @@ description: |
   reasoning, not just persistence).
 osmani-pattern: Reviewer
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch4 — Memory — Epistemic Classification subsection (HINDSIGHT Latimer et al. 2025 §3.4)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch4 — Memory — Epistemic Classification subsection (HINDSIGHT Latimer et al. 2025 §3.4)"
 references:
   - "HINDSIGHT (Latimer et al., 2025) — primary research anchor"
   - "Composes with bi-temporal-edge (Experience facts get ingested_at)"
@@ -118,8 +118,23 @@ classifier with a typed-output schema at this seam.
    - justify returns a non-empty provenance chain for Opinion/Observation
 2. **Verify CLI help.** Exits 0, prints SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** Fact text is untrusted input classified against fixed
+  signals - never executed. The attack shape is epistemic masquerade:
+  adversarial phrasing that dresses an opinion as an objective World fact so
+  downstream agents over-trust it. The provenance chain from `justify` is the
+  cross-check; use it.
+- **Data exfiltration.** No network calls, no file writes. Facts and their
+  provenance chains may reference sensitive sources; they surface only in the
+  stdout report the caller owns.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import.
+  Network labels are trust metadata: silently promoting Opinion/Observation to
+  World is the escalation to guard against - the label is advisory and grants
+  no evidentiary standing by itself.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch4 — Epistemic
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch4 — Epistemic
 Classification subsection. Primary research: HINDSIGHT (Latimer et al.,
 2025).

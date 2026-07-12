@@ -14,3 +14,6 @@ build/
 dist/
 .DS_Store
 Thumbs.db
+
+# Internal work log — kept local, not part of the public companion repo
+PLAN.md

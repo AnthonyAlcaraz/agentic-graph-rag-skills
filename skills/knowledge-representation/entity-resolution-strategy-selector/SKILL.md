@@ -6,22 +6,19 @@ description: |
   explainable evidence and culturally-robust rules) vs GENERALIZATION-BASED AI
   (LLM statistical similarity, nondeterministic, post-hoc rationalization) —
   per Ch3 "Entity Resolution: The Foundation of Agent Knowledge". Scores a
-  requirement profile (high_stakes, adversarial channel-separation,
-  explainability, determinism, cultural_variation, training_examples) and picks
-  evidence-based, generalization-AI, or a hybrid. Ships a deterministic matcher
-  that scores name/address/phone similarity into an explainable confidence with
-  evidence metadata (the chapter's "89% because NAME 87%, ADDRESS 100%, PHONE
-  95%"), classifies the resulting graph edge (RESOLVED / POSSIBLY_RELATED /
-  DISCLOSED), and flags the three edge cases naive matching misses. Use when
-  standing up entity resolution for an agent knowledge graph, justifying an
-  evidence-vs-LLM choice for identity/compliance/fraud work, or auditing a
-  proposed merge. NOT for the extraction stage that produces the records (that
-  is upstream KG construction), NOT for picking a specific ER product
-  (Senzing-vs-build), NOT for arity-2 relationship modeling (use
-  graph-model-selector).
+  six-factor requirement profile and picks evidence-based, generalization-AI,
+  or a hybrid; ships a deterministic matcher that scores name/address/phone
+  similarity into an explainable confidence,
+  classifies the resulting graph edge, and flags the edge cases naive matching
+  misses. Use when standing up entity
+  resolution for an agent knowledge graph, justifying an evidence-vs-LLM choice
+  for identity/compliance/fraud work, or auditing a proposed merge. NOT for the
+  extraction stage that produces the records (that is upstream KG
+  construction), NOT for picking a specific ER product, NOT
+  for arity-2 relationship modeling (use graph-model-selector).
 osmani-pattern: Inversion
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch3 — Knowledge Representation — Entity Resolution: The Foundation of Agent Knowledge / Evidence-based resolution vs generalization-based AI / Entity resolution as graph building blocks / Edge cases"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch3 — Knowledge Representation — Entity Resolution: The Foundation of Agent Knowledge / Evidence-based resolution vs generalization-based AI / Entity resolution as graph building blocks / Edge cases"
 references:
   - "Ch3 evidence-vs-generalization distinction (deterministic + explainable + culturally-robust + calibrated vs nondeterministic + post-hoc)"
   - "Ch3 channel-separation fraud scenario (one launderer, engineered aliases)"
@@ -61,12 +58,15 @@ string matching fails catastrophically; what wins is consolidating fragmented
 identities on evidence from multiple overlapping features.
 
 The selector scores a requirement profile across the six factors the chapter
-names and returns evidence-based, generalization-AI, or a hybrid (LLM for
-cheap candidate generation, evidence-based for the auditable final decision).
-The matcher makes the trade-off concrete: it scores name/address/phone
-similarity, aggregates to an explainable confidence with per-feature evidence,
-classifies the graph edge (RESOLVED / POSSIBLY_RELATED / DISCLOSED), and flags
-the three edge cases that require domain and cultural knowledge.
+names (high_stakes, adversarial channel-separation, explainability,
+determinism, cultural_variation, training_examples) and returns
+evidence-based, generalization-AI, or a hybrid (LLM for cheap candidate
+generation, evidence-based for the auditable final decision). The matcher
+makes the trade-off concrete: it scores name/address/phone similarity,
+aggregates to an explainable confidence with per-feature evidence metadata
+(the chapter's "89% because NAME 87%, ADDRESS 100%, PHONE 95%"), classifies
+the graph edge (RESOLVED / POSSIBLY_RELATED / DISCLOSED), and flags the three
+edge cases that require domain and cultural knowledge.
 
 ## When to Use
 
@@ -146,11 +146,26 @@ the same entity", "evidence-based vs LLM matching", "channel separation",
    recommends evidence-based and consolidates the engineered aliases with
    per-feature evidence.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this
-   SKILL.md description (CLAUDE.md CLI mandate).
+   SKILL.md description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** The records under comparison are untrusted by
+  construction - channel separation IS adversarial input, fields engineered to
+  force or dodge a merge. The matcher only computes similarity scores over
+  field values; it never executes or interpolates them, so an attack can at
+  most bias one match - which is why RESOLVED demands overlapping evidence,
+  never a single feature.
+- **Data exfiltration.** Records carry PII (names, addresses, phones). No
+  network calls, no file writes; PII surfaces only in the evidence output on
+  stdout, and the caller owns where that report flows.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import. A
+  RESOLVED edge is a data assertion, not an identity credential - downstream
+  systems must not grant access on a merge without independent verification.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch3 — Knowledge
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch3 — Knowledge
 Representation, section "Entity Resolution: The Foundation of Agent Knowledge"
 and its subsections: "Why traditional approaches fail" (channel-separation
 fraud), "Evidence-based resolution vs generalization-based AI" (the deterministic

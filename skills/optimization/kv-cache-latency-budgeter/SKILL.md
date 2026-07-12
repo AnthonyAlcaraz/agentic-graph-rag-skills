@@ -13,7 +13,7 @@ description: |
   terms (that is gpu-glossary-anchor).
 osmani-pattern: Reviewer
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch8 — Optimization"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch8 — Optimization — Hardware Acceleration"
 ---
 
 # KV-Cache Latency Budgeter
@@ -157,7 +157,7 @@ Before trusting a capacity or latency estimate from this skill:
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 8 — Optimization, "Hardware Acceleration". Key references:
 
 - cuGraph / nx-cugraph speedups (PageRank 137x, Louvain 125x, multi-GPU 80x,

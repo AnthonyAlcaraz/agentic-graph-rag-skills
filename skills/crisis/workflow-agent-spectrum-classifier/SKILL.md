@@ -15,7 +15,7 @@ description: |
   loop.
 osmani-pattern: Reviewer
 ghosh-layer: Reasoning
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch1 — Defining Agentic AI — Classifying Agentic Systems: The Workflow-Agent Spectrum (lines 78-84) + the three dimensions of agency (lines 48-55)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch1 — Defining Agentic AI — Classifying Agentic Systems: The Workflow-Agent Spectrum + the three dimensions of agency"
 references:
   - "Andrew Ng — systems can be 'agent-like to different degrees'"
   - "Anthropic — the workflow-vs-agent distinction (predefined paths vs dynamically determined processes)"
@@ -145,7 +145,7 @@ agent".
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz), Chapter 1 —
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien), Chapter 1 —
 Defining Agentic AI, "Classifying Agentic Systems: The Workflow-Agent
 Spectrum" and the "three dimensions of agency" definition. The spectrum framing
 follows Andrew Ng ("agent-like to different degrees") and Anthropic's

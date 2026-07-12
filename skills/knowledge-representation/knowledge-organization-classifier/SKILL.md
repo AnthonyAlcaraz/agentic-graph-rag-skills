@@ -2,16 +2,12 @@
 name: knowledge-organization-classifier
 description: |
   Classify an organizational vocabulary onto the Ch3 knowledge-organization
-  spectrum — pick list (controlled values, no hierarchy) -> taxonomy (parent-
-  child hierarchy + predefined terms/synonyms) -> thesaurus (taxonomy + generic
-  associative relationships) -> ontology (network of classes + object properties
-  + expanded relationships + scope notes + inference) — by the structural
+  spectrum — pick list -> taxonomy -> thesaurus -> ontology — by the structural
   features the spec actually exhibits, walking bottom-up so a partial ontology
   does NOT over-claim. Also validates that something claiming to be an ontology
-  carries the five core components the chapter names: classes, subclasses,
-  individuals, axioms, relationships (object properties), and that subclasses
-  reference real parents and relationships reference real classes (no dangling
-  endpoints). Recommends the next-tier upgrade with the concrete feature to add.
+  carries the five core components the chapter names (classes, subclasses,
+  individuals, axioms, relationships) with no dangling parent/class references,
+  and recommends the next-tier upgrade with the concrete feature to add.
   Use when auditing an existing taxonomy/vocabulary before integrating it into
   an agent knowledge graph, when deciding whether you need a full ontology or a
   simpler structure, or when validating an AI-assisted ontology draft. NOT for
@@ -20,7 +16,7 @@ description: |
   primitive), NOT for entity resolution (use three-graph-router's linkage gate).
 osmani-pattern: Reviewer
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch3 — Knowledge Representation — Knowledge Organization and Ontology Fundamentals"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch3 — Knowledge Representation — Knowledge Organization and Ontology Fundamentals"
 references:
   - "Ch3 The knowledge organization spectrum (pick list / taxonomy / thesaurus / ontology)"
   - "Ch3 Ontology core components (classes, subclasses, individuals, axioms, relationships)"
@@ -120,11 +116,25 @@ Phrases: "knowledge organization spectrum", "pick list vs taxonomy",
    currency codes / a transportation taxonomy and validates a healthcare ontology
    plus a broken one.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this SKILL.md
-   description (CLAUDE.md CLI mandate).
+   description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** Vocabulary specs and ontology drafts are untrusted
+  input - often AI-generated. The classifier reads fixed boolean/list keys
+  against a fixed spectrum; adversarial flags can over-claim a tier but never
+  execute. Scope notes and class names are treated as opaque strings, not
+  instructions.
+- **Data exfiltration.** No network calls, no file writes. Vocabulary content
+  may encode internal business structure; it stays in-process and appears only
+  in the stdout report the caller owns.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import. A
+  passing validation is advisory - it does not publish the ontology; an
+  AI-drafted ontology still needs expert review before agents reason over it.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch3 — Knowledge
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch3 — Knowledge
 Representation, section "Knowledge Organization and Ontology Fundamentals": "The
 knowledge organization spectrum" (pick list / taxonomy / thesaurus / ontology)
 and "Ontology core components" (classes, subclasses, individuals, axioms,

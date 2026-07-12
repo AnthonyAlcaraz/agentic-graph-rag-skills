@@ -15,7 +15,7 @@ description: |
   agents under ~10 tools with short chains where no corner is under pressure.
 osmani-pattern: Reviewer
 ghosh-layer: Reasoning
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch1 — Defining Agentic AI — The Agent Constraint Triangle (lines 85-95)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch1 — Defining Agentic AI — The Agent Constraint Triangle"
 references:
   - "Anthropic 'Effective Context Engineering for Agents' (bloated tool sets / disambiguation principle / attention-budget framing)"
   - "Chroma research team — needle-in-a-haystack benchmarking and context rot (recall degrades as tokens increase; a gradient, not a cliff)"
@@ -150,7 +150,7 @@ triangle", "too many tools", "context is full", "score this agent config".
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz), Chapter 1 —
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien), Chapter 1 —
 Defining Agentic AI, "The Agent Constraint Triangle" section. The three
 constraints, the three cyclic trade-offs, and the minimal-high-signal-tokens
 principle are the chapter's; the tool-disambiguation principle and the

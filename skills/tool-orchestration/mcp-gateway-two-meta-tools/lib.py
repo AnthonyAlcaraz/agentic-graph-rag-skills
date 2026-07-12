@@ -1,7 +1,7 @@
 """
 MCP Gateway — two-meta-tool architecture.
 
-Distilled from Agentic Graph RAG (O'Reilly), Chapter 6 — Tool Orchestration.
+Distilled from Agentic GraphRAG (O'Reilly), Chapter 6 — Tool Orchestration.
 
 Writer's production enterprise MCP gateway pattern. Where RAG-MCP retrieves
 top-K tools and injects their descriptions into the prompt, the Gateway

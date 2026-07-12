@@ -2,7 +2,7 @@
 Federated context governance — detect configuration drift, enforce a federated
 org base, and route a governance need to the right architectural layer.
 
-Distilled from Agentic Graph RAG (O'Reilly), Chapter 6 — Tool Orchestration
+Distilled from Agentic GraphRAG (O'Reilly), Chapter 6 — Tool Orchestration
 ("Context Governance: The Missing Layer in Tool Orchestration").
 
 The problem: configuration drift at scale. When one developer configures an AI

@@ -1,5 +1,5 @@
 """
-Enterprise agentic-readiness scorer (Agentic Graph RAG, Ch1 — The Crisis).
+Enterprise agentic-readiness scorer (Agentic GraphRAG, Ch1 — The Crisis).
 
 Scores a proposed or deployed enterprise agent against the architectural
 requirements Ch1 argues are non-negotiable: the absence of the five fatal
@@ -15,7 +15,7 @@ from __future__ import annotations
 from typing import Any, Dict, List, Tuple
 
 
-# The five fatal flaws of a naive vector-based approach (Ch1, lines 9-15).
+# The five fatal flaws of a naive vector-based approach (Ch1, The Crisis).
 # Each flaw is "cured" only when the corresponding graph capability is present.
 FIVE_FATAL_FLAWS: Dict[str, str] = {
     "context_amnesia": "Every conversation starts from scratch; no memory across interactions.",
@@ -25,7 +25,7 @@ FIVE_FATAL_FLAWS: Dict[str, str] = {
     "tool_chaos": "No understanding of tool relationships; agent guesses which API to call.",
 }
 
-# The graph capability that cures each flaw (Ch1, lines 22-27).
+# The graph capability that cures each flaw (Ch1, The Crisis).
 FLAW_CURE: Dict[str, str] = {
     "context_amnesia": "evolving_memory",
     "relationship_blindness": "entity_relationships",
@@ -34,14 +34,14 @@ FLAW_CURE: Dict[str, str] = {
     "tool_chaos": "tool_orchestration",
 }
 
-# Three dimensions of agency (Ch1, lines 42-49). Sliding scales, not binary.
+# Three dimensions of agency (Ch1, Defining Agency). Sliding scales, not binary.
 AGENCY_DIMENSIONS: Dict[str, str] = {
     "autonomy": "Degree of independent decisions without external direction.",
     "action": "Ability to execute decisions that affect the environment.",
     "authority": "Scope and limits of permitted actions.",
 }
 
-# Four capabilities that emerge across the three dimensions (Ch1, lines 50-58).
+# Four capabilities that emerge across the three dimensions (Ch1, Defining Agency).
 AGENT_CAPABILITIES: Dict[str, str] = {
     "autonomous_decision_making": "Navigates complexity without step-by-step guidance.",
     "contextual_understanding": "Aware of relationships, temporal and org structure.",
@@ -53,7 +53,7 @@ WEIGHTS = {
     "flaws_cured": 40,        # the architectural crisis Ch1 is named for
     "agency": 20,            # autonomy / action / authority calibrated
     "capabilities": 25,      # the four emergent capabilities
-    "decision_trace": 15,    # enterprise context-graph test (Ch1 lines 226-285)
+    "decision_trace": 15,    # enterprise context-graph test (Ch1, The Context Graph)
 }
 
 BANDS = [
@@ -95,7 +95,7 @@ def score_agency(agency: Dict[str, float]) -> Tuple[float, List[str]]:
 
 
 def score_capabilities(capabilities: Dict[str, bool]) -> Tuple[float, List[str]]:
-    """Four emergent capabilities (Ch1 lines 50-58)."""
+    """Four emergent capabilities (Ch1, Defining Agency)."""
     missing = [c for c in AGENT_CAPABILITIES if not capabilities.get(c, False)]
     present = len(AGENT_CAPABILITIES) - len(missing)
     pts = WEIGHTS["capabilities"] * present / len(AGENT_CAPABILITIES)
@@ -103,7 +103,7 @@ def score_capabilities(capabilities: Dict[str, bool]) -> Tuple[float, List[str]]
 
 
 def decision_trace_test(captures_rejected_alternatives: bool) -> Tuple[float, str]:
-    """Marple's test (Ch1 line 285): can the system tell you not just what
+    """Marple's test (Ch1, The Context Graph): can the system tell you not just what
     happened, but what alternatives were considered and rejected?
 
     This is the single discriminating test between a relabeled search index

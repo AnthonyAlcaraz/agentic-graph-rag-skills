@@ -1,4 +1,4 @@
-# Core runtime — every skill depends on these
+# Notebook dependencies only — skill CLIs are pure stdlib and need none of this
 anthropic>=0.42.0
 boto3>=1.40.0
 

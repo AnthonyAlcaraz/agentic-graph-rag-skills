@@ -5,13 +5,9 @@ description: |
   (linearizable), CAUSAL, READ-YOUR-WRITES, or EVENTUAL — by scoring the
   operation's requirements (shared authoritative state, conflict intolerance,
   staleness budget, collaboration, self-session continuity), per Ch4 "Memory
-  consistency models for agent coordination". This is CAP (consistency vs
-  availability) applied per operation to shared agent memory: when Agent A
-  writes a fact, WHEN does Agent B see it? Getting it wrong makes agents
-  contradict each other, overwrite conclusions, or act on stale state. The
-  chapter's rule: default to causal, escalate to strong only for irreversible
-  decision points. Also flags cache-sharing divergence (Ch4 "Cache sharing in
-  multi-agent systems") — an agent acting on a cached read older than a
+  consistency models for agent coordination". The chapter's rule: default to
+  causal, escalate to strong only for irreversible decision points. Also flags
+  cache-sharing divergence — an agent acting on a cached read older than a
   committed write it depends on. Use when designing shared memory for a
   multi-agent system, justifying a consistency choice, or auditing a stale-
   cache handoff. NOT for single-agent stateless systems (no coordination),
@@ -19,7 +15,7 @@ description: |
   NOT when the platform already mandates a consistency model (just adopt it).
 osmani-pattern: Inversion
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch4 — Memory — Memory consistency models for agent coordination + Cache sharing in multi-agent systems"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch4 — Memory — Memory consistency models for agent coordination + Cache sharing in multi-agent systems"
 references:
   - "CAP theorem (Brewer): consistency / availability / partition-tolerance — here applied per agent-coordination operation, not once globally"
   - "Ch4 git metaphor: pull-request review = strong, feature-branch tests = eventual, merge queue = causal"
@@ -138,11 +134,26 @@ background-enrichment / collaborative-research / session-assistant),
 2. **Run a scenario.** `python cli.py scenario shared-budget-lock` recommends
    strong; `python cli.py scenario background-enrichment` recommends eventual.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this SKILL.md
-   description (CLAUDE.md CLI mandate).
+   description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** Inputs are requirement weights and write/snapshot
+  metadata - pure data scored against fixed fitness tables. Adversarial values
+  can at most skew the recommendation (e.g. under-weighting authoritative
+  state to dodge a strong barrier); nothing in the input is executed.
+- **Data exfiltration.** No network calls, no file writes. Write timestamps
+  and cache snapshots may reveal coordination topology; they stay in-process
+  and appear only in the stdout report the caller owns.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import.
+  The recommendation is advisory: a mis-chosen eventual model on a shared
+  budget is a correctness/safety hazard, which is why `escalate_to_strong`
+  fires - but the actual synchronization barrier is enforced by the memory
+  store, not by this selector.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch4 — Memory,
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch4 — Memory,
 sections "Memory consistency models for agent coordination" (the strong /
 causal / eventual models and the default-causal-escalate-to-strong rule) and
 "Cache sharing in multi-agent systems" (broadcast / pub-sub / request-grant

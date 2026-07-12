@@ -12,7 +12,7 @@ description: |
   network/IAM policy, NOT for prompt-level guardrails (this governs graph reach).
 osmani-pattern: Generator
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch8 — Optimization"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch8 — Optimization"
 ---
 
 # Subgraph Access Control
@@ -159,7 +159,7 @@ Before deploying a policy built on this skill:
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 8 — Optimization, "Data Governance and Access Control". Key references:
 
 - Neo4j Enterprise fine-grained access control (Example 8-5, Example 8-15)

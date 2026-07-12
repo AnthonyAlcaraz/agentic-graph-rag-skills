@@ -2,7 +2,7 @@
 """
 memory-consolidation CLI — multi-harness invocation surface.
 
-Per Agentic Graph RAG Ch4 (Consolidation: From Experience to Knowledge,
+Per Agentic GraphRAG Ch4 (Consolidation: From Experience to Knowledge,
 Example 4-5 + Example 4-13). SKILL.md description is printed on --help.
 """
 

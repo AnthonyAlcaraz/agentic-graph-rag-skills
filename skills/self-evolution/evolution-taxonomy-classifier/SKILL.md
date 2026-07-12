@@ -6,11 +6,9 @@ description: |
   WHEN it fires (intra-test-time within one request / inter-test-time between
   requests), HOW the agent learns (reward / imitation / population), and WHERE
   it applies (general-purpose / domain-specialized). Each axis value carries
-  the graph-dependency rationale the chapter gives: model evolution needs
-  execution graphs for causal tracing, context evolution IS graph evolution,
-  tool evolution rewires the tool subgraph, architecture evolution restructures
-  the workflow graph itself. Also routes a diagnosed failure type to its
-  primary evolution axis, timing, and mechanism (Table 7-1). Use AFTER the
+  the graph-dependency rationale the chapter gives, and a diagnosed failure
+  type routes to its primary evolution axis, timing, and mechanism (Table
+  7-1). Use AFTER the
   diagnostic report exists and BEFORE you pull an evolution lever, so you fix
   the right target instead of wasting compute or introducing regressions. NOT
   for producing the diagnosis itself (that is the execution-graph plus
@@ -18,7 +16,7 @@ description: |
   classifies and routes; it does not fine-tune, rerank, or restructure).
 osmani-pattern: Reviewer
 ghosh-layer: Reasoning
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — A Taxonomy for Self-Evolution + Table 7-1 + Example 7 intervention routing"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — A Taxonomy for Self-Evolution + Table 7-1 + Example 7 intervention routing"
 references:
   - "Gao et al. (2025) four-axis self-evolution taxonomy"
   - "Waseem Alshikh (2025) GNN-inspired self-evolving models — each adaptation becomes a traceable node"
@@ -107,7 +105,7 @@ taxonomy", "what evolves / when / how / where", "route this failure",
 | "The diagnosis is clear, I'll just fix it — I don't need to classify." | The chapter is explicit: "self-evolution is not a single lever. It is a four-dimensional design space, and pulling the wrong lever wastes compute, introduces regressions, or both." Classification is what prevents the wrong lever. |
 | "Rerankng retrieval is model evolution — the model does the reranking." | No. Ch7: context evolution "restructures what the agent retrieves." It IS graph evolution: "you evolve context by rewiring edges, merging redundant nodes, and pruning stale subgraphs." Reranking a subgraph touches `context`, not `model`. Calling it model evolution routes you to a fine-tune you do not need. |
 | "A format error just needs the model to speak JSON better — that's fine-tuning." | Ch7 rejects this directly: "Rather than teaching the model to speak JSON better through more training, attach an output schema constraint directly to that specific node." FormatViolation routes to `architecture` (structural constraint), a permanent fix, not `model`. |
-| "Intra-test-time and inter-test-time are the same thing at different speeds." | The distinction is load-bearing: "intra-test-time evolution must be fast (sub-second decisions), while inter-test-time evolution can afford expensive operations like fine-tuning or graph restructuring." Mis-timing a fine-tune into the request path breaks the latency budget. |
+| "Intra-test-time and inter-test-time are the same thing at different speeds." | The distinction is what the latency budget rests on: "intra-test-time evolution must be fast (sub-second decisions), while inter-test-time evolution can afford expensive operations like fine-tuning or graph restructuring." Mis-timing a fine-tune into the request path breaks the latency budget. |
 | "One localized reasoning miss means we should fine-tune." | Ch7 three-way strategy: a "localized reasoning failure (low InfoGain on one or two steps)" calls for prompt refinement, which is "fast, reversible, and the right first resort." Fine-tuning is for a "recurring pattern of the same reasoning failure type." `recurring=False` stays on the prompt path. |
 | "Domain-specialized versus general-purpose is a soft preference, not a real axis." | Ch7: "Your DevOps agent does not need to improve at poetry, but it absolutely needs to get better at predicting cascade failures in microservice topologies." WHERE scopes the evolution to a subgraph region; skipping it spends compute improving tasks the agent will never run. |
 
@@ -178,7 +176,7 @@ taxonomy", "what evolves / when / how / where", "route this failure",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 7 — Self-Evolution and Evaluation, the "A Taxonomy for Self-Evolution"
 section, Table 7-1 (failure-to-evolution routing), and the intervention-routing
 Example. Key references named in the chapter: Gao et al. (2025) four-axis

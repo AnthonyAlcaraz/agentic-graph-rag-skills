@@ -13,7 +13,7 @@ description: |
   budgeting (that is kv-cache-latency-budgeter).
 osmani-pattern: Reviewer
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch8 — Optimization"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch8 — Optimization"
 ---
 
 # Cost-Performance Scorer
@@ -152,7 +152,7 @@ Before trusting a policy score:
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 8 — Optimization, "Measuring Cost-Performance Tradeoffs". Key references:
 
 - Example 8-3 `CostTracker` / `NodeInvocation` (cost per successful completion)

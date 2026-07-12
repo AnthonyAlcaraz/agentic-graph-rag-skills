@@ -6,7 +6,7 @@ description: |
   graph (how the agent acts — a decomposed multi-step process), BOTH (a workflow
   whose nodes query the knowledge graph and write results back), or UNROUTABLE
   (neither fits — ask for clarification). Implements the central dual-graph
-  distinction of Agentic Graph RAG Ch2 and the "Where the Two Graphs Meet"
+  distinction of Agentic GraphRAG Ch2 and the "Where the Two Graphs Meet"
   bidirectional interaction. Use when an agent receives an on-call request and
   must decide whether it is a knowledge lookup or a process. NOT for building the
   workflow DAG itself (that is harness-node-splitter / investigation-dag-planner),
@@ -14,7 +14,7 @@ description: |
   requests where the structure is already fixed by a hardcoded pipeline.
 osmani-pattern: Inversion
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch2 — Architecture Foundations — The Dual-Graph Architecture + Where the Two Graphs Meet"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch2 — Architecture Foundations — The Dual-Graph Architecture + Where the Two Graphs Meet"
 references:
   - "Ch2 'The Dual-Graph Architecture' — vertical knowledge graph (the map, what the agent knows) vs horizontal workflow graph (the route, how the agent acts)"
   - "Ch2 'The Vertical Knowledge Graph' — nodes/edges/properties; DEPENDS_ON traversal; temporal `since` metadata; point-in-time queries (Example 2-1, Example 2-2)"
@@ -41,7 +41,7 @@ This skill routes a request to the right structure before any work begins:
   not a workflow.
 - **horizontal** — a process the agent must carry out. "Classify the alert,
   plan remediation, decide whether to roll back" decomposes into focused nodes.
-- **both** — the load-bearing case from "Where the Two Graphs Meet." "Diagnose
+- **both** — the central case from "Where the Two Graphs Meet." "Diagnose
   why checkout is slow and correlate the evidence" is a horizontal workflow
   whose reasoning/retrieval nodes traverse the vertical graph for the dependency
   chain, then write the result back (a new `CAUSED_BY` edge). The architecture's
@@ -151,7 +151,7 @@ or an action", "vertical or horizontal graph", "which graph handles this",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 2 — Agentic Graph Architecture Foundations:
 
 - "The Dual-Graph Architecture" — vertical knowledge graph vs horizontal

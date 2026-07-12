@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Sample DevOps query workloads mapped to Ch1's BenchmarkQED scope x type quadrants, for the vector-vs-graph retrieval selector. Fictional AWS account 123456789012.",
-    "source": "Agentic Graph RAG Ch1 — The Limitations of Vector-Based Retrieval + GraphRAG (BenchmarkQED local/global x data/activity)"
+    "source": "Agentic GraphRAG Ch1 — The Limitations of Vector-Based Retrieval + GraphRAG (BenchmarkQED local/global x data/activity)"
   },
   "workloads": [
     {

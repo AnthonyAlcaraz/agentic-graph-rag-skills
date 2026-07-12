@@ -1,6 +1,6 @@
 """
 Cost-performance scoring for a multi-model routing policy, distilled from
-Agentic Graph RAG (O'Reilly), Chapter 8 — Optimization, "Measuring
+Agentic GraphRAG (O'Reilly), Chapter 8 — Optimization, "Measuring
 Cost-Performance Tradeoffs".
 
 Routing strategies are only as good as the data that informs them. Selective

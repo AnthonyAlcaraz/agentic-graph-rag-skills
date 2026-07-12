@@ -2,7 +2,7 @@
 name: eight-pillar-readiness-map
 description: |
   Map an agentic-graph system's current capabilities across the eight pillars of
-  Agentic Graph RAG Ch2 (knowledge representation, memory, reasoning, planning,
+  Agentic GraphRAG Ch2 (knowledge representation, memory, reasoning, planning,
   tool orchestration, structured output, self-evolution, optimization), respect
   the chapter's layering (each pillar depends on the ones before it), flag
   dependency violations (a higher pillar claimed present while a lower one it
@@ -14,7 +14,7 @@ description: |
   model unrelated to the eight pillars.
 osmani-pattern: Reviewer
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch2 — Architecture Foundations — The Eight Pillars of Agentic Graph Architecture + Table 2-1"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch2 — Architecture Foundations — The Eight Pillars of Agentic Graph Architecture + Table 2-1"
 references:
   - "Ch2 'The Eight Pillars of Agentic Graph Architecture' — the pillars are layered, not independent; knowledge representation must come first; the final two (self-evolution, optimization) depend on the complete architecture"
   - "Ch2 Table 2-1 'Mapping the five flaws to the eight pillars' — relationship blindness -> knowledge representation; context amnesia + temporal ignorance -> memory; reasoning paralysis -> reasoning + planning; tool chaos -> tool orchestration + structured output"
@@ -158,7 +158,7 @@ should we build next", "is this agent production-ready", "pillar readiness",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming),
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien),
 Chapter 2 — Agentic Graph Architecture Foundations:
 
 - "The Eight Pillars of Agentic Graph Architecture" — the eight pillars, their

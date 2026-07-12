@@ -7,19 +7,15 @@ description: |
   axes, per Ch6 "Choosing the Right Primitive: CLIs, MCPs, and Skills". The
   chapter's frame: three primitives, three audiences on a personal-to-enterprise
   gradient, and CONVERGENCE not competition — a single capability is often
-  exposed as more than one (the Google Workspace CLI ships a CLI surface, an MCP
-  server mode, AND 100+ skills). CLI = deterministic composable command surface
-  for the individual developer in build mode; MCP = runtime-discoverable governed
-  endpoint with per-agent access control for teams / enterprise / background
-  agents; SKILL = encoded judgment (what to do, in what order) for the model
-  itself, authored first regardless. Use when deciding how to wrap a capability,
+  exposed as more than one, so the selector returns a primary recommendation
+  AND an also_expose_as list. Use when deciding how to wrap a capability,
   or justifying a CLI-vs-MCP-vs-Skill choice in a design doc. NOT for RETRIEVING
   which tools to load at runtime (that is rag-mcp-tool-selection), NOT for
   picking a specific vendor product, NOT when the platform already mandates a
   primitive (just adopt it).
 osmani-pattern: Decision-Table
 ghosh-layer: Meta
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch6 — Tool Orchestration — Choosing the Right Primitive: CLIs, MCPs, and Skills"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch6 — Tool Orchestration — Choosing the Right Primitive: CLIs, MCPs, and Skills"
 references:
   - "Jiquan Ngiam — three-primitives-three-audiences taxonomy + personal-to-enterprise gradient self-report"
   - "Dharmesh Shah — CLI training-data density advantage over MCP"
@@ -142,11 +138,27 @@ gradient", "per-agent access control", "convergence not competition".
    recommends mcp with cli also-exposed; `python cli.py scenario
    code-review-procedure` recommends skill.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this
-   SKILL.md description (CLAUDE.md CLI mandate).
+   SKILL.md description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** The capability profile is data-only flags scored
+  against fixed axis tables - nothing is executed. The adversarial shape is a
+  profile that understates its governance needs (e.g. leaving
+  `needs_per_agent_access_control` unset) to steer a sensitive capability
+  toward an ungoverned CLI wrap; profile from the real deployment, not from
+  the capability owner's optimism.
+- **Data exfiltration.** No network calls, no file writes. Profiles describe
+  internal capabilities and their access models; they stay in-process and
+  appear only in the stdout recommendation the caller owns.
+- **Privilege escalation.** No shell invocation, no eval. The recommendation
+  shapes the future governance surface: choosing CLI where MCP per-agent
+  scoping was required skips the gateway entirely. The output is advisory -
+  the deployment review, not this selector, owns the final exposure decision.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch6 — Tool
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch6 — Tool
 Orchestration, section "Choosing the Right Primitive: CLIs, MCPs, and Skills"
 and its subsections (the wrap-everything argument, three-primitives-three-
 audiences, the personal-to-enterprise gradient, per-agent access control,

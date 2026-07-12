@@ -16,7 +16,7 @@ Each investigation node is routed to the cheapest model that meets its quality b
 
 | Skill | What it does | CLI |
 |-------|--------------|-----|
-| `cost-performance-scorer` | Score a multi-model routing policy on cost versus quality using the two metrics that actually decide selective intelligence: cost per successful completion (not cost per token) and a per-node quality parity threshold wit | `python skills/optimization/cost-performance-scorer/cli.py --help` |
+| `cost-performance-scorer` | Score a multi-model routing policy on cost versus quality using the two metrics that actually decide selective intelligence: cost per successful completion (not cost per token) and a per-node quality parity threshold with domain-specific failure weights. | `python skills/optimization/cost-performance-scorer/cli.py --help` |
 | `kv-cache-latency-budgeter` | Budget a specialist model fleet against the two production bottlenecks: KV-cache-bound concurrency and end-to-end latency. | `python skills/optimization/kv-cache-latency-budgeter/cli.py --help` |
 | `model-routing-selector` | Match model capability to task complexity across a horizontal workflow graph. | `python skills/optimization/model-routing-selector/cli.py --help` |
 | `schema-evolution-migrator` | Keep a production knowledge graph healthy across schema evolution, node/edge lifecycle, incremental updates, and coordinated deployment. | `python skills/optimization/schema-evolution-migrator/cli.py --help` |

@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "DevOps on-call requests against fictional AWS account 123456789012, each labeled with its expected dual-graph route. Grounds the benchmark battery. Sources: Ch2 'The Dual-Graph Architecture', 'The Vertical Knowledge Graph', 'The Horizontal Workflow Graph', 'Where the Two Graphs Meet', and the latency-investigation running example (Example 2-3).",
-    "source": "Agentic Graph RAG (O'Reilly) Ch2 — Architecture Foundations",
+    "source": "Agentic GraphRAG (O'Reilly) Ch2 — Architecture Foundations",
     "fictional_aws_account_id": "123456789012"
   },
   "requests": [

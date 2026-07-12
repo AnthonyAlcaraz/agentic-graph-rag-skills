@@ -15,7 +15,7 @@ description: |
   FAQ bots where vector RAG is already the right fit.
 osmani-pattern: Reviewer
 ghosh-layer: Reasoning
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch1 — Defining Agentic AI — The Limitations of Vector-Based Retrieval + GraphRAG (lines 117-236)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch1 — Defining Agentic AI — The Limitations of Vector-Based Retrieval + GraphRAG"
 references:
   - "Microsoft 'From Local to Global: A GraphRAG Approach to Query-Focused Summarization' + BenchmarkQED (local/global x data/activity)"
   - "EyeLevel.ai — vector vs graph accuracy degradation at scale (12% vs ~2% at 100k pages)"
@@ -151,7 +151,7 @@ window fix it", "retrieval architecture", "why does RAG fail on this query",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz), Chapter 1 —
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien), Chapter 1 —
 Defining Agentic AI, "The Limitations of Vector-Based Retrieval" and
 "GraphRAG" sections. The BenchmarkQED quadrants, the 90% / 20-30% vector-RAG
 numbers, the LazyGraphRAG +50-60% multi-hop figure, the EyeLevel.ai

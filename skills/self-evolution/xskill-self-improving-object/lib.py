@@ -360,7 +360,7 @@ class SkillGraph:
 
         Candidates come from description similarity (semantic_search stand-in),
         but the RANKING is by demonstrated success_rate on the task pattern, NOT
-        by similarity. This is the load-bearing choice: a specialized skill with
+        by similarity. This is the decisive choice: a specialized skill with
         a strong track record on the pattern outranks a general skill that merely
         looks similar by description.
         """

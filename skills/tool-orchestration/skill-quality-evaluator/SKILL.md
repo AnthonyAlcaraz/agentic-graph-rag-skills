@@ -13,7 +13,7 @@ description: |
   and safety scores are heuristics that flag review, not proofs).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch6 — Tool Orchestration"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch6 — Tool Orchestration"
 ---
 
 # Skill Quality Evaluator
@@ -170,7 +170,7 @@ Phrases that invoke this skill: "rate this skill", "quality gate", "SkillNet",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly), Chapter 6 — Tool Orchestration,
+Distilled from *Agentic GraphRAG* (O'Reilly), Chapter 6 — Tool Orchestration,
 sections "Skills: The Judgment Layer", "Skill quality evaluation", "Integrating
 quality ratings into graph-based retrieval", and "Scale and retrieval". Named
 references:

@@ -4,21 +4,18 @@ description: |
   Ch7 self-evolution router: map a diagnostic report to exactly one
   intervention, deterministically and auditably, not as a per-engineer
   judgment call. Four branches in strict order: insufficient context ->
-  RETRIEVAL_FIX (fix upstream of the model), FORMAT_VIOLATION ->
-  STRUCTURAL_CONSTRAINT (attach an output schema so the error is impossible),
-  localized REASONING failure with intact knowledge -> PROMPT_REFINEMENT
-  (steer, do not retrain), everything else -> FINE_TUNE (systemic or recurring
-  failure). A second axis ranks intervention types on the self-modification
-  intensity hierarchy: prompt tuning is lightest (fast, reversible, low risk),
-  weight adaptation is middle (slower, semi-reversible, moderate risk), code
-  modification is heaviest (slowest, requires rollback, highest risk). Ports
+  RETRIEVAL_FIX, FORMAT_VIOLATION -> STRUCTURAL_CONSTRAINT, localized
+  REASONING failure with intact knowledge -> PROMPT_REFINEMENT, everything
+  else -> FINE_TUNE. A second axis ranks intervention types on the
+  self-modification intensity hierarchy (prompt tuning lightest, weight
+  adaptation middle, code modification heaviest). Ports
   Ch7 Example 7-9 exactly, thresholds tunable per the chapter Tip. Use AFTER a
   diagnostic report exists and you must choose the fix. NOT for producing the
   diagnosis itself (that is the Layer 0/1/2 evaluation pipeline), NOT for
   applying the fix (this routes; SEAL/TPT/Outlines apply).
 osmani-pattern: Reviewer
 ghosh-layer: Reasoning
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Choosing the Right Intervention: Prompt, Fine-Tune, or Constrain? + Example 7-9 (select_intervention) + self-modification intensity hierarchy"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Choosing the Right Intervention: Prompt, Fine-Tune, or Constrain? + Example 7-9 (select_intervention) + self-modification intensity hierarchy"
 references:
   - "Ch7 Tip: intervention selection must be deterministic and auditable, tuned against historical diagnostic data"
   - "Composes downstream with Semantic Backpropagation, SEAL, TPT, and the Graduated Validation Protocol"
@@ -197,7 +194,7 @@ diagnosis", "select_intervention", "how do I fix this diagnosed failure",
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, AnthonyAlcaraz / forthcoming)
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien)
 Chapter 7 — Self-Evolution and Evaluation, the section "Choosing the Right
 Intervention: Prompt, Fine-Tune, or Constrain?" It ports Example 7-9
 (`select_intervention`) exactly, including the chapter thresholds (two or

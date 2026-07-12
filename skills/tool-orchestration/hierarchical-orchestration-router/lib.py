@@ -2,7 +2,7 @@
 Hierarchical orchestration router — one entry point, domain routing, functional
 clustering for failover.
 
-Distilled from Agentic Graph RAG (O'Reilly), Chapter 6 — Tool Orchestration
+Distilled from Agentic GraphRAG (O'Reilly), Chapter 6 — Tool Orchestration
 ("Orchestration at Scale": The Intelligent Orchestrator / Hierarchical
 Orchestration / Functional Clustering: Resilience Through Redundancy).
 

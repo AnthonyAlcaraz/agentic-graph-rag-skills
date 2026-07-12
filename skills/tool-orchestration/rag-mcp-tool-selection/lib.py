@@ -1,7 +1,7 @@
 """
 RAG-MCP tool selection — three-step retrieval pipeline.
 
-Distilled from Agentic Graph RAG (O'Reilly), Chapter 5/6 — Tool Orchestration.
+Distilled from Agentic GraphRAG (O'Reilly), Chapter 5/6 — Tool Orchestration.
 
 The standard MCP `tools/list` operation returns every tool the agent has access
 to. At enterprise scale (the book cites Block's Goose agent: 12,000 employees,

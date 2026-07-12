@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Hierarchical orchestration config: three enterprise domains (Sales, Finance, Operations) per the chapter's Enterprise Orchestrator tree, plus an Operations domain that carries the DevOps running example. Tools carry key_topics for functional clustering and a reliability signal (performance-based trust, as produced by draft-tool-trust-verifier) for failover ordering. Functional clusters that should emerge: a search toolkit, a metrics toolkit, and a logs toolkit.",
-    "source": "Agentic Graph RAG Ch6 — Hierarchical Orchestration (Example 6-11) + Functional Clustering (Baidu AI Search Paradigm)",
+    "source": "Agentic GraphRAG Ch6 — Hierarchical Orchestration (Example 6-11) + Functional Clustering (Baidu AI Search Paradigm)",
     "fictional_aws_account_id": "123456789012"
   },
   "domains": [

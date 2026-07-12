@@ -16,7 +16,7 @@ description: |
   the org already mandates a model (just adopt it).
 osmani-pattern: Inversion
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch3 — Knowledge Representation — Graph Data Models / Evaluating Graph Models / N-ary relations (Example 3-1)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch3 — Knowledge Representation — Graph Data Models / Evaluating Graph Models / N-ary relations (Example 3-1)"
 references:
   - "Zhou et al., In-depth Analysis of Graph-based RAG in a Unified Framework (Ch3 four-stage framework)"
   - "Ch3 Example 3-1 hypergraph prescription; Example 3-2 PostgreSQL triples fallback"
@@ -118,11 +118,24 @@ relation", "reification", "graph data model selection", "Neo4j vs RDF".
 2. **Run the scenario.** `python cli.py scenario medical-diagnosis` recommends
    an inference-capable model and prints the n-ary prescription cost.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this
-   SKILL.md description (CLAUDE.md CLI mandate).
+   SKILL.md description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** Inputs are requirement weights and hyperedge specs -
+  pure data scored against fixed feature tables. Adversarial values (inflated
+  weights, crafted attribute strings) can at most skew a recommendation; nothing
+  in the input is executed or interpolated into a query.
+- **Data exfiltration.** No network calls, no file writes. Hyperedge attributes
+  may describe sensitive domain facts (the prescription example); they stay
+  in-process and appear only in the stdout cost report the caller owns.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import. The
+  recommendation is advisory - it selects a model class on paper; provisioning
+  an actual graph backend happens elsewhere under the platform's own controls.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch3 — Knowledge
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch3 — Knowledge
 Representation, sections "Graph Data Models", "Evaluating Graph Models" (the
 five implementation features), and the n-ary discussion with Example 3-1
 (hypergraph prescription). The four-stage graph-RAG framing is Zhou et al.,

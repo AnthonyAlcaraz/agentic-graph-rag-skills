@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-dual-graph-router — multi-harness CLI wrapper.
+dual-graph-router - multi-harness CLI wrapper.
 
 Invocations:
     dual-graph-router --help
@@ -123,7 +123,7 @@ def cmd_batch(args: argparse.Namespace) -> int:
 
 
 def cmd_benchmark(args: argparse.Namespace) -> int:
-    """Verification gate battery — labeled sample requests must route correctly."""
+    """Verification gate battery - labeled sample requests must route correctly."""
     failures: list[str] = []
     data = json.loads(DEFAULT_REQUESTS.read_text(encoding="utf-8"))
     rows = data["requests"]
@@ -151,7 +151,7 @@ def cmd_benchmark(args: argparse.Namespace) -> int:
     total = len(rows) + 4
     passed = correct + 4 - len(failures)
     print("=" * 70)
-    print(f"dual-graph-router benchmark — {passed}/{total} passed "
+    print(f"dual-graph-router benchmark - {passed}/{total} passed "
           f"({correct}/{len(rows)} labeled requests)")
     print("=" * 70)
     if failures:

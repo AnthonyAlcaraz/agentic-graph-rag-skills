@@ -7,10 +7,7 @@ description: |
   textual-gradient insight (feedback as a gradient signal) plus the chain rule:
   when generating feedback for a node based on what its successor needed, the
   feedback includes the outputs of ALL OTHER predecessors of that successor.
-  That neighbor context is what prevents incorrect credit assignment: in the
-  currency worked example the Validator surfaces the error but attribution lands
-  on the CurrencyConverter's rate lookup, and the Extractor is left unchanged
-  because the DateChecker's output is included as neighbor evidence. Use AFTER a
+  That neighbor context is what prevents incorrect credit assignment. Use AFTER a
   diagnostic report has localized a failing node and you need coherent,
   cross-graph feedback before an intervention. NOT for single-node pipelines
   with no neighbors (there is no action-at-a-distance to prevent), NOT the
@@ -18,7 +15,7 @@ description: |
   refinement make the change stick).
 osmani-pattern: Generator
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Semantic Backpropagation: Coherent Evolution Across the Graph + Example 7-19"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch7 — Self-Evolution and Evaluation — Semantic Backpropagation: Coherent Evolution Across the Graph + Example 7-19"
 references:
   - "TextGrad — textual feedback as a gradient signal (chapter foundational cite)"
   - "Composes on top of the execution-graph primitive and the diagnostic report"
@@ -40,7 +37,7 @@ contributed to the loss. Semantic backpropagation does the same in natural
 language: the gradient is a structured description of the required change, and it
 flows backward through the execution graph from the point of failure.
 
-Neighbor-awareness is the load-bearing part. When generating feedback for node v
+Neighbor-awareness is the decisive part. When generating feedback for node v
 based on what successor w needed, the feedback includes not just v's output and
 w's error but the outputs of ALL OTHER predecessors of w. That context is what
 makes the feedback precise.
@@ -161,13 +158,13 @@ caused this", "credit assignment", "textual gradient", "action at a distance",
 - **Feeds into** the intervention frameworks (SEAL targeted curriculum, TPT,
   prompt refinement): the SemanticFeedback is their input. This skill decides
   where and what; they make the change stick.
-- **Osmani Generator / Ghosh Workflow.** It generates a structured feedback
+- **Generator pattern / Ghosh Workflow.** It generates a structured feedback
   artifact by orchestrating graph traversal, attribution, and synthesis across
   several nodes, one workflow layer above a single primitive.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch7 — Semantic
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch7 — Semantic
 Backpropagation: Coherent Evolution Across the Graph, plus Example 7-19
 (Neighbor-aware semantic feedback for the causal attribution node). The chapter
 credits TextGrad for the foundational insight that textual feedback can serve as

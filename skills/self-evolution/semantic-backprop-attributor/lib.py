@@ -6,7 +6,7 @@ another ("action at a distance"). Semantic backpropagation prevents this: it
 attributes a failure to the node that actually caused it and generates
 NEIGHBOR-AWARE textual feedback that flows backward through the execution graph.
 
-The load-bearing idea (Ch7, adapting TextGrad's textual-gradient insight): when
+The central idea (Ch7, adapting TextGrad's textual-gradient insight): when
 generating feedback for node v based on what successor w needed, include the
 outputs of ALL OTHER predecessors of w. That neighbor context is what prevents
 incorrect credit assignment. In the currency worked example the Validator

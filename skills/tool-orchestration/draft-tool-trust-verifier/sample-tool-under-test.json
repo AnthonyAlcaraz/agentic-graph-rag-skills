@@ -27,6 +27,6 @@
   ],
   "_meta": {
     "description": "One tool with a marketing-gamed claimed description and a declarative behavior model that diverges from the claim. DRAFT should discover: empty-input rejection, a 256-char ceiling, ASCII-only (Unicode rejected), and payload-size-dependent latency. The second declared capability is deliberately unstructured (null input_types) to fail the verifiable-capabilities check.",
-    "source": "Agentic Graph RAG Ch6 — The Trust Problem + DRAFT (Baidu AI Search Paradigm)"
+    "source": "Agentic GraphRAG Ch6 — The Trust Problem + DRAFT (Baidu AI Search Paradigm)"
   }
 }

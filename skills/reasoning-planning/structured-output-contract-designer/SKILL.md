@@ -6,21 +6,17 @@ description: |
   Most graph-agent failures are internode COMMUNICATION breakdowns, not bad
   reasoning — a node that emits free text is unreliable exactly where its
   output feeds the next node or a graph write. The designer picks an
-  enforcement level (FREE_TEXT for terminal human prose, JSON_SCHEMA for
-  node-to-node / graph-write / tool-call hand-offs, GRAMMAR_CONSTRAINED for
-  outputs that must match a closed vocabulary or a specific graph node-type),
-  emits a minimal contract for common DevOps-investigation node types
-  (hypothesis, remediation, reasoning, validation), and validates a payload
-  against that contract deterministically — the primitive that makes a seam
-  verifiable. Structured output is a cross-chapter pillar (Ch5 node output +
-  Ch6 grammar-constrained tool calls). Use when wiring a node's output into
+  enforcement level (FREE_TEXT / JSON_SCHEMA / GRAMMAR_CONSTRAINED), emits a
+  minimal contract for common DevOps-investigation node types, and validates a
+  payload against that contract deterministically — the primitive that makes a
+  seam verifiable. Use when wiring a node's output into
   another node, a graph write, or a tool call and free text would make the
   seam fragile. NOT for choosing WHICH pipeline shape to run (that is pipeline
   selection), NOT for terminal human-facing prose with no downstream parser,
   NOT for picking a model or a graph model class.
 osmani-pattern: Primitive
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch5 — Reasoning & Planning — Structured Generation: The Keystone of Reliable Communication (Outlines constrained decoding); cross-chapter pillar with Ch6 grammar-constrained tool output"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch5 — Reasoning & Planning — Structured Generation: The Keystone of Reliable Communication (Outlines constrained decoding); cross-chapter pillar with Ch6 grammar-constrained tool output"
 references:
   - "Outlines — constrained decoding via a finite-state machine over valid token sequences (Ch5 keystone mechanism)"
   - "Ch5 insurance-claims example — enumerated determination, non-negative amount, pattern-matched code, mandatory appeal-rights language valid by construction"
@@ -103,7 +99,7 @@ contract", "make this seam parseable".
 | "I'll validate the output after generation and retry on failure." | Post-hoc validation can be bypassed or fail silently, and retry loops cost latency. Outlines makes the invalid output ungenerable, so every generation succeeds on the first attempt — no retry loop exists to bypass. |
 | "This node just talks to a human, give it a schema anyway to be safe." | FREE_TEXT is correct for a terminal human reader with no downstream parser. A schema there is latency for no reliability gain. The level must match the seam: prose for humans, schema/grammar for machines. |
 | "A JSON schema is enough for a field that must be one of a fixed set." | A schema can type the field as a string but not forbid an out-of-vocabulary value at the token level. A closed vocabulary / node-type target needs GRAMMAR_CONSTRAINED so the wrong token is never emitted. |
-| "Structured output is just formatting, it doesn't affect reasoning." | It is what makes reasoning composable: when each node can rely absolutely on its inputs' shape, it spends capacity on reasoning instead of defensive parsing. The contract is load-bearing for the whole graph, and it carries into Ch6 tool calls. |
+| "Structured output is just formatting, it doesn't affect reasoning." | It is what makes reasoning composable: when each node can rely absolutely on its inputs' shape, it spends capacity on reasoning instead of defensive parsing. The contract carries the reliability of the whole graph, and it carries into Ch6 tool calls. |
 
 ## Red Flags
 
@@ -133,11 +129,27 @@ contract", "make this seam parseable".
    hand-off: the recommended enforcement, the contract, a passing and a failing
    payload, and the reliability delta from constraining the seam.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this
-   SKILL.md description (CLAUDE.md CLI mandate).
+   SKILL.md description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** Seam profiles and payloads are untrusted input handled
+  as data - validation is deterministic key/type/enum checking, nothing is
+  executed. Note the limit: a contract constrains SHAPE, not content. A
+  schema-valid payload can still carry injected text in its string fields;
+  contract validation is not sanitization.
+- **Data exfiltration.** No network calls, no file writes. Payloads under
+  validation stay in-process and appear only in the stdout violations report
+  the caller owns.
+- **Privilege escalation.** No shell invocation, no eval. Contracts are a
+  security boundary: a closed vocabulary bounds what a node can emit into a
+  tool call or graph write, so loosening an enum or dropping a required field
+  widens the downstream attack surface - treat contract edits as privileged
+  changes.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch5 — Reasoning &
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch5 — Reasoning &
 Planning, section "Structured Generation: The Keystone of Reliable
 Communication". The constrained-decoding mechanism (a finite-state machine over
 valid token sequences that zeros out invalid tokens) is the Outlines library;

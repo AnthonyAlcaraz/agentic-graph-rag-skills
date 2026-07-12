@@ -1,7 +1,7 @@
 {
   "_meta": {
     "description": "Sample tool dependency specs (type matching) and data-flow scenarios (taint tracking) for the IFC gate. The tools model the chapter's COVID country-code chain (Example 6-5) and the DevOps QueryMetricsAPI service-identity dependency (Example 6-11). The flows model the FIDES email-summarization taint case and DevOps remediation actions.",
-    "source": "Agentic Graph RAG Ch6 — Tool Dependencies and Type Matching + Securing Data Flow with Information Flow Control (FIDES)",
+    "source": "Agentic GraphRAG Ch6 — Tool Dependencies and Type Matching + Securing Data Flow with Information Flow Control (FIDES)",
     "fictional_aws_account_id": "123456789012"
   },
   "tools": [

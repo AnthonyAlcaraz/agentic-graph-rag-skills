@@ -16,7 +16,7 @@ description: |
   (this routes on the validator's output; it does not validate).
 osmani-pattern: Reviewer
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch5 — Reasoning & Planning — Loop Pipeline (Example 5-6) + Error-handling strategies (Example 5-9)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch5 — Reasoning & Planning — Loop Pipeline (Example 5-6) + Error-handling strategies (Example 5-9)"
 references:
   - "Ch5 Example 5-6 — check_plan_validity: execute_plan / refine_plan / fallback_planner with retry_count < 3 and recursion_limit"
   - "Ch5 Example 5-9 — route_after_validation: proceed / refine / fallback_strategy / terminate_with_partial by severity"
@@ -114,9 +114,24 @@ Phrases: "loop pipeline", "refine and re-validate", "retry with feedback",
    - a candidate that becomes valid after N refines yields proceed at N
 2. **Verify CLI help.** Exits 0 and prints the SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** Validation results and error diagnostics are untrusted
+  input (often produced by an LLM validator over untrusted content). The
+  router only maps them onto a fixed decision table; a spoofed severity can
+  bias routing - mislabeling "fundamental" as "correctable" burns retries,
+  the reverse suppresses recovery - but nothing is executed.
+- **Data exfiltration.** No network calls, no file writes. Candidates and
+  error details pass through in-process; the routing trace goes to stdout and
+  the caller owns downstream piping.
+- **Privilege escalation.** No shell invocation, no eval. The bounded retry
+  budget is also a resource-abuse guard: an adversary who can keep validation
+  failing cannot force an infinite loop, and the fallback path must not carry
+  more privilege than the primary path.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch5 — Reasoning &
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch5 — Reasoning &
 Planning: "Loop Pipeline: Iterative Refinement" (Example 5-6,
 `check_plan_validity`) and "Error-handling strategies" (Example 5-9,
 `route_after_validation`). The bounded-loop / `recursion_limit` guarantee is

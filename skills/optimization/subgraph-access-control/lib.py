@@ -1,6 +1,6 @@
 """
 Subgraph-level access control, PII handling, and the execution graph as a
-compliance artifact — distilled from Agentic Graph RAG (O'Reilly), Chapter 8 —
+compliance artifact — distilled from Agentic GraphRAG (O'Reilly), Chapter 8 —
 Optimization, "Data Governance and Access Control".
 
 An agent with unrestricted access to your knowledge graph is a liability. The

@@ -4,24 +4,20 @@ description: |
   Homoiconic knowledge representation (Ch3) — code and data share the same
   representation so an agent can inspect and modify its own knowledge structures
   with the same machinery it uses for regular data. Two constructs: (1) meta-
-  knowledge structures (Example 3-6) where a metaschema describes what an
-  EntityType is and entity-type definitions are stored AS DATA — this skill
-  validates an entity-type against the metaschema AND validates a data instance
-  against its entity-type using the SAME validator at both levels (the
-  homoiconic property made operational); (2) executable knowledge patterns
-  (Example 3-7) where operational rules live in the graph as Rule entities with
-  condition + action — this skill parses the tiered WHEN/THEN/ELSE action,
-  validates the rule, and evaluates it against facts (DetermineCustomerSegment:
-  >20 -> Premium, >10 -> Regular, else Basic). Use when building self-evolving
-  agents that reason about / modify their own schema, when storing business
-  rules as queryable graph data instead of hidden application code, or when
-  validating agent-proposed schema extensions. NOT for static schemas that never
-  change (a plain class/struct is simpler), NOT for executing arbitrary code
-  (this evaluates a constrained tiered-rule grammar, not a general interpreter),
-  NOT for the schema PATTERN choice (use schema-pattern-selector).
+  knowledge structures (Example 3-6) — validate an entity-type against the
+  metaschema AND a data instance against its entity-type using the SAME
+  validator at both levels; (2) executable knowledge patterns (Example 3-7) —
+  parse, validate, and evaluate Rule entities with a tiered WHEN/THEN/ELSE
+  action against facts. Use when building self-evolving agents
+  that reason about / modify their own schema, when storing business rules as
+  queryable graph data instead of hidden application code, or when validating
+  agent-proposed schema extensions. NOT for static schemas that never change (a
+  plain class/struct is simpler), NOT for executing arbitrary code (this
+  evaluates a constrained tiered-rule grammar, not a general interpreter), NOT
+  for the schema PATTERN choice (use schema-pattern-selector).
 osmani-pattern: Reviewer
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch3 — Knowledge Representation — Homoiconic Knowledge Representation (Examples 3-6, 3-7)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch3 — Knowledge Representation — Homoiconic Knowledge Representation (Examples 3-6, 3-7)"
 references:
   - "Ch3 Meta-knowledge structures (Example 3-6 metaschema + Person entity-type)"
   - "Ch3 Executable knowledge patterns (Example 3-7 DetermineCustomerSegment Rule)"
@@ -125,11 +121,27 @@ Phrases: "homoiconic", "metaschema", "schema as data", "entity-type definition",
    Person type as data, validates an instance against it, and evaluates the
    segmentation rule across tiers.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this SKILL.md
-   description (CLAUDE.md CLI mandate).
+   description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** Entity-type definitions and Rule actions are untrusted
+  data, often agent-proposed. The evaluator interprets only the constrained
+  WHEN/THEN/ELSE grammar - never eval/exec - so injected text fails parsing
+  rather than executing. A syntactically valid rule can still encode malicious
+  LOGIC; review agent-proposed rules before storing them in the graph.
+- **Data exfiltration.** No network calls, no file writes. Facts passed to
+  `evaluate_rule` stay in-process; results go to stdout and the caller owns
+  downstream piping.
+- **Privilege escalation.** Self-modifying schemas are the escalation surface:
+  an unchecked schema extension or rule rewrite widens what the agent may later
+  assert. The validator rejects out-of-set property types, and rule evaluation
+  returns a plain dict - it never mutates the graph or grants a capability;
+  applying changes is a separate, gated step.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch3 — Knowledge
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch3 — Knowledge
 Representation, section "Homoiconic Knowledge Representation": meta-knowledge
 structures (Example 3-6, the metaschema + Person entity-type) and executable
 knowledge patterns (Example 3-7, the DetermineCustomerSegment Rule). The DevOps

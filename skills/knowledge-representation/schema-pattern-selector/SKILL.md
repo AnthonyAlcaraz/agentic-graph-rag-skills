@@ -2,27 +2,22 @@
 name: schema-pattern-selector
 description: |
   Select and validate the four agent schema design patterns from Ch3 —
-  Event-Centric (temporal reasoning, cause/effect, sequences), Contextual-
-  Boundary (scope/validity boundaries that prevent context mixing), Multi-
-  Perspective (contradictory viewpoints with per-source attribution and
-  confidence), and Capability-Model (agent self-awareness of capabilities,
-  requirements, authorization limits). Given a free-text description of a
-  knowledge shape, it scores which pattern(s) fit and flags composition when
-  several apply (Ch3 Tip: an event can carry multi-perspective viewpoints; a
-  capability can be bounded by contextual constraints). Given a pattern
-  instance, it validates the required relationships/fields (an event MUST have
-  a temporal link; a context MUST declare a scope boundary; every perspective
-  MUST attribute a value to a source with confidence in [0,1]; every capability
-  MUST declare an authorization level). Use when modeling knowledge for agent
-  reasoning, when deciding how to structure events / contexts / conflicting
-  data / agent authority, or when reviewing a schema for the missing temporal-
-  or attribution-relationship that breaks the pattern. NOT for choosing the
+  Event-Centric (temporal reasoning), Contextual-Boundary (scope/validity
+  boundaries), Multi-Perspective (contradictory viewpoints with attribution
+  and confidence), and Capability-Model (agent self-awareness of authority
+  limits). Given a free-text description of a knowledge shape, it scores which
+  pattern(s) fit and flags composition when several apply; given a pattern
+  instance, it validates the required relationships/fields without which the
+  pattern is broken. Use when modeling knowledge for agent reasoning, when
+  deciding how to structure events / contexts / conflicting data / agent
+  authority, or when reviewing a schema for the missing temporal- or
+  attribution-relationship that breaks the pattern. NOT for choosing the
   graph model class (use graph-model-selector), NOT for runtime authorization
   enforcement (use capability-authorization-gate), NOT for entity-centric data
   with no temporal/perspectival/scope dimension (a plain node is fine).
 osmani-pattern: Reviewer
 ghosh-layer: Primitive
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch3 — Knowledge Representation — Schema Design Patterns (Examples 3-3, 3-4, 3-5)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch3 — Knowledge Representation — Schema Design Patterns (Examples 3-3, 3-4, 3-5)"
 references:
   - "Ch3 Event-Centric (Example 3-3), Contextual-Boundary (Example 3-4), Multi-Perspective (Example 3-5), Capability-Model"
   - "Ch3 Tip: hybrid composition of schema patterns"
@@ -55,11 +50,15 @@ four:
   product questions (Public) but needs Supervisor authorization and a $500 limit
   to process refunds.
 
-The selector matches a knowledge-shape description to the fitting pattern(s).
-The validator enforces each pattern's contract — the relationships and fields
-without which the pattern is broken (an event with no temporal link is just an
-entity; a perspective with no source/confidence loses the attribution that makes
-contradiction-handling work).
+The selector matches a knowledge-shape description to the fitting pattern(s),
+flagging composition when several apply (Ch3 Tip: an event can carry
+multi-perspective viewpoints; a capability can be bounded by contextual
+constraints). The validator enforces each pattern's contract — the
+relationships and fields without which the pattern is broken: an event MUST
+have a temporal link (else it is just an entity); a context MUST declare a
+scope boundary; every perspective MUST attribute its value to a source with
+confidence in [0,1] (else contradiction-handling loses its attribution); every
+capability MUST declare an authorization level.
 
 ## When to Use
 
@@ -126,11 +125,24 @@ Phrases: "event-centric", "contextual boundary", "multi-perspective",
    event-centric for deployments, multi-perspective for drift, and shows a broken
    event failing validation.
 3. **Verify CLI help.** `python cli.py --help` exits 0 and prints this SKILL.md
-   description (CLAUDE.md CLI mandate).
+   description (so any harness can discover the skill from --help).
+
+## Security Posture
+
+- **Prompt injection.** The knowledge-shape description is untrusted free text
+  tokenized against a fixed signal vocabulary - embedded instructions can at
+  most mis-select a pattern. Instance dicts are validated against fixed
+  contracts; field values are never executed or interpolated.
+- **Data exfiltration.** No network calls, no file writes. Instance payloads
+  (forecasts, org data, capability limits) stay in-process and appear only in
+  the stdout validation report the caller owns.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import.
+  Validating a Capability-Model instance as well-formed does NOT authorize it -
+  enforcement is capability-authorization-gate plus the platform's IAM.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch3 — Knowledge
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch3 — Knowledge
 Representation, section "Schema Design Patterns": Event-Centric (Example 3-3),
 Contextual-Boundary (Example 3-4), Multi-Perspective (Example 3-5),
 Capability-Model, and the composition Tip. DevOps manifestations

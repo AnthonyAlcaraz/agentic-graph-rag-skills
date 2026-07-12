@@ -12,7 +12,7 @@ description: |
   — bring an IAM/RBAC source-of-truth for the access_filter.
 osmani-pattern: Generator
 ghosh-layer: Workflow
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch6 — Tool Orchestration"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch6 — Tool Orchestration"
 ---
 
 # MCP Gateway — Two-Meta-Tool Architecture
@@ -99,7 +99,7 @@ tool access policies scale with agent proliferation.
 
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly), Chapter 6 — Tool Orchestration. Specific references:
+Distilled from *Agentic GraphRAG* (O'Reilly), Chapter 6 — Tool Orchestration. Specific references:
 
 - Writer's production enterprise MCP gateway (three-layer architecture: OpenAPI/Postman ingestion + Palmyra X5 description refinement + two-meta-tool surface)
 - Phil Fersht's HFS / Cognizant research on multi-agent governance failure above 5 agents

@@ -15,7 +15,7 @@ description: |
   systems where event-driven scaling is the real question.
 osmani-pattern: Inversion
 ghosh-layer: Orchestration
-chapter-source: "Agentic Graph RAG (O'Reilly) Ch5 — Reasoning & Planning — Hybrid Architectures (Dynamic architecture selection + Graceful degradation, Examples 5-10/5-11)"
+chapter-source: "Agentic GraphRAG (O'Reilly) Ch5 — Reasoning & Planning — Hybrid Architectures (Dynamic architecture selection + Graceful degradation, Examples 5-10/5-11)"
 references:
   - "Ch5 Example 5-10 — analyze_and_route(complexity, uncertainty) -> sequential / tree / loop"
   - "Ch5 Example 5-11 — route_with_constraints: resource-aware graceful degradation"
@@ -113,9 +113,23 @@ Phrases: "route to the right pipeline", "dynamic architecture selection",
    - unconstrained routing leaves `final == ideal` and `degraded == False`
 2. **Verify CLI help.** Exits 0 and prints the SKILL.md description.
 
+## Security Posture
+
+- **Prompt injection.** The task query is untrusted free text scored by cheap
+  heuristics - it is never executed. A crafted query can inflate its own
+  complexity/uncertainty score to demand the expensive tree path (resource
+  abuse) or feign simplicity to dodge scrutiny; the resource-aware wrapper is
+  the backstop that caps what a query can claim.
+- **Data exfiltration.** No network calls, no file writes. Queries and
+  resource figures stay in-process; the routing decision goes to stdout and
+  the caller owns downstream piping.
+- **Privilege escalation.** No shell invocation, no eval, no dynamic import.
+  The route selects a pipeline shape only - it grants no tool access or data
+  scope; each downstream pipeline enforces its own authorization.
+
 ## Source Attribution
 
-Distilled from *Agentic Graph RAG* (O'Reilly, forthcoming) Ch5 — Reasoning &
+Distilled from *Agentic GraphRAG* (O'Reilly, by Anthony Alcaraz and Sam Julien) Ch5 — Reasoning &
 Planning, "Hybrid Architectures" section: Dynamic architecture selection
 (Example 5-10, `analyze_and_route`) and Graceful degradation (Example 5-11,
 `route_with_constraints`). The two-axis framing (context control vs workflow
