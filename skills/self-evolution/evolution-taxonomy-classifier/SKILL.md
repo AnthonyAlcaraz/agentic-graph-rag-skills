@@ -96,6 +96,7 @@ taxonomy", "what evolves / when / how / where", "route this failure",
 | 4 | failure_type (+ recurring, + is_format) | `lib.route_failure(...)` | `{evolution_axis, timing, mechanism, rationale}` per Table 7-1 | FORMAT -> architecture / structural-constraint / inter; REASONING single-node -> model / prompt / intra; KNOWLEDGE systemic -> model / fine-tune / inter |
 | 5 | classification | `EvolutionClassification.to_dict()` | JSON-serializable dict | Round-trips through `json.dumps` without error |
 | 6 | scenario name `devops` | `cli.py scenario devops` | Classifies the DevOps prompt-refinement evolution (model / inter_test_time / reward_based / domain_specialized) | Output places all four axes and prints the failure routing for the cascade-misprediction pattern |
+| 6b | when_fires + measured op ms + request budget ms | `lib.budget_check(when, ms, budget)` | verdict OK_IN_PATH / MOVE_TO_INTER / OK_OFF_PATH | an over-budget intra-test-time op MUST verdict MOVE_TO_INTER |
 | 7 | (none) | `cli.py benchmark` | Assertion battery | Prints `N/M passed`, exits 0 on all-pass |
 
 ## Rationalizations

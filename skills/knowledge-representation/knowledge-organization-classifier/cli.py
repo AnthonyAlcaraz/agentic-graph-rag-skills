@@ -12,6 +12,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from lib import (
+    migration_cost,
     classify, validate_ontology_components, recommend_upgrade,
     SPECTRUM, ONTOLOGY_COMPONENTS,
 )
@@ -170,7 +171,23 @@ def cmd_benchmark(args):
     if up["current"] != "pick_list" or up["next"] != "taxonomy":
         failures.append(f"pick_list upgrade should target taxonomy, got {up}")
 
-    total = 10
+    # Tests 11-14: migration-cost mechanism (Ch3 flexibility argument).
+    r = migration_cost("ontology", "new_relationship_type")
+    if r["cost"] != "LOCAL_ADD":
+        failures.append("ontology must absorb a new relationship type as LOCAL_ADD")
+    r = migration_cost("pick_list", "new_relationship_type")
+    if r["cost"] != "NOT_EXPRESSIBLE" or r["upgrade_to"] != "ontology":
+        failures.append("pick_list cannot express a relationship type; upgrade path must be ontology")
+    r = migration_cost("taxonomy", "new_instance_cross_cutting")
+    if r["cost"] != "SUBTREE_REORG":
+        failures.append("cross-cutting instance in a taxonomy must cost SUBTREE_REORG")
+    try:
+        migration_cost("taxonomy", "cosmic_event")
+        failures.append("unknown change event must raise ValueError")
+    except ValueError:
+        pass
+
+    total = 14
     print("=" * 70)
     print(f"knowledge-organization-classifier benchmark - {total - len(failures)}/{total} passed")
     print("=" * 70)
@@ -194,6 +211,11 @@ def main():
     p_val = sub.add_parser("validate-ontology", help="Validate the 5 ontology core components")
     p_val.add_argument("--ontology-path", required=True)
     p_val.set_defaults(func=cmd_validate_ontology)
+
+    p_mig = sub.add_parser("migration-cost", help="Cost of absorbing a change at a spectrum level (Ch3 flexibility argument)")
+    p_mig.add_argument("--level", required=True)
+    p_mig.add_argument("--change", required=True)
+    p_mig.set_defaults(func=lambda a: print(json.dumps(migration_cost(a.level, a.change), indent=2)))
 
     p_scen = sub.add_parser("scenario", help="Worked scenario (healthcare-ontology)")
     p_scen.add_argument("name")

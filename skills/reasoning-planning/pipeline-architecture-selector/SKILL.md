@@ -83,6 +83,7 @@ Phrases: "route to the right pipeline", "dynamic architecture selection",
 | 2 | complexity, uncertainty | `lib.analyze_and_route(c, u)` | one of sequential / tree / loop | simple+certain -> sequential; high uncertainty -> tree; middle -> loop |
 | 3 | + available_memory_mb, remaining_budget_s | `lib.route_with_constraints(...)` | `RouteDecision` (ideal + final + degraded + reason) | tree under memory floor degrades; loop under time floor degrades; otherwise final==ideal |
 | 4 | raw query + constraints | `lib.route_query(q, mem, budget)` | end-to-end `RouteDecision` | `reason` names the constraint when degraded |
+| 5 | architecture + node timings (+ merge, retry p, cap) | `lib.estimate_latency(...)` | `{expected_seconds, bottleneck_index, detail}` | sequential = sum; tree = max branch + merge; loop = per-pass cost x truncated geometric E=(1-p^n)/(1-p) |
 
 ## Rationalizations
 

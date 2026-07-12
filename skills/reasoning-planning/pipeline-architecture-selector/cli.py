@@ -12,6 +12,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from lib import (
+    estimate_latency,
     assess_task_complexity,
     estimate_uncertainty,
     analyze_and_route,
@@ -152,7 +153,23 @@ def cmd_benchmark(args):
     if not d.degraded or "->" not in d.reason:
         failures.append(f"route_query degradation reason malformed: {d}")
 
-    n = 11
+    # Tests 12-15: latency-estimate mechanism.
+    e = estimate_latency("sequential", [1.0, 2.0, 3.0])
+    if e["expected_seconds"] != 6.0 or e["bottleneck_index"] != 2:
+        failures.append("sequential estimate must be the sum with the slowest node as bottleneck")
+    e = estimate_latency("tree", [4.0, 2.0, 3.0], merge_seconds=0.5)
+    if e["expected_seconds"] != 4.5:
+        failures.append("tree estimate must be max branch + merge")
+    e = estimate_latency("loop", [2.0], retry_probability=0.5, max_iterations=3)
+    if abs(e["expected_seconds"] - 3.5) > 1e-9:  # 2.0 * (1-0.5^3)/(1-0.5) = 3.5
+        failures.append("loop estimate must follow the truncated geometric expectation")
+    try:
+        estimate_latency("sequential", [1.0], retry_probability=1.5)
+        failures.append("retry_probability out of range must raise")
+    except ValueError:
+        pass
+
+    n = 15
     print("=" * 70)
     print(f"pipeline-architecture-selector benchmark - {n - len(failures)}/{n} passed")
     print("=" * 70)
@@ -178,6 +195,16 @@ def main():
     p_route.add_argument("--memory", type=float, default=float("inf"), help="available memory MB")
     p_route.add_argument("--budget", type=float, default=float("inf"), help="remaining time budget seconds")
     p_route.set_defaults(func=cmd_route)
+
+    p_est = sub.add_parser("estimate", help="End-to-end latency estimate for an architecture given node timings")
+    p_est.add_argument("--architecture", required=True, choices=["sequential", "tree", "loop"])
+    p_est.add_argument("--node-seconds", required=True, help="comma-separated per-node (or per-branch) seconds")
+    p_est.add_argument("--merge-seconds", type=float, default=0.0)
+    p_est.add_argument("--retry-probability", type=float, default=0.0)
+    p_est.add_argument("--max-iterations", type=int, default=1)
+    p_est.set_defaults(func=lambda a: print(json.dumps(estimate_latency(
+        a.architecture, [float(x) for x in a.node_seconds.split(",")],
+        a.merge_seconds, a.retry_probability, a.max_iterations), indent=2)))
 
     p_scen = sub.add_parser("scenario", help="DevOps latency-investigation routing scenario")
     p_scen.add_argument("name")

@@ -12,6 +12,7 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
 from lib import (
+    budget_check,
     WHAT_EVOLVES,
     WHEN_FIRES,
     HOW_LEARNS,
@@ -247,7 +248,15 @@ def cmd_benchmark(args):
     if r_forced["evolution_axis"] != "architecture":
         failures.append("is_format=True should force architecture routing")
 
-    total = 15
+    # Tests 16-18: timing-boundary enforcement (Ch7 intra/inter distinction).
+    if budget_check("intra_test_time", 40.0, 200.0)["verdict"] != "OK_IN_PATH":
+        failures.append("fast intra op within budget must be OK_IN_PATH")
+    if budget_check("intra_test_time", 900.0, 200.0)["verdict"] != "MOVE_TO_INTER":
+        failures.append("intra op over budget must verdict MOVE_TO_INTER")
+    if budget_check("inter_test_time", 3_600_000.0, 200.0)["verdict"] != "OK_OFF_PATH":
+        failures.append("inter op is budget-exempt off the request path")
+
+    total = 18
     print("=" * 70)
     print(f"evolution-taxonomy-classifier benchmark - {total - len(failures)}/{total} passed")
     print("=" * 70)
@@ -281,6 +290,12 @@ def main():
     p_route.add_argument("--recurring", action="store_true")
     p_route.add_argument("--format", action="store_true")
     p_route.set_defaults(func=cmd_route)
+
+    p_bud = sub.add_parser("budget-check", help="Enforce the intra/inter timing boundary on a measured op")
+    p_bud.add_argument("--when", required=True, choices=["intra_test_time", "inter_test_time"])
+    p_bud.add_argument("--measured-ms", type=float, required=True)
+    p_bud.add_argument("--budget-ms", type=float, required=True)
+    p_bud.set_defaults(func=lambda a: print(json.dumps(budget_check(a.when, a.measured_ms, a.budget_ms), indent=2)))
 
     p_scen = sub.add_parser("scenario", help="DevOps prompt-refinement scenario")
     p_scen.add_argument("name")

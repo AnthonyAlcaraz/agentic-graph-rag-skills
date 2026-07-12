@@ -81,6 +81,7 @@ Phrases: "knowledge organization spectrum", "pick list vs taxonomy",
 | 2 | same | `lib.recommend_upgrade(spec)` | `{current, next, action}` | names the concrete feature to add for the next tier |
 | 3 | ontology dict (classes, subclasses, individuals, axioms, relationships) | `lib.validate_ontology_components(ont)` | `{valid, present, missing, errors}` | all five components required; valid only if none missing and no dangling refs |
 | 4 | ontology with a subclass whose parent is unknown | `lib.validate_ontology_components(ont)` | error listing the unknown parent | enforces subclass->parent integrity |
+| 5 | spectrum level + change event | `lib.migration_cost(level, event)` | `{cost, upgrade_to, note}` | ontology absorbs every change as LOCAL_ADD; pick_list relationship-type is NOT_EXPRESSIBLE with upgrade_to=ontology; unknown inputs raise |
 
 ## Rationalizations
 

@@ -301,3 +301,39 @@ def route_failure(
             "than touch the weights."
         ),
     }
+
+
+def budget_check(when_fires: str, measured_op_ms: float, request_budget_ms: float) -> Dict[str, Any]:
+    """Enforce the Ch7 timing boundary on a classified evolution operation.
+
+    "intra-test-time evolution must be fast (sub-second decisions), while
+    inter-test-time evolution can afford expensive operations like
+    fine-tuning or graph restructuring." An op classified intra-test-time
+    whose measured cost exceeds the request-path budget is mis-timed: the
+    verdict is MOVE_TO_INTER, not "hope it gets faster".
+    """
+    if when_fires not in WHEN_FIRES:
+        raise ValueError(f"unknown when_fires {when_fires!r}; expected one of {WHEN_FIRES}")
+    if measured_op_ms < 0 or request_budget_ms <= 0:
+        raise ValueError("measured_op_ms must be >= 0 and request_budget_ms > 0")
+    if when_fires == "inter_test_time":
+        return {
+            "verdict": "OK_OFF_PATH",
+            "reason": "inter-test-time ops run between episodes; the request "
+                      "budget does not apply, but they must never be moved "
+                      "into the request path",
+        }
+    if measured_op_ms <= request_budget_ms:
+        return {
+            "verdict": "OK_IN_PATH",
+            "headroom_ms": round(request_budget_ms - measured_op_ms, 3),
+            "reason": "fits the request-path budget",
+        }
+    return {
+        "verdict": "MOVE_TO_INTER",
+        "overrun_ms": round(measured_op_ms - request_budget_ms, 3),
+        "reason": "classified intra-test-time but measured cost exceeds the "
+                  "request-path budget; reschedule it inter-test-time "
+                  "(mis-timing a heavy op into the request path breaks the "
+                  "latency budget)",
+    }

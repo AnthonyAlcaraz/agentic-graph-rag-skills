@@ -128,3 +128,52 @@ def route_query(
     return route_with_constraints(
         cfn(query), ufn(query), available_memory_mb, remaining_budget_s
     )
+
+
+def estimate_latency(
+    architecture: str,
+    node_seconds: list,
+    merge_seconds: float = 0.0,
+    retry_probability: float = 0.0,
+    max_iterations: int = 1,
+) -> dict:
+    """End-to-end latency estimate per architecture, with the bottleneck named.
+
+    sequential: sum of node times (single-responsibility nodes in a chain).
+    tree: parallel fan-out -- max branch time + the merge/reconcile cost
+      (`node_seconds` is per-branch duration here).
+    loop: one pass costs sum(node_seconds); the expected number of passes with
+      per-pass retry probability p, bounded by the retry budget n, is the
+      truncated geometric expectation E = (1 - p^n) / (1 - p). The bound is
+      the same explicit loop cap the loop-pipeline-router enforces.
+    """
+    if architecture not in ARCHITECTURES:
+        raise ValueError(f"unknown architecture {architecture!r}; expected one of {ARCHITECTURES}")
+    if not node_seconds or any(s < 0 for s in node_seconds):
+        raise ValueError("node_seconds must be non-empty and non-negative")
+    if not (0.0 <= retry_probability < 1.0):
+        raise ValueError("retry_probability must be in [0, 1)")
+    if max_iterations < 1:
+        raise ValueError("max_iterations must be >= 1")
+
+    bottleneck = max(range(len(node_seconds)), key=lambda i: node_seconds[i])
+    if architecture == "sequential":
+        total = sum(node_seconds)
+        detail = "sum of chained nodes"
+    elif architecture == "tree":
+        total = max(node_seconds) + merge_seconds
+        detail = "slowest parallel branch + merge"
+    else:  # loop
+        p, n = retry_probability, max_iterations
+        expected_passes = (1 - p ** n) / (1 - p) if p else 1.0
+        total = sum(node_seconds) * expected_passes
+        detail = (f"per-pass cost x E[passes]={expected_passes:.2f} "
+                  f"(truncated geometric, p={p}, cap={n})")
+
+    return {
+        "architecture": architecture,
+        "expected_seconds": round(total, 3),
+        "bottleneck_index": bottleneck,
+        "bottleneck_seconds": node_seconds[bottleneck],
+        "detail": detail,
+    }

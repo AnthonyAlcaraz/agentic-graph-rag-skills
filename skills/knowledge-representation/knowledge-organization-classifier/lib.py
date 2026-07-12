@@ -146,3 +146,76 @@ def recommend_upgrade(spec: Dict[str, Any]) -> Dict[str, Any]:
     }
     target, action = nxt[current]
     return {"current": current, "next": target, "action": action}
+
+
+# Change-event cost classes, ordered by disruption (Ch3 flexibility argument:
+# "Pick lists, taxonomies, and thesauruses require reorganizing entire
+# hierarchies when introducing new instances. Ontologies, structured as
+# networks of nodes and relationships, expand easily without structural
+# disruption.")
+COST_CLASSES = ("LOCAL_ADD", "SUBTREE_REORG", "FULL_RESTRUCTURE", "NOT_EXPRESSIBLE")
+
+CHANGE_EVENTS = ("new_instance_fits", "new_instance_cross_cutting",
+                 "new_synonym", "new_relationship_type")
+
+# cost[level][event] -> cost class. NOT_EXPRESSIBLE means the level cannot
+# represent the change at all: the honest answer is "upgrade the spectrum
+# level", not "force it in".
+_MIGRATION_COST = {
+    "pick_list": {
+        "new_instance_fits": "LOCAL_ADD",           # append a value
+        "new_instance_cross_cutting": "FULL_RESTRUCTURE",  # flat list has no place for it
+        "new_synonym": "NOT_EXPRESSIBLE",
+        "new_relationship_type": "NOT_EXPRESSIBLE",
+    },
+    "taxonomy": {
+        "new_instance_fits": "LOCAL_ADD",           # slot into an existing branch
+        "new_instance_cross_cutting": "SUBTREE_REORG",  # belongs to two branches: single-parent hierarchy must reorganize
+        "new_synonym": "NOT_EXPRESSIBLE",
+        "new_relationship_type": "NOT_EXPRESSIBLE",  # only parent-child exists
+    },
+    "thesaurus": {
+        "new_instance_fits": "LOCAL_ADD",
+        "new_instance_cross_cutting": "SUBTREE_REORG",  # hierarchy is still the spine
+        "new_synonym": "LOCAL_ADD",                  # synonym rings are native
+        "new_relationship_type": "FULL_RESTRUCTURE", # only predefined associative types
+    },
+    "ontology": {
+        "new_instance_fits": "LOCAL_ADD",
+        "new_instance_cross_cutting": "LOCAL_ADD",   # add the node + as many edges as needed
+        "new_synonym": "LOCAL_ADD",
+        "new_relationship_type": "LOCAL_ADD",        # define a new property, no reorganization
+    },
+}
+
+
+def migration_cost(level: str, change_event: str) -> Dict[str, Any]:
+    """Cost of absorbing a change at a given spectrum level (Ch3 flexibility).
+
+    Returns the cost class plus, when the level cannot express the change or
+    must fully restructure, the nearest level up the spectrum that absorbs it
+    as a LOCAL_ADD — the quantified version of "this is when you climb".
+    """
+    if level not in SPECTRUM:
+        raise ValueError(f"unknown spectrum level {level!r}; expected one of {SPECTRUM}")
+    if change_event not in CHANGE_EVENTS:
+        raise ValueError(f"unknown change event {change_event!r}; expected one of {CHANGE_EVENTS}")
+    cost = _MIGRATION_COST[level][change_event]
+    upgrade_to = None
+    if cost in ("NOT_EXPRESSIBLE", "FULL_RESTRUCTURE"):
+        for candidate in SPECTRUM[SPECTRUM.index(level) + 1:]:
+            if _MIGRATION_COST[candidate][change_event] == "LOCAL_ADD":
+                upgrade_to = candidate
+                break
+    return {
+        "level": level,
+        "change_event": change_event,
+        "cost": cost,
+        "upgrade_to": upgrade_to,
+        "note": (
+            "absorbed in place" if cost == "LOCAL_ADD" else
+            "reorganize the affected subtree" if cost == "SUBTREE_REORG" else
+            f"cheaper to upgrade to {upgrade_to} than to force it in"
+            if upgrade_to else "restructure required"
+        ),
+    }
